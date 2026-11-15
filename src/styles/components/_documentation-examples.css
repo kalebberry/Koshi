@@ -31,6 +31,11 @@
 	border: 1px solid #d8d5cc;
 	background: #fbfaf7;
 	padding: clamp(14px, 2vw, 24px);
+	container-type: inline-size;
+}
+.docs-example > .kos-grid {
+	min-width: 0;
+	max-width: 100%;
 }
 .docs-example-top {
 	display: flex;
@@ -73,6 +78,13 @@
 	margin: 22px 0;
 	padding: clamp(12px, 3vw, 28px);
 	background: #eae7df;
+	min-width: 0;
+	max-width: 100%;
+}
+.docs-composition-demo .kos-composition,
+.docs-composition-demo .kos-grid {
+	min-width: 0;
+	max-width: 100%;
 }
 .docs-block--feature {
 	min-height: 190px;
@@ -105,6 +117,12 @@
 	.docs-example {
 		padding: 12px;
 	}
+	.docs-example-top {
+		flex-wrap: wrap;
+	}
+	.docs-block-grid {
+		--kos-gutter: 6px;
+	}
 	.docs-block {
 		padding: 10px;
 		font-size: 12px;
@@ -112,5 +130,28 @@
 	}
 	.docs-block--feature {
 		min-height: 140px;
+	}
+	.docs-example > .kos-grid > [kos-col-span] {
+		grid-column: 1 / -1;
+	}
+	.docs-composition-demo .kos-composition > .kos-grid > [kos-col-span] {
+		min-width: 0;
+	}
+}
+@media (max-width: 390px) {
+	.docs-twelve span {
+		font-size: 7px;
+	}
+	.docs-block--feature strong {
+		overflow-wrap: anywhere;
+	}
+}
+@container (max-width: 34rem) {
+	.docs-example > .kos-grid:not([kos-cols]):has(> [kos-col-span]) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.docs-example > .kos-grid > [kos-col-span] {
+		grid-column: 1 / -1;
+		grid-row: auto;
 	}
 }

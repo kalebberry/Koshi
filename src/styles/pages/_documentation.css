@@ -10,6 +10,7 @@
 	gap: clamp(30px, 7vw, 100px);
 	align-items: start;
 	padding-bottom: 110px;
+	min-width: 0;
 }
 .docs-toc {
 	position: sticky;
@@ -25,6 +26,10 @@
 .docs-toc a:hover {
 	color: #25231f;
 	text-decoration: underline;
+}
+.docs-body,
+.docs-body section {
+	min-width: 0;
 }
 .docs-body section {
 	padding: 0 0 45px;
@@ -45,6 +50,7 @@
 	color: #67645d;
 	line-height: 1.85;
 	font-size: 14px;
+	overflow-wrap: break-word;
 }
 .docs-body code:not(pre code) {
 	font-size: 12px;
@@ -55,14 +61,22 @@
 	background: #292823;
 	color: #eeeae1;
 	padding: 24px;
+	max-width: 100%;
 	overflow-x: auto;
 	font:
 		12px/1.75 ui-monospace,
 		monospace;
 }
+.docs-body pre code {
+	white-space: pre;
+}
 .docs-body table {
 	border-collapse: collapse;
+	display: block;
+	max-width: 100%;
 	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
 	font-size: 13px;
 }
 .docs-body td,
@@ -73,4 +87,18 @@
 }
 .docs-body td {
 	color: #66635c;
+}
+@media (max-width: 760px) {
+	.docs-layout {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.docs-toc {
+		position: static;
+		display: flex;
+		flex-wrap: wrap;
+		min-width: 0;
+	}
+	.docs-body pre {
+		padding: 16px;
+	}
 }

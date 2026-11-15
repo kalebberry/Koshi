@@ -137,10 +137,41 @@
 	padding: 26px;
 	background: #292823;
 	color: #eeece5;
+	max-width: 100%;
 	overflow-x: auto;
 	font:
 		12px/1.8 ui-monospace,
 		SFMono-Regular,
 		Consolas,
 		monospace;
+}
+.code-sample code {
+	white-space: pre;
+}
+@media (max-width: 760px) {
+	.display {
+		font-size: clamp(38px, 10vw, 64px);
+		overflow-wrap: anywhere;
+	}
+	.section-label,
+	.demo-meta {
+		flex-wrap: wrap;
+	}
+	.feature-links {
+		grid-template-columns: 1fr;
+	}
+	.feature-link {
+		min-height: 170px;
+	}
+	.demo-grid {
+		min-height: auto;
+	}
+	.demo-grid .feature,
+	.demo-grid .aside {
+		grid-column: 1 / -1;
+		min-height: 140px;
+	}
+	.code-sample {
+		padding: 16px;
+	}
 }

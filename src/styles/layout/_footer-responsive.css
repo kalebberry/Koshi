@@ -9,38 +9,3 @@
 	letter-spacing: 0.12em;
 	color: #88847a;
 }
-@media (max-width: 760px) {
-	.shell {
-		width: min(100% - 36px, 1360px);
-	}
-	.site-nav {
-		align-items: flex-start;
-		flex-direction: column;
-		gap: 18px;
-	}
-	.feature-links {
-		grid-template-columns: 1fr;
-	}
-	.feature-link {
-		min-height: 170px;
-	}
-	.docs-layout {
-		grid-template-columns: 1fr;
-	}
-	.docs-toc {
-		position: static;
-		display: flex;
-		flex-wrap: wrap;
-	}
-	.demo-grid .feature,
-	.demo-grid .aside {
-		grid-column: 1 / -1;
-	}
-	.demo-grid {
-		min-height: auto;
-	}
-	.demo-grid .feature,
-	.demo-grid .aside {
-		min-height: 140px;
-	}
-}

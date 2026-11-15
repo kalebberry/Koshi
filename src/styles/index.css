@@ -1,0 +1,10 @@
+/* Kōshi website styles: modern 7–1 CSS architecture with Cascade Layers */
+@layer vendors, abstracts, base, layout, components, pages, themes;
+
+@import './vendors/index.css' layer(vendors);
+@import './abstracts/index.css' layer(abstracts);
+@import './base/index.css' layer(base);
+@import './layout/index.css' layer(layout);
+@import './components/index.css' layer(components);
+@import './pages/index.css' layer(pages);
+@import './themes/index.css' layer(themes);

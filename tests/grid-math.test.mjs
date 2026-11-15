@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-const css = readFileSync(new URL('../src/styles/koshi.css', import.meta.url), 'utf8');
+const rawCss = readFileSync(new URL('../src/styles/koshi.css', import.meta.url), 'utf8');
+const normalizedCss = rawCss.replace(/\s+/g, ' ');
 const columns = 12;
 const gutterSizes = [0, 8, 16, 24, 40];
 const widths = [320, 768, 1200];
@@ -16,7 +17,8 @@ test('every flex span has the correct gutter-aware expression', () => {
     const expression = span === 12
       ? '100%'
       : `calc(100% * ${span} / 12 - var(--kos-gutter) * ${12 - span} / 12)`;
-    assert.ok(css.includes(`.kos-flex-grid > [kos-col-span="${span}"] { flex-basis: ${expression}; }`), `span ${span}`);
+    const pattern = new RegExp(`\\.kos-flex-grid > \\[kos-col-span=['"]${span}['"]\\] \\{ flex-basis: ${expression.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}; \\}`);
+    assert.match(normalizedCss, pattern, `span ${span}`);
   }
 });
 
@@ -36,17 +38,16 @@ test('row combinations exactly fill their available width including gaps', () =>
 });
 
 test('CSS Grid uses native fractional tracks for 12 columns', () => {
-  assert.match(css, /\.kos-grid\[kos-cols="12"\] \{ grid-template-columns: repeat\(12, minmax\(0, 1fr\)\); \}/);
+  assert.match(normalizedCss, /\.kos-grid\[kos-cols=['"]12['"]\] \{ grid-template-columns: repeat\(12, minmax\(0, 1fr\)\); \}/);
 });
 
-
 test('ordinary grids remain intrinsic while child spans opt into twelve tracks', () => {
-  assert.ok(css.includes('repeat(var(--kos-grid-placement, auto-fit), minmax(min(100%, var(--kos-grid-min-item-size)), 1fr))'));
-  assert.ok(css.includes('.kos-grid:not([kos-cols]):has(> [kos-col-span]) {'));
-  assert.ok(css.includes('grid-template-columns: repeat(12, minmax(0, 1fr));'));
-  assert.ok(css.includes('.kos-grid[kos-cols="6"] { grid-template-columns: repeat(6, minmax(0, 1fr)); }'));
+  assert.match(normalizedCss, /repeat\(\s*var\(--kos-grid-placement, auto-fit\),\s*minmax\(min\(100%,\s*var\(--kos-grid-min-item-size\)\),\s*1fr\)\s*\)/);
+  assert.ok(normalizedCss.includes('.kos-grid:not([kos-cols]):has(> [kos-col-span]) {'));
+  assert.ok(normalizedCss.includes('grid-template-columns: repeat(12, minmax(0, 1fr));'));
+  assert.match(normalizedCss, /\.kos-grid\[kos-cols=['"]6['"]\] \{ grid-template-columns: repeat\(6, minmax\(0, 1fr\)\); \}/);
 });
 
 test('span-based compositions stack at narrow container widths', () => {
-  assert.ok(css.includes('.kos-composition > .kos-grid:is([kos-cols], :has(> [kos-col-span])) { grid-template-columns: minmax(0, 1fr); }'));
+  assert.match(normalizedCss, /\.kos-composition > \.kos-grid:is\(\[kos-cols\], :has\(> \[kos-col-span\]\)\) \{ grid-template-columns: minmax\(0, 1fr\); \}/);
 });
