@@ -1,2 +1,4 @@
-:root { --font-heading: 'Familjen Grotesk', sans-serif; --font-body: 'Space Grotesk', sans-serif; }
-
+:root {
+	--font-heading: 'Familjen Grotesk', sans-serif;
+	--font-body: 'Space Grotesk', sans-serif;
+}
