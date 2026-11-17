@@ -483,3 +483,25 @@ body {
 		flex-wrap: wrap;
 	}
 }
+
+/* The Lab stage is stationary; only the contained composition changes width. */
+.preview-stage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: clamp(24rem, 52vw, 42rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.preview-paper {
+  width: min(100%, var(--preview-width, 960px));
+  max-width: 100%;
+  margin-inline: auto;
+  flex-shrink: 1;
+  min-width: 0;
+}
+@container (max-width: 30rem) {
+  .kos-composition .sample-copy h3 { font-size: clamp(1.25rem, 7cqi, 2rem); }
+  .kos-composition .sample-quote { font-size: clamp(1.25rem, 7cqi, 2rem); }
+}
