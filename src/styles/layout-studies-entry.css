@@ -1,6 +1,6 @@
-@layer components, pages;
-
-@import './components/_study-preview.css' layer(components);
-@import './pages/_studies-compositions.css' layer(pages);
-@import './pages/_studies-breakpoints.css' layer(pages);
-@import './pages/_studies-additional-breakpoints.css' layer(pages);
+/* Keep layout-study responsive rules unlayered so they can override the
+   unlayered explicit kos-cols / kos-col-span primitives in koshi.css. */
+@import './components/_study-preview.css';
+@import './pages/_studies-compositions.css';
+@import './pages/_studies-breakpoints.css';
+@import './pages/_studies-additional-breakpoints.css';
