@@ -89,7 +89,7 @@ async function copy(type: 'html' | 'css' | 'both') {
       </div>
 
       <div class="preview-stage">
-        <div class="preview-paper" :style="{ width: previewWidth + 'px' }">
+        <div class="preview-paper" :style="{ '--preview-width': previewWidth + 'px' }">
           <div class="preview-mast"><span>格子 / KŌSHI</span><span>STUDY {{ String(selected + 1).padStart(2, '0') }}</span></div>
           <div class="kos-composition" :style="{ '--kos-gutter': gap + 'px' }">
             <div v-for="(row, rowIndex) in active.rows" :key="rowIndex" class="kos-grid" kos-cols="12">
