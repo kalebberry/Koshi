@@ -28,14 +28,21 @@
 	padding: 0.45rem 0.7rem;
 	cursor: pointer;
 }
-.study-preview-viewport {
-	overflow-x: auto;
+ .study-preview-viewport {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	height: clamp(24rem, 55vw, 44rem);
+	overflow-x: hidden;
+	overflow-y: auto;
+	overscroll-behavior: contain;
 	background: #ddd9d2;
 	padding: 1rem;
 }
 .study-canvas {
-	width: var(--preview-width, 1100px);
-	max-width: none;
+	width: min(100%, var(--preview-width, 1100px));
+	max-width: 100%;
+	flex-shrink: 1;
 	container: study / inline-size;
 	margin-inline: auto;
 }
