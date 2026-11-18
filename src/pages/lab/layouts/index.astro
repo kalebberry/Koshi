@@ -100,8 +100,8 @@ manifesto: `<div class="kos-grid study-manifesto" kos-cols="12">
   });
 </script>
 </SiteLayout><script>
-  const stylesheetLinks = Array.from(document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]'))
-    .map(link => `<link rel="stylesheet" href="${link.href}">`).join('');
+  const stylesheetLinks = Array.from(document.querySelectorAll<HTMLLinkElement | HTMLStyleElement>('link[rel="stylesheet"], style'))
+    .map(node => node instanceof HTMLLinkElement ? `<link rel="stylesheet" href="${node.href}">` : node.outerHTML).join('');
 
   document.querySelectorAll<HTMLElement>('.study-section').forEach((section) => {
     const slider = section.querySelector<HTMLInputElement>('[data-preview-slider]');
