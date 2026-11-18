@@ -56,7 +56,7 @@ manifesto: `<div class="kos-grid study-manifesto" kos-cols="12">
     </nav>
     {studies.map(s => <section id={s.id} class="study-section" aria-labelledby={`${s.id}-title`}>
       <div class="study-heading"><div><p class="studies-kicker">{s.number} / {s.type}</p><h2 id={`${s.id}-title`}>{s.title}</h2></div><p>{s.description}</p></div>
-      <div class="study-preview-viewport"><div class="study-canvas" data-preview-canvas style="--preview-width: 1100px">
+      <div class="study-preview-viewport"><iframe class="study-preview-iframe" data-study-iframe title={`${s.title} responsive preview`} sandbox="" loading="lazy"></iframe><div class="study-canvas" data-preview-canvas style="--preview-width: 1100px">
         {s.id === 'portfolio' && <div class="kos-grid study-portfolio" kos-cols="4">
           <article class="study-project"><div class="study-art art-ink"><span>FORM / 01</span><div class="art-circle"></div></div><p>01 / Objects in space</p><h3>Form and silence</h3></article>
           <article class="study-project"><div class="study-art art-arch"><span>STUDY / 02</span><div class="art-archway"></div></div><p>02 / Architecture</p><h3>Between walls</h3></article>
@@ -91,6 +91,32 @@ manifesto: `<div class="kos-grid study-manifesto" kos-cols="12">
     if (!slider || !canvas || !output || !reset) return;
     const update = () => {
       canvas.style.setProperty('--preview-width', slider.value + 'px');
+      output.value = slider.value + 'px';
+      output.textContent = slider.value + 'px';
+    };
+    slider.addEventListener('input', update);
+    reset.addEventListener('click', () => { slider.value = '1100'; update(); });
+    update();
+  });
+</script>
+</SiteLayout><script>
+  const stylesheetLinks = Array.from(document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]'))
+    .map(link => `<link rel="stylesheet" href="${link.href}">`).join('');
+
+  document.querySelectorAll<HTMLElement>('.study-section').forEach((section) => {
+    const slider = section.querySelector<HTMLInputElement>('[data-preview-slider]');
+    const canvas = section.querySelector<HTMLElement>('[data-preview-canvas]');
+    const frame = section.querySelector<HTMLIFrameElement>('[data-study-iframe]');
+    const output = section.querySelector<HTMLOutputElement>('[data-width-output]');
+    const reset = section.querySelector<HTMLButtonElement>('[data-preview-reset]');
+    if (!slider || !canvas || !frame || !output || !reset) return;
+
+    // Preserve the original composition markup, but run it in its own viewport.
+    // The iframe loads the same project styles; no scripts or external content run inside.
+    frame.srcdoc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${stylesheetLinks}<style>html,body{margin:0;min-width:0;background:#eae8e2}.study-canvas{width:100%!important;max-width:100%!important;margin:0!important;box-sizing:border-box}</style></head><body>${canvas.outerHTML}</body></html>`;
+
+    const update = () => {
+      frame.style.width = `min(100%, ${slider.value}px)`;
       output.value = slider.value + 'px';
       output.textContent = slider.value + 'px';
     };
