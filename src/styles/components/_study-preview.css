@@ -315,3 +315,25 @@
 	font-size: 0.85rem;
 	line-height: 1.7;
 }
+
+/* The preview viewport remains fixed; its iframe is the resizable browser viewport. */
+.study-preview-viewport { position: relative; overflow: hidden; }
+.study-preview-viewport > .study-canvas {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  width: 0 !important;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.study-preview-iframe {
+  display: block;
+  border: 0;
+  background: #eae8e2;
+  height: 100%;
+  max-width: 100%;
+  flex: 0 1 auto;
+  min-width: 0;
+  margin-inline: auto;
+}
