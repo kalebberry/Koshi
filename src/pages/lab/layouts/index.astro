@@ -83,23 +83,6 @@ manifesto: `<div class="kos-grid study-manifesto" kos-cols="12">
     <footer class="studies-end"><p>Structure by Kōshi. Art direction by you.</p><a href="/lab/">Explore Composition Lab ↗</a></footer>
   </div>
 <script>
-  document.querySelectorAll<HTMLElement>('.study-section').forEach((section) => {
-    const slider = section.querySelector<HTMLInputElement>('[data-preview-slider]');
-    const canvas = section.querySelector<HTMLElement>('[data-preview-canvas]');
-    const output = section.querySelector<HTMLOutputElement>('[data-width-output]');
-    const reset = section.querySelector<HTMLButtonElement>('[data-preview-reset]');
-    if (!slider || !canvas || !output || !reset) return;
-    const update = () => {
-      canvas.style.setProperty('--preview-width', slider.value + 'px');
-      output.value = slider.value + 'px';
-      output.textContent = slider.value + 'px';
-    };
-    slider.addEventListener('input', update);
-    reset.addEventListener('click', () => { slider.value = '1100'; update(); });
-    update();
-  });
-</script>
-</SiteLayout><script>
   const stylesheetLinks = Array.from(document.querySelectorAll<HTMLLinkElement | HTMLStyleElement>('link[rel="stylesheet"], style'))
     .map(node => node instanceof HTMLLinkElement ? `<link rel="stylesheet" href="${node.href}">` : node.outerHTML).join('');
 
