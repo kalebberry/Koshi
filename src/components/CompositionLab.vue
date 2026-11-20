@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { generateCompositions, studySignature, type Block } from '../lib/compositions';
 import { exportBoth, exportCSS, exportHTML } from '../lib/export';
 
@@ -10,28 +10,9 @@ const showCode = ref(false);
 const showContent = ref(true);
 const gap = ref(20);
 const copied = ref('');
-const previewSource = ref<HTMLElement | null>(null);
-const previewDocument = ref('');
-const previewStyles = ref('');
-
-function syncPreview() {
-  if (!previewSource.value) return;
-  const markup = previewSource.value.outerHTML.replace('class="preview-paper"', 'class="preview-paper iframe-paper"');
-  previewDocument.value = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${previewStyles.value}<style>html,body{margin:0;min-width:0;background:#fcfbf8} .iframe-paper{width:100%!important;max-width:100%!important;min-height:0!important;box-sizing:border-box;margin:0!important} </style></head><body>${markup}</body></html>`;
-}
-onMounted(() => {
-  previewStyles.value = Array.from(document.querySelectorAll<HTMLLinkElement | HTMLStyleElement>('link[rel="stylesheet"], style'))
-    .map(node => node instanceof HTMLLinkElement ? `<link rel="stylesheet" href="${node.href}">` : node.outerHTML).join('');
-  syncPreview();
-});
 const studies = computed(() => generateCompositions(batch.value));
 const active = computed(() => studies.value[selected.value]!);
 const generatedCode = computed(() => exportHTML(active.value));
-
-watch([active, showContent, gap, selected], async () => {
-  await nextTick();
-  syncPreview();
-}, { flush: 'post' });
 
 function regenerate() {
   batch.value += 1;
