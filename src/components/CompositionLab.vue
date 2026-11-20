@@ -24,13 +24,14 @@ onMounted(() => {
     .map(node => node instanceof HTMLLinkElement ? `<link rel="stylesheet" href="${node.href}">` : node.outerHTML).join('');
   syncPreview();
 });
+const studies = computed(() => generateCompositions(batch.value));
+const active = computed(() => studies.value[selected.value]!);
+const generatedCode = computed(() => exportHTML(active.value));
+
 watch([active, showContent, gap, selected], async () => {
   await nextTick();
   syncPreview();
 }, { flush: 'post' });
-const studies = computed(() => generateCompositions(batch.value));
-const active = computed(() => studies.value[selected.value]!);
-const generatedCode = computed(() => exportHTML(active.value));
 
 function regenerate() {
   batch.value += 1;
