@@ -37,6 +37,10 @@ test('every block in every recipe has valid span and track mathematics', () => {
       let currentTrack = 0;
 
       for (const block of row) {
+        assert.ok(
+          ['image', 'text', 'quote', 'card', 'stat', 'space'].includes(block.kind),
+          `invalid block kind "${block.kind}" in ${recipe.id}`
+        );
         assert.ok(block.span >= 1 && block.span <= 12, `span ${block.span} out of bounds in ${recipe.id}`);
         if (block.offset) {
           assert.ok(block.offset >= 1 && block.offset <= 11, `offset ${block.offset} out of bounds in ${recipe.id}`);

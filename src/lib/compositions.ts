@@ -150,7 +150,7 @@ export const recipes: Composition[] = [
         b(4, 'image', { ratio: '1/1', title: 'SQUARE TILE B' }),
       ],
       [
-        b(4, 'offset' as any ? 4 : 4, 'card', { offset: 4, cardData: { eyebrow: 'LOWER TILE C', title: 'Nested Track C', description: 'Synchronized baseline.' } }),
+        b(4, 'card', { offset: 4, cardData: { eyebrow: 'LOWER TILE C', title: 'Nested Track C', description: 'Synchronized baseline.' } }),
         b(4, 'card', { cardData: { eyebrow: 'LOWER TILE D', title: 'Nested Track D', description: 'Synchronized baseline.' } }),
       ],
     ],
