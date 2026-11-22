@@ -19,6 +19,17 @@ input:focus-visible {
 	outline: 2px solid #252522;
 	outline-offset: 3px;
 }
+.lab-nav-strip {
+	padding-block: 1.5rem;
+	border-bottom: 1px solid #d5d3cc;
+}
+.lab-nav-strip a {
+	display: inline-flex;
+	gap: 1rem;
+	align-items: center;
+	font-size: 0.875rem;
+	text-underline-offset: 0.35rem;
+}
 .lab-shell {
 	width: min(100% - clamp(2rem, 8vw, 8rem), 1360px);
 	margin: auto;
@@ -248,17 +259,28 @@ input:focus-visible {
 	font-variant-numeric: tabular-nums;
 }
 .preview-stage {
-	background: #eae8e2;
-	padding: clamp(16px, 3.5vw, 48px);
+	background: #ddd9d2;
+	padding: 1rem;
 	margin-top: 22px;
-	overflow: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.preview-canvas {
+	width: var(--preview-width, 960px);
+	max-width: none;
+	container: study / inline-size;
+	margin-inline: auto;
+	min-width: 0;
+	flex-shrink: 0;
+	box-sizing: border-box;
 }
 .preview-paper {
 	background: #fcfbf8;
-	padding: clamp(18px, 4.5vw, 60px);
+	padding: clamp(18px, 4.5cqi, 60px);
 	min-height: 320px;
 	width: 100%;
 	margin: 0 auto;
+	box-sizing: border-box;
 }
 
 .preview-mast {
@@ -307,7 +329,7 @@ input:focus-visible {
 	padding: 18px 4px;
 }
 .sample-copy h3 {
-	font: 400 clamp(22px, 3vw, 42px)/1.1 var(--font-heading);
+	font: 400 clamp(22px, 3.5cqi, 42px)/1.1 var(--font-heading);
 	letter-spacing: -0.04em;
 	margin: 16px 0;
 }
@@ -319,7 +341,7 @@ input:focus-visible {
 }
 .sample-quote {
 	padding: 22px;
-	font: italic 400 clamp(20px, 3.2vw, 42px)/1.2 var(--font-heading);
+	font: italic 400 clamp(20px, 3.2cqi, 42px)/1.2 var(--font-heading);
 }
 .wire-label {
 	text-align: center;
@@ -379,7 +401,7 @@ input:focus-visible {
 		flex-direction: column;
 	}
 	.preview-stage {
-		padding: 12px;
+		padding: 0.5rem;
 	}
 	.preview-paper {
 		padding: 15px;
@@ -413,16 +435,19 @@ input:focus-visible {
 	cursor: pointer;
 }
 .width-reset {
-	background: none;
-	border: 0;
-	padding: 9px 3px;
+	border: 1px solid #c5c0b8;
+	background: transparent;
+	padding: 0.4rem 0.7rem;
 	font-size: 12px;
-	color: #57554e;
-	text-decoration: underline;
-	text-underline-offset: 4px;
+	color: #262521;
+	cursor: pointer;
+	transition:
+		background 0.15s,
+		border-color 0.15s;
 }
 .width-reset:hover {
-	color: #24231f;
+	background: #e6e3da;
+	border-color: #79776f;
 }
 .preview-paper {
 	max-width: none;
@@ -445,7 +470,8 @@ body {
 .gallery,
 .study-card,
 .export-bar,
-.preview-stage {
+.preview-stage,
+.preview-canvas {
 	min-width: 0;
 }
 .preview-stage {
@@ -455,6 +481,7 @@ body {
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 }
+.preview-canvas,
 .preview-paper {
 	flex-shrink: 0;
 }

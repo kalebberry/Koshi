@@ -148,6 +148,9 @@
 .code-sample code {
 	white-space: pre;
 }
+.start-section {
+	padding-bottom: 115px;
+}
 @media (max-width: 760px) {
 	.display {
 		font-size: clamp(38px, 10vw, 64px);

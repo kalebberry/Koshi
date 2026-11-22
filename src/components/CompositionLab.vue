@@ -88,18 +88,20 @@ async function copy(type: 'html' | 'css' | 'both') {
         <label class="gap-label">Gap <input v-model.number="gap" type="range" min="8" max="40" step="4" /> <output>{{ gap }}px</output></label>
       </div>
 
-      <div class="preview-stage">
-        <div class="preview-paper" :style="{ width: previewWidth + 'px' }">
-          <div class="preview-mast"><span>格子 / KŌSHI</span><span>STUDY {{ String(selected + 1).padStart(2, '0') }}</span></div>
-          <div class="kos-composition" :style="{ '--kos-gutter': gap + 'px' }">
-            <div v-for="(row, rowIndex) in active.rows" :key="rowIndex" class="kos-grid" kos-cols="12">
-              <div v-for="(block, blockIndex) in row" :key="blockIndex" class="preview-block" :class="kindClass(block)" :kos-col-span="block.span" :kos-offset="block.offset || undefined">
-                <template v-if="showContent">
-                  <template v-if="block.kind === 'image'"><div class="sample-image"><span>IMAGE / VISUAL</span></div></template>
-                  <template v-else-if="block.kind === 'quote'"><div class="sample-quote">“Form follows the space between.”</div></template>
-                  <template v-else-if="block.kind === 'text'"><div class="sample-copy"><span class="overline">Editorial study / 001</span><h3>Space shapes the story.</h3><p>Every composition begins with proportion, rhythm, and a considered relationship between elements.</p></div></template>
-                </template>
-                <span v-else-if="block.kind !== 'space'" class="wire-label">{{ block.span }} / 12</span>
+      <div class="study-preview-viewport preview-stage">
+        <div class="study-canvas preview-canvas" :style="{ '--preview-width': previewWidth + 'px' }">
+          <div class="preview-paper">
+            <div class="preview-mast"><span>格子 / KŌSHI</span><span>STUDY {{ String(selected + 1).padStart(2, '0') }}</span></div>
+            <div class="kos-composition" :style="{ '--kos-gutter': gap + 'px' }">
+              <div v-for="(row, rowIndex) in active.rows" :key="rowIndex" class="kos-grid" kos-cols="12">
+                <div v-for="(block, blockIndex) in row" :key="blockIndex" class="preview-block" :class="kindClass(block)" :kos-col-span="block.span" :kos-offset="block.offset || undefined">
+                  <template v-if="showContent">
+                    <template v-if="block.kind === 'image'"><div class="sample-image"><span>IMAGE / VISUAL</span></div></template>
+                    <template v-else-if="block.kind === 'quote'"><div class="sample-quote">“Form follows the space between.”</div></template>
+                    <template v-else-if="block.kind === 'text'"><div class="sample-copy"><span class="overline">Editorial study / 001</span><h3>Space shapes the story.</h3><p>Every composition begins with proportion, rhythm, and a considered relationship between elements.</p></div></template>
+                  </template>
+                  <span v-else-if="block.kind !== 'space'" class="wire-label">{{ block.span }} / 12</span>
+                </div>
               </div>
             </div>
           </div>
