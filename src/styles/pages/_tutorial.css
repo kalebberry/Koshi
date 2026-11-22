@@ -192,7 +192,6 @@
 		padding-right: 84px;
 		overflow: auto;
 		max-height: 460px;
-		overscroll-behavior: contain;
 		font-size: 12px;
 		line-height: 1.65;
 		border-radius: 4px;
@@ -357,7 +356,6 @@
 	align-items: flex-start;
 	overflow: auto;
 	max-height: 560px;
-	overscroll-behavior: contain;
 	scrollbar-width: thin;
 	scrollbar-color: #c4bfb4 #ebe8e1;
 
