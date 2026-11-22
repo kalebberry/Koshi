@@ -9,13 +9,13 @@ import {
 } from '../src/lib/compositions.ts';
 import { exportBoth, exportCSS, exportHTML } from '../src/lib/export.ts';
 
-test('composition recipes count exactly 36 curated studies', () => {
-  assert.equal(recipes.length, 36, 'should contain exactly 36 production recipes');
+test('composition recipes count exactly 72 curated studies (12 per archetype)', () => {
+  assert.equal(recipes.length, 72, 'should contain exactly 72 production recipes');
 });
 
 test('every recipe has unique ID, title, description, and valid category', () => {
   const ids = new Set();
-  const validCategories = new Set(['hero', 'features', 'editorial', 'gallery', 'lattice']);
+  const validCategories = new Set(['bento', 'hero', 'features', 'editorial', 'gallery', 'lattice']);
 
   for (const recipe of recipes) {
     assert.ok(recipe.id, 'recipe must have an id');
@@ -74,31 +74,22 @@ test('every block in every recipe has valid span and track mathematics', () => {
   }
 });
 
-test('category counts reflect the 36 recipes accurately', () => {
+test('category counts reflect the 72 recipes accurately (exactly 12 per archetype)', () => {
   const counts = getCategoryCounts();
   const allCount = counts.find((c) => c.id === 'all');
-  assert.equal(allCount?.count, 36);
+  assert.equal(allCount?.count, 72);
 
-  const heroCount = counts.find((c) => c.id === 'hero');
-  assert.equal(heroCount?.count, 6);
-
-  const featCount = counts.find((c) => c.id === 'features');
-  assert.equal(featCount?.count, 7);
-
-  const editCount = counts.find((c) => c.id === 'editorial');
-  assert.equal(editCount?.count, 8);
-
-  const galCount = counts.find((c) => c.id === 'gallery');
-  assert.equal(galCount?.count, 8);
-
-  const latCount = counts.find((c) => c.id === 'lattice');
-  assert.equal(latCount?.count, 7);
+  const archetypes = ['bento', 'hero', 'features', 'editorial', 'gallery', 'lattice'];
+  for (const arch of archetypes) {
+    const archCount = counts.find((c) => c.id === arch);
+    assert.equal(archCount?.count, 12, `Archetype ${arch} should have exactly 12 recipes`);
+  }
 });
 
 test('generateCompositions returns filtered results and deterministic batches', () => {
-  const heroStudies = generateCompositions(0, 'hero', 10);
-  assert.equal(heroStudies.length, 6);
-  assert.ok(heroStudies.every((s) => s.category === 'hero'));
+  const bentoStudies = generateCompositions(0, 'bento', 12);
+  assert.equal(bentoStudies.length, 12);
+  assert.ok(bentoStudies.every((s) => s.category === 'bento'));
 
   const allStudies = generateCompositions(0, 'all', 12);
   assert.equal(allStudies.length, 12);
@@ -110,21 +101,21 @@ test('generateCompositions returns filtered results and deterministic batches', 
 });
 
 test('exportHTML generates valid Kōshi CSS Grid markup with subgrids, ratios and spans', () => {
-  const subgridStudy = recipes.find((r) => r.id === 'feat-subgrid-triad');
-  assert.ok(subgridStudy);
-  const html = exportHTML(subgridStudy);
+  const bentoStudy = recipes.find((r) => r.id === 'bento-hero-stack');
+  assert.ok(bentoStudy);
+  const html = exportHTML(bentoStudy);
 
   assert.ok(html.includes('class="kos-composition"'));
   assert.ok(html.includes('class="kos-grid" kos-cols="12"'));
-  assert.ok(html.includes('kos-col-span="4"'));
-  assert.ok(html.includes('kos-row-span="3"'));
-  assert.ok(html.includes('kos-subgrid="rows"'));
-  assert.ok(html.includes('class="kos-card"'));
+  assert.ok(html.includes('kos-col-span="8"'));
+  assert.ok(html.includes('kos-row-span="2"'));
+  assert.ok(html.includes('kos-ratio="16/9"'));
 
-  const ratioStudy = recipes.find((r) => r.id === 'hero-split-16-9');
-  assert.ok(ratioStudy);
-  const ratioHtml = exportHTML(ratioStudy);
-  assert.ok(ratioHtml.includes('kos-ratio="16/9"'));
+  const subgridStudy = recipes.find((r) => r.id === 'feat-subgrid-triad');
+  assert.ok(subgridStudy);
+  const subgridHtml = exportHTML(subgridStudy);
+  assert.ok(subgridHtml.includes('kos-subgrid="rows"'));
+  assert.ok(subgridHtml.includes('class="kos-card"'));
 });
 
 test('exportBoth packages companion CSS containing container query and subgrid classes', () => {
