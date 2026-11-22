@@ -591,7 +591,234 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   11. Container Queries
+   11. Archetype Filter Tabs & Enriched Elements
+   ----------------------------------------------------------------------------- */
+
+.category-filter-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 24px;
+	padding-bottom: 18px;
+	border-bottom: 1px solid #dcdad1;
+}
+
+.category-pill {
+	background: transparent;
+	border: 1px solid #c9c6bd;
+	color: #4a473f;
+	padding: 8px 16px;
+	font-size: 12px;
+	font-weight: 500;
+	border-radius: 999px;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	&:hover {
+		background: #eae7de;
+		border-color: #8c897f;
+	}
+
+	&--active {
+		background: #262521;
+		color: #ffffff;
+		border-color: #262521;
+
+		&:hover {
+			background: #3d3b35;
+		}
+
+		& .category-count {
+			background: rgba(255, 255, 255, 0.2);
+			color: #ffffff;
+		}
+	}
+}
+
+.category-count {
+	font-size: 10px;
+	font-family: ui-monospace, monospace;
+	background: #e2ded5;
+	color: #68665f;
+	padding: 1px 6px;
+	border-radius: 999px;
+}
+
+.card-category-tag {
+	font-size: 9px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #7a766e;
+	background: #edeae2;
+	padding: 2px 7px;
+	border-radius: 2px;
+}
+
+.study-description {
+	font-size: 13px;
+	color: #68665f;
+	line-height: 1.6;
+	margin: 8px 0 0;
+	max-width: 65ch;
+}
+
+/* Enhanced Sketch Blocks */
+.sketch-card-lines {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: 80%;
+	padding: 6px;
+
+	& .s-tag {
+		height: 3px;
+		width: 35%;
+		background: #c6c2b8;
+	}
+
+	& .s-title {
+		height: 5px;
+		width: 80%;
+		background: #a8a49c;
+	}
+
+	& .s-desc {
+		height: 3px;
+		width: 100%;
+		background: #c6c2b8;
+	}
+}
+
+.sketch-stat {
+	font-weight: 700;
+	font-size: 14px;
+	color: #7a766e;
+	font-family: var(--font-heading);
+}
+
+.sketch-ratio {
+	font-family: ui-monospace, monospace;
+	font-size: 10px;
+	color: #7a766e;
+	font-weight: 600;
+}
+
+/* Sample Subgrid Card */
+.sample-card {
+	background: #ffffff;
+	border: 1px solid #e2ded5;
+	padding: 18px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+
+	& .card-eyebrow {
+		font-size: 9px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: #8a877e;
+		font-weight: 600;
+		margin-bottom: 6px;
+	}
+
+	& .card-title {
+		font: 500 16px/1.2 var(--font-heading);
+		margin: 0 0 8px;
+		color: #23221e;
+	}
+
+	& .card-desc {
+		font-size: 12px;
+		line-height: 1.6;
+		color: #68665f;
+		margin: 0 0 14px;
+	}
+
+	& .card-action {
+		margin-top: auto;
+	}
+
+	& .card-link {
+		font-size: 11px;
+		font-weight: 600;
+		color: #23221e;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+}
+
+/* Sample Key Metric / KPI */
+.sample-stat {
+	background: #ffffff;
+	border: 1px solid #e2ded5;
+	border-top: 3px solid #23221e;
+	padding: 18px;
+
+	&__val {
+		font: 700 clamp(24px, 3.5vw, 36px)/1 var(--font-heading);
+		color: #23221e;
+		margin-bottom: 4px;
+	}
+
+	&__label {
+		font-size: 12px;
+		font-weight: 500;
+		color: #68665f;
+	}
+
+	&__note {
+		font-size: 10px;
+		color: #8e8a80;
+		display: block;
+		margin-top: 4px;
+	}
+}
+
+/* Sample Image with Aspect Ratio */
+.sample-image {
+	&__badge {
+		font-family: ui-monospace, monospace;
+		font-size: 10px;
+		letter-spacing: 0.08em;
+		background: rgba(0, 0, 0, 0.45);
+		color: #ffffff;
+		padding: 3px 8px;
+		border-radius: 2px;
+		margin-bottom: 6px;
+	}
+
+	&__title {
+		font-family: var(--font-heading);
+		font-size: 13px;
+		letter-spacing: 0.08em;
+		color: #fbfaf7;
+	}
+}
+
+/* Wireframe Mode Tags */
+.wire-block-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+}
+
+.wire-tag {
+	font-family: ui-monospace, monospace;
+	font-size: 9px;
+	background: #e0dcd4;
+	padding: 2px 6px;
+	border-radius: 2px;
+	color: #6a675e;
+}
+
+/* -----------------------------------------------------------------------------
+   12. Container Queries
    ----------------------------------------------------------------------------- */
 
 @container (max-width: 30rem) {

@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node tests/grid-math.test.mjs"
+    "test": "node tests/grid-math.test.mjs && node tests/compositions.test.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
