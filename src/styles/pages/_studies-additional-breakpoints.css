@@ -153,3 +153,14 @@
 		margin-block: 1.25rem;
 	}
 }
+
+/* Ensure fixed preview cards never expand with the simulated canvas. */
+.study-section,
+.study-preview-viewport,
+.study-canvas { min-width: 0; max-width: 100%; }
+.study-canvas { box-sizing: border-box; }
+@container study (max-width: 30rem) {
+  .study-canvas .triptych-heading,
+  .study-canvas .study-essay { margin-top: 1.25rem; }
+  .study-canvas .catalogue-feature h3 { max-width: calc(100% - 2rem); }
+}

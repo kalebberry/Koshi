@@ -28,14 +28,21 @@
 	padding: 0.45rem 0.7rem;
 	cursor: pointer;
 }
-.study-preview-viewport {
-	overflow-x: auto;
+ .study-preview-viewport {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	height: clamp(24rem, 55vw, 44rem);
+	overflow-x: hidden;
+	overflow-y: auto;
+	overscroll-behavior: contain;
 	background: #ddd9d2;
 	padding: 1rem;
 }
 .study-canvas {
-	width: var(--preview-width, 1100px);
-	max-width: none;
+	width: min(100%, var(--preview-width, 1100px));
+	max-width: 100%;
+	flex-shrink: 1;
 	container: study / inline-size;
 	margin-inline: auto;
 }
@@ -307,4 +314,26 @@
 .manifesto-side p {
 	font-size: 0.85rem;
 	line-height: 1.7;
+}
+
+/* The preview viewport remains fixed; its iframe is the resizable browser viewport. */
+.study-preview-viewport { position: relative; overflow: hidden; }
+.study-preview-viewport > .study-canvas {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  width: 0 !important;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.study-preview-iframe {
+  display: block;
+  border: 0;
+  background: #eae8e2;
+  height: 100%;
+  max-width: 100%;
+  flex: 0 1 auto;
+  min-width: 0;
+  margin-inline: auto;
 }
