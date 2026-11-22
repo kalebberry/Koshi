@@ -521,6 +521,9 @@
 .kos-composition {
 	container-type: inline-size;
 }
+.kos-composition + .kos-composition {
+	margin-block-start: var(--kos-section-space, clamp(2.5rem, 6vw, 6rem));
+}
 .kos-composition > .kos-grid + .kos-grid {
 	margin-block-start: var(--kos-gutter);
 }
