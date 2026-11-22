@@ -57,7 +57,7 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
             <li><strong>Negative Space as an Element (余白 Yohaku):</strong> Empty space is not "unused space"—it is the structural boundary that gives the written word its authority and clarity.</li>
           </ul>
           <p>
-            In this walkthrough, we will build <strong>The Lattice Review</strong>, an architectural and design cultural publication, piece by piece.
+            In this walkthrough, we will build <strong>The Lattice Review</strong>, an architectural and design cultural publication, piece by piece. You can test each stage across Desktop, Tablet, and Mobile viewports using the controls on each preview.
           </p>
         </section>
 
@@ -72,22 +72,30 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
             Next, we establish our document boundaries using <code>.kos-container</code> and add a publication masthead. Unlike fixed-margin wrappers, Kōshi calculates its edge offsets using a fluid clamp formula: <code>clamp(1rem, 3.5vw, 3.5rem)</code>.
           </p>
 
-          <!-- Step 1 Website Preview -->
-          <div class="browser-preview">
+          <!-- Step 1 Website Preview with Responsive Iframe -->
+          <div class="browser-preview" data-browser-preview>
             <div class="browser-preview__chrome">
               <div class="browser-preview__dots"><span></span><span></span><span></span></div>
               <div class="browser-preview__address">the-lattice-review.org / issue-04</div>
+              <div class="browser-preview__viewport-switcher" role="group" aria-label="Preview viewport width">
+                <button type="button" class="view-btn view-btn--active" data-view="100%">Desktop</button>
+                <button type="button" class="view-btn" data-view="768px">Tablet</button>
+                <button type="button" class="view-btn" data-view="380px">Mobile</button>
+              </div>
             </div>
-            <div class="browser-preview__viewport">
-              <div class="kos-container">
-                <header class="kos-grid pub-masthead" kos-cols="12">
-                  <div kos-col-span="6">
-                    <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
-                  </div>
-                  <div kos-col-span="6" class="pub-meta">
-                    <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
-                  </div>
-                </header>
+            <div class="browser-preview__stage">
+              <iframe class="browser-preview__iframe" data-preview-iframe title="Step 1 Preview" loading="lazy"></iframe>
+              <div class="browser-preview__canvas" data-preview-canvas>
+                <div class="kos-container">
+                  <header class="kos-grid pub-masthead" kos-cols="12">
+                    <div kos-col-span="6">
+                      <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
+                    </div>
+                    <div kos-col-span="6" class="pub-meta">
+                      <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
+                    </div>
+                  </header>
+                </div>
               </div>
             </div>
           </div>
@@ -130,41 +138,49 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
             We also attach <code>kos-ratio="16/9"</code> to the media container. This locks the cinematic proportions before photographs finish loading, completely preventing Cumulative Layout Shift (CLS).
           </p>
 
-          <!-- Step 2 Website Preview -->
-          <div class="browser-preview">
+          <!-- Step 2 Website Preview with Responsive Iframe -->
+          <div class="browser-preview" data-browser-preview>
             <div class="browser-preview__chrome">
               <div class="browser-preview__dots"><span></span><span></span><span></span></div>
               <div class="browser-preview__address">the-lattice-review.org / issue-04</div>
+              <div class="browser-preview__viewport-switcher" role="group" aria-label="Preview viewport width">
+                <button type="button" class="view-btn view-btn--active" data-view="100%">Desktop</button>
+                <button type="button" class="view-btn" data-view="768px">Tablet</button>
+                <button type="button" class="view-btn" data-view="380px">Mobile</button>
+              </div>
             </div>
-            <div class="browser-preview__viewport">
-              <div class="kos-container">
-                <!-- Masthead -->
-                <header class="kos-grid pub-masthead" kos-cols="12">
-                  <div kos-col-span="6">
-                    <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
-                  </div>
-                  <div kos-col-span="6" class="pub-meta">
-                    <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
-                  </div>
-                </header>
+            <div class="browser-preview__stage">
+              <iframe class="browser-preview__iframe" data-preview-iframe title="Step 2 Preview" loading="lazy"></iframe>
+              <div class="browser-preview__canvas" data-preview-canvas>
+                <div class="kos-container">
+                  <!-- Masthead -->
+                  <header class="kos-grid pub-masthead" kos-cols="12">
+                    <div kos-col-span="6">
+                      <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
+                    </div>
+                    <div kos-col-span="6" class="pub-meta">
+                      <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
+                    </div>
+                  </header>
 
-                <!-- Hero Section (7:5) -->
-                <section class="kos-composition">
-                  <div class="kos-grid pub-hero" kos-cols="12">
-                    <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
-                      <div class="img-fallback">
-                        <span>ARCHITECTURE & PROPORTION</span>
-                        <strong>The Geometry of Natural Light</strong>
+                  <!-- Hero Section (7:5) -->
+                  <section class="kos-composition">
+                    <div class="kos-grid pub-hero" kos-cols="12">
+                      <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
+                        <div class="img-fallback">
+                          <span>ARCHITECTURE & PROPORTION</span>
+                          <strong>The Geometry of Natural Light</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="5" class="pub-hero-copy">
+                        <span class="category">FEATURE ESSAY · ISSUE 04</span>
+                        <h2>The Space Between Kyoto & Zurich.</h2>
+                        <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
+                        <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
                       </div>
                     </div>
-                    <div kos-col-span="5" class="pub-hero-copy">
-                      <span class="category">FEATURE ESSAY · ISSUE 04</span>
-                      <h2>The Space Between Kyoto & Zurich.</h2>
-                      <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
-                      <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
-                    </div>
-                  </div>
-                </section>
+                  </section>
+                </div>
               </div>
             </div>
           </div>
@@ -200,61 +216,69 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
             With Kōshi, you simply declare <code>kos-row-span="2"</code> on the media element. CSS Grid automatically routes the adjacent headline card into row 1 and the pull quote into row 2 beside the photo!
           </p>
 
-          <!-- Step 3 Website Preview -->
-          <div class="browser-preview">
+          <!-- Step 3 Website Preview with Responsive Iframe -->
+          <div class="browser-preview" data-browser-preview>
             <div class="browser-preview__chrome">
               <div class="browser-preview__dots"><span></span><span></span><span></span></div>
               <div class="browser-preview__address">the-lattice-review.org / issue-04</div>
+              <div class="browser-preview__viewport-switcher" role="group" aria-label="Preview viewport width">
+                <button type="button" class="view-btn view-btn--active" data-view="100%">Desktop</button>
+                <button type="button" class="view-btn" data-view="768px">Tablet</button>
+                <button type="button" class="view-btn" data-view="380px">Mobile</button>
+              </div>
             </div>
-            <div class="browser-preview__viewport">
-              <div class="kos-container">
-                <!-- Masthead -->
-                <header class="kos-grid pub-masthead" kos-cols="12">
-                  <div kos-col-span="6">
-                    <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
-                  </div>
-                  <div kos-col-span="6" class="pub-meta">
-                    <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
-                  </div>
-                </header>
+            <div class="browser-preview__stage">
+              <iframe class="browser-preview__iframe" data-preview-iframe title="Step 3 Preview" loading="lazy"></iframe>
+              <div class="browser-preview__canvas" data-preview-canvas>
+                <div class="kos-container">
+                  <!-- Masthead -->
+                  <header class="kos-grid pub-masthead" kos-cols="12">
+                    <div kos-col-span="6">
+                      <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
+                    </div>
+                    <div kos-col-span="6" class="pub-meta">
+                      <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
+                    </div>
+                  </header>
 
-                <!-- Hero Section (7:5) -->
-                <section class="kos-composition">
-                  <div class="kos-grid pub-hero" kos-cols="12">
-                    <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
-                      <div class="img-fallback">
-                        <span>ARCHITECTURE & PROPORTION</span>
-                        <strong>The Geometry of Natural Light</strong>
+                  <!-- Hero Section (7:5) -->
+                  <section class="kos-composition">
+                    <div class="kos-grid pub-hero" kos-cols="12">
+                      <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
+                        <div class="img-fallback">
+                          <span>ARCHITECTURE & PROPORTION</span>
+                          <strong>The Geometry of Natural Light</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="5" class="pub-hero-copy">
+                        <span class="category">FEATURE ESSAY · ISSUE 04</span>
+                        <h2>The Space Between Kyoto & Zurich.</h2>
+                        <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
+                        <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
                       </div>
                     </div>
-                    <div kos-col-span="5" class="pub-hero-copy">
-                      <span class="category">FEATURE ESSAY · ISSUE 04</span>
-                      <h2>The Space Between Kyoto & Zurich.</h2>
-                      <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
-                      <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
-                    </div>
-                  </div>
-                </section>
+                  </section>
 
-                <!-- Magazine Spread (7:5 Multi-Row) -->
-                <section class="kos-composition pub-spread">
-                  <div class="kos-grid" kos-cols="12">
-                    <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3" class="spread-image">
-                      <div class="img-fallback">
-                        <span>PHOTOGRAPHIC SPECIMEN</span>
-                        <strong>Structural Rhythm in Concrete</strong>
+                  <!-- Magazine Spread (7:5 Multi-Row) -->
+                  <section class="kos-composition pub-spread">
+                    <div class="kos-grid" kos-cols="12">
+                      <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3" class="spread-image">
+                        <div class="img-fallback">
+                          <span>PHOTOGRAPHIC SPECIMEN</span>
+                          <strong>Structural Rhythm in Concrete</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="5" class="spread-lead-card">
+                        <h3>Proportion Before Ornament</h3>
+                        <p>When layout geometry is mathematically disciplined, decorative styling becomes secondary. The structure itself becomes the aesthetic statement.</p>
+                      </div>
+                      <div kos-col-span="5" class="spread-quote-card">
+                        “Order is not pressure; order is liberation.”
+                        <cite>— Josef Müller-Brockmann</cite>
                       </div>
                     </div>
-                    <div kos-col-span="5" class="spread-lead-card">
-                      <h3>Proportion Before Ornament</h3>
-                      <p>When layout geometry is mathematically disciplined, decorative styling becomes secondary. The structure itself becomes the aesthetic statement.</p>
-                    </div>
-                    <div kos-col-span="5" class="spread-quote-card">
-                      “Order is not pressure; order is liberation.”
-                      <cite>— Josef Müller-Brockmann</cite>
-                    </div>
-                  </div>
-                </section>
+                  </section>
+                </div>
               </div>
             </div>
           </div>
@@ -291,73 +315,81 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
             Uneven card baselines are the most common visual defect on editorial websites. When article titles vary in length, cards become uneven and bottom links misalign across columns.
           </p>
           <p>
-            With Kōshi, each card adopts <code>kos-subgrid="rows"</code> and <code>kos-row-span="4"</code>. This instructs each card to participate directly in the parent grid's shared row tracks:
+            With Kōshi, each card adopts <code>kos-subgrid="rows"</code> and <code>kos-row-span="4"</code>. On desktop, child cards participate directly in the parent grid's shared row tracks so buttons align horizontally. Below <code>48rem</code>, Kōshi gracefully reflows into a single column with safe vertical item spacing:
           </p>
 
-          <!-- Step 4 Website Preview -->
-          <div class="browser-preview">
+          <!-- Step 4 Website Preview with Responsive Iframe -->
+          <div class="browser-preview" data-browser-preview>
             <div class="browser-preview__chrome">
               <div class="browser-preview__dots"><span></span><span></span><span></span></div>
               <div class="browser-preview__address">the-lattice-review.org / issue-04</div>
+              <div class="browser-preview__viewport-switcher" role="group" aria-label="Preview viewport width">
+                <button type="button" class="view-btn view-btn--active" data-view="100%">Desktop</button>
+                <button type="button" class="view-btn" data-view="768px">Tablet</button>
+                <button type="button" class="view-btn" data-view="380px">Mobile</button>
+              </div>
             </div>
-            <div class="browser-preview__viewport">
-              <div class="kos-container">
-                <!-- Masthead -->
-                <header class="kos-grid pub-masthead" kos-cols="12">
-                  <div kos-col-span="6">
-                    <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
-                  </div>
-                  <div kos-col-span="6" class="pub-meta">
-                    <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
-                  </div>
-                </header>
+            <div class="browser-preview__stage">
+              <iframe class="browser-preview__iframe" data-preview-iframe title="Step 4 Preview" loading="lazy"></iframe>
+              <div class="browser-preview__canvas" data-preview-canvas>
+                <div class="kos-container">
+                  <!-- Masthead -->
+                  <header class="kos-grid pub-masthead" kos-cols="12">
+                    <div kos-col-span="6">
+                      <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
+                    </div>
+                    <div kos-col-span="6" class="pub-meta">
+                      <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
+                    </div>
+                  </header>
 
-                <!-- Hero Section (7:5) -->
-                <section class="kos-composition">
-                  <div class="kos-grid pub-hero" kos-cols="12">
-                    <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
-                      <div class="img-fallback">
-                        <span>ARCHITECTURE & PROPORTION</span>
-                        <strong>The Geometry of Natural Light</strong>
+                  <!-- Hero Section (7:5) -->
+                  <section class="kos-composition">
+                    <div class="kos-grid pub-hero" kos-cols="12">
+                      <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
+                        <div class="img-fallback">
+                          <span>ARCHITECTURE & PROPORTION</span>
+                          <strong>The Geometry of Natural Light</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="5" class="pub-hero-copy">
+                        <span class="category">FEATURE ESSAY · ISSUE 04</span>
+                        <h2>The Space Between Kyoto & Zurich.</h2>
+                        <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
+                        <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
                       </div>
                     </div>
-                    <div kos-col-span="5" class="pub-hero-copy">
-                      <span class="category">FEATURE ESSAY · ISSUE 04</span>
-                      <h2>The Space Between Kyoto & Zurich.</h2>
-                      <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
-                      <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
+                  </section>
+
+                  <!-- Subgrid Cards Triad (4:4:4) -->
+                  <section class="kos-composition pub-subgrid-section">
+                    <div class="kos-grid" kos-cols="12">
+                      <!-- Card 1: Short title -->
+                      <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
+                        <span class="card-topic">THEORY</span>
+                        <h4 class="card-title">Zero Rounding Jitter</h4>
+                        <p class="card-excerpt">Fractional tracks absorb sub-pixel monitor discrepancies.</p>
+                        <a href="#step-4" class="card-cta">Read Essay →</a>
+                      </article>
+
+                      <!-- Card 2: Long title (stretches title row across all cards!) -->
+                      <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
+                        <span class="card-topic">PRACTICE</span>
+                        <h4 class="card-title">The Synchronized Baselines of Modern CSS Subgrid</h4>
+                        <p class="card-excerpt">Child cards inherit row tracks so buttons lock to the exact same baseline.</p>
+                        <a href="#step-4" class="card-cta">Read Essay →</a>
+                      </article>
+
+                      <!-- Card 3: Medium title -->
+                      <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
+                        <span class="card-topic">CRAFT</span>
+                        <h4 class="card-title">Zero Runtime Overhead</h4>
+                        <p class="card-excerpt">Native browser CSS execution with no JavaScript layout observers.</p>
+                        <a href="#step-4" class="card-cta">Read Essay →</a>
+                      </article>
                     </div>
-                  </div>
-                </section>
-
-                <!-- Subgrid Cards Triad (4:4:4) -->
-                <section class="kos-composition pub-subgrid-section">
-                  <div class="kos-grid" kos-cols="12">
-                    <!-- Card 1: Short title -->
-                    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
-                      <span class="card-topic">THEORY</span>
-                      <h4 class="card-title">Zero Rounding Jitter</h4>
-                      <p class="card-excerpt">Fractional tracks absorb sub-pixel monitor discrepancies.</p>
-                      <a href="#step-4" class="card-cta">Read Essay →</a>
-                    </article>
-
-                    <!-- Card 2: Long title (stretches title row across all cards!) -->
-                    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
-                      <span class="card-topic">PRACTICE</span>
-                      <h4 class="card-title">The Synchronized Baselines of Modern CSS Subgrid</h4>
-                      <p class="card-excerpt">Child cards inherit row tracks so buttons lock to the exact same baseline.</p>
-                      <a href="#step-4" class="card-cta">Read Essay →</a>
-                    </article>
-
-                    <!-- Card 3: Medium title -->
-                    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
-                      <span class="card-topic">CRAFT</span>
-                      <h4 class="card-title">Zero Runtime Overhead</h4>
-                      <p class="card-excerpt">Native browser CSS execution with no JavaScript layout observers.</p>
-                      <a href="#step-4" class="card-cta">Read Essay →</a>
-                    </article>
-                  </div>
-                </section>
+                  </section>
+                </div>
               </div>
             </div>
           </div>
@@ -404,109 +436,117 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
             By pairing <code>kos-ratio="silver"</code> with <code>kos-offset="1"</code>, we introduce an intentional negative space channel (*yohaku*) that separates portrait photography from longform prose.
           </p>
 
-          <!-- Step 5: Full Finished Website Preview -->
-          <div class="browser-preview">
+          <!-- Step 5: Full Finished Website Preview with Responsive Iframe -->
+          <div class="browser-preview" data-browser-preview>
             <div class="browser-preview__chrome">
               <div class="browser-preview__dots"><span></span><span></span><span></span></div>
               <div class="browser-preview__address">the-lattice-review.org / issue-04</div>
+              <div class="browser-preview__viewport-switcher" role="group" aria-label="Preview viewport width">
+                <button type="button" class="view-btn view-btn--active" data-view="100%">Desktop</button>
+                <button type="button" class="view-btn" data-view="768px">Tablet</button>
+                <button type="button" class="view-btn" data-view="380px">Mobile</button>
+              </div>
             </div>
-            <div class="browser-preview__viewport">
-              <div class="kos-container">
-                <!-- 01. Masthead -->
-                <header class="kos-grid pub-masthead" kos-cols="12">
-                  <div kos-col-span="6">
-                    <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
-                  </div>
-                  <div kos-col-span="6" class="pub-meta">
-                    <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
-                  </div>
-                </header>
+            <div class="browser-preview__stage">
+              <iframe class="browser-preview__iframe" data-preview-iframe title="Complete Website Preview" loading="lazy"></iframe>
+              <div class="browser-preview__canvas" data-preview-canvas>
+                <div class="kos-container">
+                  <!-- 01. Masthead -->
+                  <header class="kos-grid pub-masthead" kos-cols="12">
+                    <div kos-col-span="6">
+                      <span class="pub-brand"><span class="kanji" lang="ja">格子</span> THE LATTICE REVIEW</span>
+                    </div>
+                    <div kos-col-span="6" class="pub-meta">
+                      <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
+                    </div>
+                  </header>
 
-                <!-- 02. Hero Section (7:5) -->
-                <section class="kos-composition">
-                  <div class="kos-grid pub-hero" kos-cols="12">
-                    <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
-                      <div class="img-fallback">
-                        <span>ARCHITECTURE & PROPORTION</span>
-                        <strong>The Geometry of Natural Light</strong>
+                  <!-- 02. Hero Section (7:5) -->
+                  <section class="kos-composition">
+                    <div class="kos-grid pub-hero" kos-cols="12">
+                      <div kos-col-span="7" kos-ratio="16/9" class="pub-hero-image">
+                        <div class="img-fallback">
+                          <span>ARCHITECTURE & PROPORTION</span>
+                          <strong>The Geometry of Natural Light</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="5" class="pub-hero-copy">
+                        <span class="category">FEATURE ESSAY · ISSUE 04</span>
+                        <h2>The Space Between Kyoto & Zurich.</h2>
+                        <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
+                        <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
                       </div>
                     </div>
-                    <div kos-col-span="5" class="pub-hero-copy">
-                      <span class="category">FEATURE ESSAY · ISSUE 04</span>
-                      <h2>The Space Between Kyoto & Zurich.</h2>
-                      <p>How traditional Japanese lattice screens and 1950s Swiss rationalism converge in modern web engineering.</p>
-                      <span class="byline">BY STUDIO EIEN · 8 MIN READ</span>
-                    </div>
-                  </div>
-                </section>
+                  </section>
 
-                <!-- 03. Magazine Spread (7:5 Multi-Row) -->
-                <section class="kos-composition pub-spread">
-                  <div class="kos-grid" kos-cols="12">
-                    <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3" class="spread-image">
-                      <div class="img-fallback">
-                        <span>PHOTOGRAPHIC SPECIMEN</span>
-                        <strong>Structural Rhythm in Concrete</strong>
+                  <!-- 03. Magazine Spread (7:5 Multi-Row) -->
+                  <section class="kos-composition pub-spread">
+                    <div class="kos-grid" kos-cols="12">
+                      <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3" class="spread-image">
+                        <div class="img-fallback">
+                          <span>PHOTOGRAPHIC SPECIMEN</span>
+                          <strong>Structural Rhythm in Concrete</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="5" class="spread-lead-card">
+                        <h3>Proportion Before Ornament</h3>
+                        <p>When layout geometry is mathematically disciplined, decorative styling becomes secondary. The structure itself becomes the aesthetic statement.</p>
+                      </div>
+                      <div kos-col-span="5" class="spread-quote-card">
+                        “Order is not pressure; order is liberation.”
+                        <cite>— Josef Müller-Brockmann</cite>
                       </div>
                     </div>
-                    <div kos-col-span="5" class="spread-lead-card">
-                      <h3>Proportion Before Ornament</h3>
-                      <p>When layout geometry is mathematically disciplined, decorative styling becomes secondary. The structure itself becomes the aesthetic statement.</p>
-                    </div>
-                    <div kos-col-span="5" class="spread-quote-card">
-                      “Order is not pressure; order is liberation.”
-                      <cite>— Josef Müller-Brockmann</cite>
-                    </div>
-                  </div>
-                </section>
+                  </section>
 
-                <!-- 04. Subgrid Cards Triad (4:4:4) -->
-                <section class="kos-composition pub-subgrid-section">
-                  <div class="kos-grid" kos-cols="12">
-                    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
-                      <span class="card-topic">THEORY</span>
-                      <h4 class="card-title">Zero Rounding Jitter</h4>
-                      <p class="card-excerpt">Fractional tracks absorb sub-pixel discrepancies.</p>
-                      <a href="#step-5" class="card-cta">Read Essay →</a>
-                    </article>
-                    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
-                      <span class="card-topic">PRACTICE</span>
-                      <h4 class="card-title">The Synchronized Baselines of Modern CSS Subgrid</h4>
-                      <p class="card-excerpt">Child cards inherit row tracks so action links lock to identical lines.</p>
-                      <a href="#step-5" class="card-cta">Read Essay →</a>
-                    </article>
-                    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
-                      <span class="card-topic">CRAFT</span>
-                      <h4 class="card-title">Zero Runtime Overhead</h4>
-                      <p class="card-excerpt">Native browser CSS execution with zero JavaScript dependencies.</p>
-                      <a href="#step-5" class="card-cta">Read Essay →</a>
-                    </article>
-                  </div>
-                </section>
+                  <!-- 04. Subgrid Cards Triad (4:4:4) -->
+                  <section class="kos-composition pub-subgrid-section">
+                    <div class="kos-grid" kos-cols="12">
+                      <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
+                        <span class="card-topic">THEORY</span>
+                        <h4 class="card-title">Zero Rounding Jitter</h4>
+                        <p class="card-excerpt">Fractional tracks absorb sub-pixel discrepancies.</p>
+                        <a href="#step-5" class="card-cta">Read Essay →</a>
+                      </article>
+                      <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
+                        <span class="card-topic">PRACTICE</span>
+                        <h4 class="card-title">The Synchronized Baselines of Modern CSS Subgrid</h4>
+                        <p class="card-excerpt">Child cards inherit row tracks so action links lock to identical lines.</p>
+                        <a href="#step-5" class="card-cta">Read Essay →</a>
+                      </article>
+                      <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="pub-card">
+                        <span class="card-topic">CRAFT</span>
+                        <h4 class="card-title">Zero Runtime Overhead</h4>
+                        <p class="card-excerpt">Native browser CSS execution with zero JavaScript dependencies.</p>
+                        <a href="#step-5" class="card-cta">Read Essay →</a>
+                      </article>
+                    </div>
+                  </section>
 
-                <!-- 05. Silver Ratio Portrait & Yohaku Offset -->
-                <section class="kos-composition pub-essay-section">
-                  <div class="kos-grid" kos-cols="12">
-                    <div kos-col-span="4" kos-ratio="silver" class="portrait-frame">
-                      <div class="img-fallback">
-                        <span>HAKUGIN-HI 1:1.414</span>
-                        <strong>Architectural Study</strong>
+                  <!-- 05. Silver Ratio Portrait & Yohaku Offset -->
+                  <section class="kos-composition pub-essay-section">
+                    <div class="kos-grid" kos-cols="12">
+                      <div kos-col-span="4" kos-ratio="silver" class="portrait-frame">
+                        <div class="img-fallback">
+                          <span>HAKUGIN-HI 1:1.414</span>
+                          <strong>Architectural Study</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="7" kos-offset="1" class="essay-content">
+                        <span class="topic">ESSAY · YOHAKU</span>
+                        <h3>The Eloquence of Empty Space</h3>
+                        <p>By introducing an intentional one-track offset (<code>kos-offset="1"</code>), the narrative text separates cleanly from the portrait container. The resulting gutter is not an accident—it is a calibrated pause that invites sustained reading.</p>
+                        <p>Kōshi computes offsets with pure CSS Grid column-start lines: <code>[kos-offset="1"] &#123; grid-column-start: 2; &#125;</code>. No negative margins, no empty spacer elements.</p>
                       </div>
                     </div>
-                    <div kos-col-span="7" kos-offset="1" class="essay-content">
-                      <span class="topic">ESSAY · YOHAKU</span>
-                      <h3>The Eloquence of Empty Space</h3>
-                      <p>By introducing an intentional one-track offset (<code>kos-offset="1"</code>), the narrative text separates cleanly from the portrait container. The resulting gutter is not an accident—it is a calibrated pause that invites sustained reading.</p>
-                      <p>Kōshi computes offsets with pure CSS Grid column-start lines: <code>[kos-offset="1"] &#123; grid-column-start: 2; &#125;</code>. No negative margins, no empty spacer elements.</p>
-                    </div>
-                  </div>
-                </section>
+                  </section>
 
-                <!-- 06. Colophon Footer -->
-                <footer class="pub-footer">
-                  <span>THE LATTICE REVIEW · PUBLISHED BY STUDIO EIEN</span>
-                  <span>POWERED BY <a href="/docs/">KŌSHI CSS GRID</a></span>
-                </footer>
+                  <!-- 06. Colophon Footer -->
+                  <footer class="pub-footer">
+                    <span>THE LATTICE REVIEW · PUBLISHED BY STUDIO EIEN</span>
+                    <span>POWERED BY <a href="/docs/">KŌSHI CSS GRID</a></span>
+                  </footer>
+                </div>
               </div>
             </div>
           </div>
@@ -715,4 +755,45 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
       </article>
     </div>
   </div>
+
+  <!-- Interactive Responsive Preview Script -->
+  <script>
+    const stylesheetLinks = Array.from(
+      document.querySelectorAll<HTMLLinkElement | HTMLStyleElement>('link[rel="stylesheet"], style')
+    )
+      .map((node) => (node instanceof HTMLLinkElement ? `<link rel="stylesheet" href="${node.href}">` : node.outerHTML))
+      .join('');
+
+    document.querySelectorAll<HTMLElement>('[data-browser-preview]').forEach((preview) => {
+      const frame = preview.querySelector<HTMLIFrameElement>('[data-preview-iframe]');
+      const canvas = preview.querySelector<HTMLElement>('[data-preview-canvas]');
+      const switcher = preview.querySelector<HTMLElement>('.browser-preview__viewport-switcher');
+      if (!frame || !canvas) return;
+
+      const resizeFrame = () => {
+        try {
+          const doc = frame.contentDocument || frame.contentWindow?.document;
+          if (doc?.body) {
+            frame.style.height = (doc.body.scrollHeight + 36) + 'px';
+          }
+        } catch (e) {}
+      };
+
+      frame.onload = resizeFrame;
+      frame.srcdoc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${stylesheetLinks}<style>html,body{margin:0;padding:0;background:#f7f5f0;min-width:0;overflow-x:hidden}body{padding:clamp(16px,3vw,36px) clamp(12px,2.5vw,28px)}</style></head><body>${canvas.innerHTML}</body></html>`;
+
+      canvas.style.display = 'none';
+
+      if (switcher) {
+        switcher.querySelectorAll<HTMLButtonElement>('.view-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            switcher.querySelectorAll('.view-btn').forEach((b) => b.classList.remove('view-btn--active'));
+            btn.classList.add('view-btn--active');
+            frame.style.width = btn.dataset.view || '100%';
+            setTimeout(resizeFrame, 350);
+          });
+        });
+      }
+    });
+  </script>
 </SiteLayout>

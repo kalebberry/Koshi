@@ -541,6 +541,7 @@
 		grid-template-rows: auto;
 		display: flex;
 		flex-direction: column;
+		gap: var(--kos-subgrid-gap, 0.75rem);
 	}
 	.kos-composition[kos-collapse='sm'] > .kos-grid > [kos-offset] {
 		grid-column-start: auto;
@@ -560,6 +561,7 @@
 		grid-template-rows: auto;
 		display: flex;
 		flex-direction: column;
+		gap: var(--kos-subgrid-gap, 0.75rem);
 	}
 	.kos-composition:not([kos-collapse='sm']):not([kos-collapse='lg']):not([kos-collapse='none']) > .kos-grid > [kos-offset] {
 		grid-column-start: auto;
@@ -579,6 +581,7 @@
 		grid-template-rows: auto;
 		display: flex;
 		flex-direction: column;
+		gap: var(--kos-subgrid-gap, 0.75rem);
 	}
 	.kos-composition[kos-collapse='lg'] > .kos-grid > [kos-offset] {
 		grid-column-start: auto;
