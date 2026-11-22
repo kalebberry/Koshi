@@ -189,11 +189,34 @@
 		background: #252420;
 		color: #ede9e0;
 		padding: 20px;
-		overflow-x: auto;
+		padding-right: 84px;
+		overflow: auto;
+		max-height: 460px;
+		overscroll-behavior: contain;
 		font-size: 12px;
 		line-height: 1.65;
-		border-radius: 2px;
+		border-radius: 4px;
 		margin: 20px 0;
+		scrollbar-width: thin;
+		scrollbar-color: rgba(255, 255, 255, 0.25) #252420;
+
+		&::-webkit-scrollbar {
+			width: 6px;
+			height: 6px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: #252420;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: rgba(255, 255, 255, 0.22);
+			border-radius: 3px;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.38);
+			}
+		}
 	}
 }
 
@@ -330,8 +353,35 @@
 	background: #ebe8e1;
 	padding: clamp(8px, 1.5vw, 16px);
 	display: flex;
-	justify-content: center;
-	overflow-x: auto;
+	justify-content: safe center;
+	align-items: flex-start;
+	overflow: auto;
+	max-height: 560px;
+	overscroll-behavior: contain;
+	scrollbar-width: thin;
+	scrollbar-color: #c4bfb4 #ebe8e1;
+
+	&::-webkit-scrollbar {
+		width: 7px;
+		height: 7px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: #ebe8e1;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #c4bfb4;
+		border-radius: 4px;
+
+		&:hover {
+			background: #9d988d;
+		}
+	}
+
+	@media (max-width: 640px) {
+		max-height: 440px;
+	}
 }
 
 .browser-preview__iframe {
@@ -344,6 +394,7 @@
 	min-height: 0;
 	height: auto;
 	overflow: hidden;
+	flex-shrink: 0;
 }
 
 .browser-preview__canvas {
