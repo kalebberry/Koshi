@@ -1,7 +1,12 @@
 /**
- * Composition recipes are data, not Vue components or named website sections.
- * The grid attributes belong to Kōshi; the lab just explores combinations.
+ * Composition recipes are data structures, not Vue components or fixed site sections.
+ * The underlying grid attributes belong to Kōshi; the lab explores combinations.
  */
+
+// -----------------------------------------------------------------------------
+// Types & Interfaces
+// -----------------------------------------------------------------------------
+
 export type BlockKind = 'image' | 'text' | 'quote' | 'space';
 export type BlockHeight = 'short' | 'medium' | 'tall';
 
@@ -17,9 +22,28 @@ export interface Composition {
   rows: Block[][];
 }
 
-const b = (span: number, kind: BlockKind, height: BlockHeight = 'medium', offset?: number): Block =>
-  ({ span, kind, height, ...(offset ? { offset } : {}) });
+// -----------------------------------------------------------------------------
+// Recipe Construction Helpers
+// -----------------------------------------------------------------------------
 
+/**
+ * Concise helper for creating block objects with optional height and offset.
+ */
+const b = (
+  span: number,
+  kind: BlockKind,
+  height: BlockHeight = 'medium',
+  offset?: number
+): Block => ({
+  span,
+  kind,
+  height,
+  ...(offset ? { offset } : {}),
+});
+
+/**
+ * Curated composition recipes defined as matrix of row blocks across 12 tracks.
+ */
 const recipes: Block[][][] = [
   [[b(8, 'image', 'tall'), b(4, 'text')]],
   [[b(4, 'text'), b(8, 'image', 'tall')]],
@@ -41,6 +65,13 @@ const recipes: Block[][][] = [
   [[b(3, 'quote'), b(9, 'text')], [b(4, 'image'), b(8, 'image', 'tall')]],
 ];
 
+// -----------------------------------------------------------------------------
+// Randomization & Generation
+// -----------------------------------------------------------------------------
+
+/**
+ * Seeded pseudo-random number generator for reproducible study batches.
+ */
 function rng(seed: number): () => number {
   let state = seed >>> 0;
   return () => {
@@ -52,19 +83,30 @@ function rng(seed: number): () => number {
   };
 }
 
+/**
+ * Generate a deterministic batch of editorial compositions for the Composition Lab.
+ */
 export function generateCompositions(batch: number, count = 10): Composition[] {
   const random = rng(batch * 104729 + 17);
   const indices = recipes.map((_, i) => i);
+
+  // Fisher-Yates shuffle using seeded RNG
   for (let i = indices.length - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1));
     [indices[i], indices[j]] = [indices[j]!, indices[i]!];
   }
+
   return indices.slice(0, Math.min(count, recipes.length)).map((idx, i) => ({
     id: `study-${batch}-${i}-${idx}`,
     rows: recipes[idx]!.map((row) => row.map((block) => ({ ...block }))),
   }));
 }
 
+/**
+ * Human-readable signature summarizing the spans of a composition (e.g. "8 : 4 / 6 : 6").
+ */
 export function studySignature(composition: Composition): string {
-  return composition.rows.map((row) => row.map((block) => block.span).join(' : ')).join(' / ');
+  return composition.rows
+    .map((row) => row.map((block) => block.span).join(' : '))
+    .join(' / ');
 }

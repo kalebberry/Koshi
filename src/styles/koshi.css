@@ -1,15 +1,37 @@
 /**
- * Kōshi 格子 — portable, dependency-free CSS grid.
- * CSS class/attribute API follows the original plain-CSS grid reference.
- * Astro / Vue are only used by the accompanying Composition Lab.
+ * Kōshi 格子 — Portable, dependency-free CSS layout architecture.
+ *
+ * 01. TOKENS & RESET
+ * 02. GUTTER & PLACEMENT UTILITIES
+ * 03. CONTAINERS
+ * 04. CORE GRID ENGINE & ARBITRARY TRACKS
+ * 05. COLUMN & ROW SPANS
+ * 06. CSS SUBGRID (TRACK INHERITANCE)
+ * 07. ORDER & OFFSETS
+ * 08. FLEXBOX GRID SYSTEM
+ * 09. SPECIALIZED LAYOUTS (SIDEBAR & MASONRY)
+ * 10. QUERY CONTAINERS & VERTICAL FLOW
+ * 11. ASPECT RATIO FRAMING (ANTI-CLS & HAKUGIN-HI)
+ * 12. LATTICE VISUALIZER (DEBUG MODE)
+ * 13. RESPONSIVE COMPOSITIONS & TIERED CONTAINER QUERIES
+ * 14. MOBILE FALLBACKS
  */
+@layer kos-grid {
+
+/* -------------------------------------------------------------------------- */
+/* 01. TOKENS & RESET                                                         */
+/* -------------------------------------------------------------------------- */
+
 :root {
-	--grid-container-offset: 1rem;
+	--grid-container-offset: clamp(1rem, 3.5vw, 3.5rem);
 	--container-max-width-narrow: var(--kos-sys-size-desktop-sm, 48rem);
 	--container-max-width-default: var(--kos-sys-size-desktop-lg, 75rem);
 	--container-max-width-wide: var(--kos-sys-size-widescreen, 90rem);
 	--kos-gutter: 1.5rem;
 	--kos-grid-min-item-size: 16rem;
+	--kos-debug-color: hsl(354, 70%, 54%);
+	--kos-debug-bg: hsla(354, 70%, 54%, 0.04);
+	--kos-debug-border: hsla(354, 70%, 54%, 0.35);
 }
 
 *,
@@ -17,6 +39,10 @@
 *::after {
 	box-sizing: border-box;
 }
+
+/* -------------------------------------------------------------------------- */
+/* 02. GUTTER & PLACEMENT UTILITIES                                           */
+/* -------------------------------------------------------------------------- */
 
 .kos-gap-0 {
 	--kos-gutter: 0;
@@ -40,6 +66,10 @@
 	--kos-grid-placement: auto-fit;
 }
 
+/* -------------------------------------------------------------------------- */
+/* 03. CONTAINERS                                                             */
+/* -------------------------------------------------------------------------- */
+
 .kos-container {
 	--max-width: var(--container-max-width-default);
 	width: min(var(--max-width), calc(100% - var(--grid-container-offset)));
@@ -62,21 +92,10 @@
 	max-width: var(--container-max-width-default);
 	margin-inline: auto;
 }
-@media (min-width: 30rem) {
-	.kos-container {
-		--grid-container-offset: 1.5rem;
-	}
-}
-@media (min-width: 37.5rem) {
-	.kos-container {
-		--grid-container-offset: 2rem;
-	}
-}
-@media (min-width: 64rem) {
-	.kos-container {
-		--grid-container-offset: 3.5rem;
-	}
-}
+
+/* -------------------------------------------------------------------------- */
+/* 04. CORE GRID ENGINE & ARBITRARY TRACKS                                    */
+/* -------------------------------------------------------------------------- */
 
 .kos-grid {
 	display: grid;
@@ -132,6 +151,40 @@
 .kos-grid[kos-cols='12'] {
 	grid-template-columns: repeat(12, minmax(0, 1fr));
 }
+.kos-grid[kos-cols='16'] {
+	grid-template-columns: repeat(16, minmax(0, 1fr));
+}
+
+/* Arbitrary column and span counts via CSS custom properties */
+.kos-grid[style*='--kos-cols'],
+.kos-grid[kos-cols='custom'] {
+	grid-template-columns: repeat(var(--kos-cols, 12), minmax(0, 1fr));
+}
+[style*='--kos-col-span'],
+[kos-col-span='custom'] {
+	grid-column: span var(--kos-col-span, 1);
+}
+[style*='--kos-row-span'],
+[kos-row-span='custom'] {
+	grid-row: span var(--kos-row-span, 1);
+}
+
+/* Progressive enhancement: typed attr() for browsers supporting CSS Values & Units 5 (Chrome 133+) */
+@supports (grid-column: span attr(test type(<integer>), 1)) {
+	.kos-grid[kos-cols] {
+		grid-template-columns: repeat(attr(kos-cols type(<integer>), 12), minmax(0, 1fr));
+	}
+	.kos-grid > [kos-col-span] {
+		grid-column: span attr(kos-col-span type(<integer>), 1);
+	}
+	.kos-grid > [kos-row-span] {
+		grid-row: span attr(kos-row-span type(<integer>), 1);
+	}
+}
+
+/* -------------------------------------------------------------------------- */
+/* 05. COLUMN & ROW SPANS                                                     */
+/* -------------------------------------------------------------------------- */
 
 [kos-col-span='1'] {
 	grid-column: span 1;
@@ -182,6 +235,36 @@
 [kos-row-span='4'] {
 	grid-row: span 4;
 }
+[kos-row-span='5'] {
+	grid-row: span 5;
+}
+[kos-row-span='6'] {
+	grid-row: span 6;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 06. CSS SUBGRID (TRACK INHERITANCE)                                        */
+/* -------------------------------------------------------------------------- */
+
+[kos-subgrid],
+[kos-subgrid='rows'] {
+	display: grid;
+	grid-template-rows: subgrid;
+}
+[kos-subgrid='cols'] {
+	display: grid;
+	grid-template-columns: subgrid;
+}
+[kos-subgrid='both'] {
+	display: grid;
+	grid-template-rows: subgrid;
+	grid-template-columns: subgrid;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 07. ORDER & OFFSETS                                                        */
+/* -------------------------------------------------------------------------- */
+
 [kos-order='0'] {
 	order: 0;
 }
@@ -227,6 +310,10 @@
 [kos-offset='6'] {
 	grid-column-start: 7;
 }
+
+/* -------------------------------------------------------------------------- */
+/* 08. FLEXBOX GRID SYSTEM                                                    */
+/* -------------------------------------------------------------------------- */
 
 .kos-flex-grid {
 	display: flex;
@@ -290,6 +377,10 @@
 	flex-basis: 100%;
 }
 
+/* -------------------------------------------------------------------------- */
+/* 09. SPECIALIZED LAYOUTS (SIDEBAR & MASONRY)                                */
+/* -------------------------------------------------------------------------- */
+
 .kos-sidebar-grid {
 	display: grid;
 	grid-template-columns: minmax(0, var(--kos-sidebar-width, 16rem)) minmax(0, 1fr);
@@ -303,6 +394,23 @@
 	break-inside: avoid;
 	margin-bottom: var(--kos-gutter);
 }
+@supports (grid-template-rows: masonry) {
+	.kos-masonry-grid {
+		display: grid;
+		grid-template-columns: repeat(var(--kos-masonry-columns, 3), minmax(0, 1fr));
+		grid-template-rows: masonry;
+		gap: var(--kos-gutter);
+		columns: auto;
+	}
+	.kos-masonry-grid > * {
+		margin-bottom: 0;
+	}
+}
+
+/* -------------------------------------------------------------------------- */
+/* 10. QUERY CONTAINERS & VERTICAL FLOW                                       */
+/* -------------------------------------------------------------------------- */
+
 .kos-cq {
 	container-type: var(--kos-container-type, inline-size);
 	container-name: var(--kos-container-name, kos-cq);
@@ -316,25 +424,168 @@
 	display: block;
 }
 
-/* Explicit opt-in responsive layout; preserve fixed grids elsewhere. */
+/* -------------------------------------------------------------------------- */
+/* 11. ASPECT RATIO FRAMING (ANTI-CLS & HAKUGIN-HI)                            */
+/* -------------------------------------------------------------------------- */
+
+[kos-ratio='16/9'] {
+	aspect-ratio: 16 / 9;
+}
+[kos-ratio='4/3'] {
+	aspect-ratio: 4 / 3;
+}
+[kos-ratio='1/1'],
+[kos-ratio='square'] {
+	aspect-ratio: 1 / 1;
+}
+[kos-ratio='3/4'] {
+	aspect-ratio: 3 / 4;
+}
+[kos-ratio='golden'] {
+	aspect-ratio: 1.618 / 1;
+}
+[kos-ratio='silver'] {
+	aspect-ratio: 1 / 1.414;
+}
+:is(img, video)[kos-ratio],
+[kos-ratio] > :is(img, video, iframe, picture) {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 12. LATTICE VISUALIZER (DEBUG MODE)                                        */
+/* -------------------------------------------------------------------------- */
+
+[kos-debug].kos-grid,
+[kos-debug] .kos-grid,
+.kos-composition[kos-debug] {
+	outline: 1px dashed var(--kos-debug-color);
+	outline-offset: 2px;
+}
+
+[kos-debug].kos-grid > *,
+[kos-debug] .kos-grid > * {
+	position: relative;
+	outline: 1px solid var(--kos-debug-border);
+	background-color: var(--kos-debug-bg);
+}
+
+[kos-debug].kos-grid > [kos-col-span]::after,
+[kos-debug] .kos-grid > [kos-col-span]::after {
+	content: attr(kos-col-span) ' / 12';
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.65rem;
+	font-weight: 600;
+	line-height: 1;
+	padding: 2px 4px;
+	border-radius: 2px;
+	background: var(--kos-debug-color);
+	color: #fff;
+	pointer-events: none;
+	z-index: 10;
+	letter-spacing: 0.02em;
+}
+
+[kos-debug].kos-grid > [kos-subgrid]::after,
+[kos-debug] .kos-grid > [kos-subgrid]::after {
+	content: attr(kos-col-span) ' / 12 · subgrid';
+}
+
+[kos-debug].kos-grid > [kos-offset]::before,
+[kos-debug] .kos-grid > [kos-offset]::before {
+	content: 'offset ' attr(kos-offset);
+	position: absolute;
+	bottom: 4px;
+	left: 4px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.6rem;
+	line-height: 1;
+	padding: 2px 4px;
+	border-radius: 2px;
+	background: hsla(354, 70%, 54%, 0.15);
+	color: var(--kos-debug-color);
+	pointer-events: none;
+	z-index: 10;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 13. RESPONSIVE COMPOSITIONS & TIERED CONTAINER QUERIES                     */
+/* -------------------------------------------------------------------------- */
+
 .kos-composition {
 	container-type: inline-size;
 }
 .kos-composition > .kos-grid + .kos-grid {
 	margin-block-start: var(--kos-gutter);
 }
-@container (max-width: 48rem) {
-	.kos-composition > .kos-grid:is([kos-cols], :has(> [kos-col-span])) {
+
+/* sm (32rem) collapse */
+@container (max-width: 32rem) {
+	.kos-composition[kos-collapse='sm'] > .kos-grid:is([kos-cols], :has(> [kos-col-span])) {
 		grid-template-columns: minmax(0, 1fr);
 	}
-	.kos-composition > .kos-grid > [kos-col-span] {
+	.kos-composition[kos-collapse='sm'] > .kos-grid > [kos-col-span] {
 		grid-column: 1 / -1;
 		grid-row: auto;
 	}
-	.kos-composition > .kos-grid > [kos-offset] {
+	.kos-composition[kos-collapse='sm'] > .kos-grid > [kos-subgrid] {
+		grid-template-rows: auto;
+		display: flex;
+		flex-direction: column;
+	}
+	.kos-composition[kos-collapse='sm'] > .kos-grid > [kos-offset] {
 		grid-column-start: auto;
 	}
 }
+
+/* default & md (48rem) collapse */
+@container (max-width: 48rem) {
+	.kos-composition:not([kos-collapse='sm']):not([kos-collapse='lg']):not([kos-collapse='none']) > .kos-grid:is([kos-cols], :has(> [kos-col-span])) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.kos-composition:not([kos-collapse='sm']):not([kos-collapse='lg']):not([kos-collapse='none']) > .kos-grid > [kos-col-span] {
+		grid-column: 1 / -1;
+		grid-row: auto;
+	}
+	.kos-composition:not([kos-collapse='sm']):not([kos-collapse='lg']):not([kos-collapse='none']) > .kos-grid > [kos-subgrid] {
+		grid-template-rows: auto;
+		display: flex;
+		flex-direction: column;
+	}
+	.kos-composition:not([kos-collapse='sm']):not([kos-collapse='lg']):not([kos-collapse='none']) > .kos-grid > [kos-offset] {
+		grid-column-start: auto;
+	}
+}
+
+/* lg (64rem) collapse */
+@container (max-width: 64rem) {
+	.kos-composition[kos-collapse='lg'] > .kos-grid:is([kos-cols], :has(> [kos-col-span])) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.kos-composition[kos-collapse='lg'] > .kos-grid > [kos-col-span] {
+		grid-column: 1 / -1;
+		grid-row: auto;
+	}
+	.kos-composition[kos-collapse='lg'] > .kos-grid > [kos-subgrid] {
+		grid-template-rows: auto;
+		display: flex;
+		flex-direction: column;
+	}
+	.kos-composition[kos-collapse='lg'] > .kos-grid > [kos-offset] {
+		grid-column-start: auto;
+	}
+}
+
+/* -------------------------------------------------------------------------- */
+/* 14. MOBILE FALLBACKS                                                       */
+/* -------------------------------------------------------------------------- */
+
 @media (max-width: 40rem) {
 	.kos-sidebar-grid {
 		grid-template-columns: minmax(0, 1fr);
@@ -342,4 +593,11 @@
 	.kos-masonry-grid {
 		columns: 1;
 	}
+	@supports (grid-template-rows: masonry) {
+		.kos-masonry-grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
 }
+
+} /* end @layer kos-grid */

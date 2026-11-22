@@ -1,9 +1,21 @@
+/* ==========================================================================
+   Documentation Page Styles
+   ========================================================================== */
+
+/* Header Area
+   ========================================================================== */
+
 .docs-head {
 	padding-block: 85px 50px;
+
+	& .display {
+		font-size: clamp(46px, 6vw, 78px);
+	}
 }
-.docs-head .display {
-	font-size: clamp(46px, 6vw, 78px);
-}
+
+/* Two-Column Documentation Grid
+   ========================================================================== */
+
 .docs-layout {
 	display: grid;
 	grid-template-columns: minmax(170px, 220px) minmax(0, 920px);
@@ -11,94 +23,111 @@
 	align-items: start;
 	padding-bottom: 110px;
 	min-width: 0;
+
+	@media (max-width: 760px) {
+		grid-template-columns: minmax(0, 1fr);
+	}
 }
+
+/* Sticky Table of Contents
+   ========================================================================== */
+
 .docs-toc {
 	position: sticky;
 	top: 24px;
 	display: grid;
 	gap: 14px;
-}
-.docs-toc a {
-	color: #716d65;
-	font-size: 12px;
-	text-decoration: none;
-}
-.docs-toc a:hover {
-	color: #25231f;
-	text-decoration: underline;
-}
-.docs-body,
-.docs-body section {
-	min-width: 0;
-}
-.docs-body section {
-	padding: 0 0 45px;
-	margin-bottom: 45px;
-	border-bottom: 1px solid #d8d5cc;
-	scroll-margin-top: 25px;
-}
-.docs-body h2 {
-	font: 400 34px var(--font-heading);
-	margin: 0 0 20px;
-}
-.docs-body h3 {
-	font-size: 16px;
-	margin-top: 28px;
-}
-.docs-body p,
-.docs-body li {
-	color: #67645d;
-	line-height: 1.85;
-	font-size: 14px;
-	overflow-wrap: break-word;
-}
-.docs-body code:not(pre code) {
-	font-size: 12px;
-	background: #e9e6df;
-	padding: 2px 5px;
-}
-.docs-body pre {
-	background: #292823;
-	color: #eeeae1;
-	padding: 24px;
-	max-width: 100%;
-	overflow-x: auto;
-	font:
-		12px/1.75 ui-monospace,
-		monospace;
-}
-.docs-body pre code {
-	white-space: pre;
-}
-.docs-body table {
-	border-collapse: collapse;
-	display: block;
-	max-width: 100%;
-	width: 100%;
-	overflow-x: auto;
-	-webkit-overflow-scrolling: touch;
-	font-size: 13px;
-}
-.docs-body td,
-.docs-body th {
-	padding: 12px 8px;
-	border-bottom: 1px solid #d6d2ca;
-	text-align: left;
-}
-.docs-body td {
-	color: #66635c;
-}
-@media (max-width: 760px) {
-	.docs-layout {
-		grid-template-columns: minmax(0, 1fr);
+
+	& a {
+		color: #716d65;
+		font-size: 12px;
+		text-decoration: none;
+
+		&:hover {
+			color: #25231f;
+			text-decoration: underline;
+		}
 	}
-	.docs-toc {
+
+	@media (max-width: 760px) {
 		position: static;
 		display: flex;
 		flex-wrap: wrap;
 		min-width: 0;
 	}
-	.docs-body pre {
-		padding: 16px;
+}
+
+/* Main Documentation Article
+   ========================================================================== */
+
+.docs-body {
+	min-width: 0;
+
+	& section {
+		min-width: 0;
+		padding: 0 0 45px;
+		margin-bottom: 45px;
+		border-bottom: 1px solid #d8d5cc;
+		scroll-margin-top: 25px;
+	}
+
+	& h2 {
+		font: 400 34px var(--font-heading);
+		margin: 0 0 20px;
+	}
+
+	& h3 {
+		font-size: 16px;
+		margin-top: 28px;
+	}
+
+	& p,
+	& li {
+		color: #67645d;
+		line-height: 1.85;
+		font-size: 14px;
+		overflow-wrap: break-word;
+	}
+
+	& code:not(pre code) {
+		font-size: 12px;
+		background: #e9e6df;
+		padding: 2px 5px;
+	}
+
+	& pre {
+		background: #292823;
+		color: #eeeae1;
+		padding: 24px;
+		max-width: 100%;
+		overflow-x: auto;
+		font:
+			12px/1.75 ui-monospace,
+			monospace;
+
+		& code {
+			white-space: pre;
+		}
+	}
+
+	& table {
+		border-collapse: collapse;
+		display: block;
+		max-width: 100%;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		font-size: 13px;
+
+		& td,
+		& th {
+			padding: 12px 8px;
+			border-bottom: 1px solid #d6d2ca;
+			text-align: left;
+		}
+
+		& td {
+			color: #66635c;
+		}
 	}
 }

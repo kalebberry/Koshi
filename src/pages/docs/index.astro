@@ -7,18 +7,24 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
       <span class="eyebrow">Kōshi / Reference 001</span>
       <h1 class="display">Documentation.</h1>
       <p class="lead">The essentials of Kōshi's framework-independent CSS grid. Designed to be understood, copied, and adapted.</p>
-      <div class="actions"><a class="action action-primary" href="/downloads/koshi.css" download="koshi.css">Download koshi.css ↓</a><a class="action action-outline" href="https://github.com/kalebberry/koshi">Source on GitHub ↗</a></div>
+      <div class="actions">
+        <a class="action action-primary" href="/downloads/koshi.css" download="koshi.css">Download koshi.css ↓</a>
+        <a class="action action-outline" href="https://github.com/kalebberry/koshi">Source on GitHub ↗</a>
+      </div>
     </header>
     <div class="docs-layout">
       <nav class="docs-toc" aria-label="Documentation sections">
         <span class="eyebrow">ON THIS PAGE</span>
         <a href="#system">Understanding the system</a>
-        <a href="#installation">Installation</a>
+        <a href="#installation">Installation & cascade layers</a>
         <a href="#containers">Containers</a>
         <a href="#columns">Columns & spans</a>
+        <a href="#subgrid">Subgrid alignment</a>
         <a href="#gaps">Gutters</a>
         <a href="#offsets">Offsets</a>
         <a href="#responsive">Responsive compositions</a>
+        <a href="#ratios">Aspect ratios</a>
+        <a href="#visualizer">Lattice visualizer</a>
         <a href="#flex">Flexbox & intrinsic grids</a>
         <a href="#utilities">Other utilities</a>
       </nav>
@@ -115,10 +121,17 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
           <p class="docs-small-note">Use automatic grids for flexible collections; use spans for deliberate 12-part compositions. Both are plain CSS.</p>
         </section>
         <section id="installation">
-          <h2>Installation</h2>
+          <h2>Installation & cascade layers</h2>
           <p>Download the standalone CSS file and serve it from your project. Kōshi requires no framework, JavaScript, or build step.</p>
-          <pre><code>{`<link rel="stylesheet" href="/css/koshi.css" />`}</code></pre>
+          <pre><code>{`<link rel="stylesheet" href="/downloads/koshi.css" />`}</code></pre>
           <p>For an Astro project, you can instead import the source stylesheet directly from <code>src/styles/koshi.css</code>. The Composition Lab itself uses Vue, but the grid system does not.</p>
+          <h3>Cascade Layer Integration</h3>
+          <p>Kōshi's rules are enclosed in <code>@layer kos-grid</code>. This allows modern web applications using CSS cascade layers to integrate Kōshi into their layer priority hierarchy with zero specificity conflicts:</p>
+          <pre><code>{`/* Define your application's cascade layer order */
+@layer reset, kos-grid, components, utilities;
+
+@import url("/downloads/koshi.css") layer(kos-grid);`}</code></pre>
+          <p>Standalone unlayered stylesheets can override Kōshi rules naturally without resorting to <code>!important</code>.</p>
         </section>
         <section id="containers">
           <h2>Containers</h2>
@@ -127,16 +140,87 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 <div class="kos-container" container-type="narrow">Narrow</div>
 <div class="kos-container" container-type="wide">Wide</div>
 <div class="kos-container" container-type="full-bleed">Full bleed</div>`}</code></pre>
-          <p>Default maximum widths are 75rem (default), 48rem (narrow), and 90rem (wide). They can be overridden with CSS custom properties.</p>
+          <p>Default maximum widths are 75rem (default), 48rem (narrow), and 90rem (wide). Edge gutters scale continuously via <code>clamp(1rem, 3.5vw, 3.5rem)</code> without abrupt media-query jumps. Maximum widths and offsets can be customized with CSS custom properties.</p>
         </section>
         <section id="columns">
           <h2>Columns & spans</h2>
-          <p>By default, <code>.kos-grid</code> creates an intrinsic auto-fit layout. Adding <code>kos-col-span</code> to a direct child automatically switches the grid to twelve proportional tracks, without needing <code>kos-cols="12"</code>. Use <code>kos-cols</code> only when you want to explicitly choose a fixed track count from 1 to 12. A span of 12 fills all twelve tracks, and combinations such as 8 + 4 fill a complete row.</p>
+          <p>By default, <code>.kos-grid</code> creates an intrinsic auto-fit layout. Adding <code>kos-col-span</code> to a direct child automatically switches the grid to twelve proportional tracks, without needing <code>kos-cols="12"</code>. Use <code>kos-cols</code> to explicitly choose a fixed track count from 1 to 12 (plus widescreen 16).</p>
           <pre><code>{`<div class="kos-grid" kos-cols="12">
   <article kos-col-span="8">Main</article>
   <aside kos-col-span="4">Aside</aside>
 </div>`}</code></pre>
           <p>Explicit column counts remain fixed unless you opt into a responsive composition context. Narrow viewports may need an appropriate responsive wrapper.</p>
+
+          <h3>Beyond 12 Columns: Arbitrary Tracks</h3>
+          <p>Need 16 columns for widescreen dashboards, 24 for dense Swiss typography, or an unusual number of tracks? Kōshi provides two ways to break out of the 12-column foundation without SCSS or build steps:</p>
+          
+          <h4>1. Universal CSS Variable Pipeline (All Browsers)</h4>
+          <p>Set <code>--kos-cols</code> on the grid and <code>--kos-col-span</code> on any item. This works in 100% of browsers today with zero dependencies:</p>
+          <pre><code>{`<!-- 16-column widescreen dashboard -->
+<div class="kos-grid" style="--kos-cols: 16">
+  <main style="--kos-col-span: 11">Main content (11 of 16)</main>
+  <aside style="--kos-col-span: 5">Sidebar (5 of 16)</aside>
+</div>`}</code></pre>
+
+          <h4>2. Progressive Enhancement with Typed <code>attr()</code> (Chrome 133+)</h4>
+          <p>In browsers supporting modern <strong>CSS Values and Units Level 5</strong>, Kōshi automatically parses integer attribute values natively without hardcoded classes:</p>
+          <pre><code>{`<!-- Automatically resolves dynamic integer counts in modern browsers -->
+<div class="kos-grid" kos-cols="16">
+  <div kos-col-span="10">10 tracks</div>
+  <div kos-col-span="6">6 tracks</div>
+</div>`}</code></pre>
+          <p class="docs-small-note">For guaranteed cross-browser consistency across legacy Safari and Firefox, use the <code>style="--kos-cols: N"</code> custom property pattern for arbitrary tracks beyond 12.</p>
+        </section>
+        <section id="subgrid">
+          <h2>Subgrid alignment</h2>
+          <p>
+            When building cards side-by-side, differing headline lengths and paragraph copy usually push action buttons down unevenly. Native CSS Subgrid solves this by letting nested card elements participate directly in the parent grid's tracks.
+          </p>
+          <p>
+            Add <code>kos-subgrid</code> (or <code>kos-subgrid="rows"</code>) along with <code>kos-row-span="3"</code> to each card. Notice in the live example below how every headline row, body text block, and bottom action link locks onto the exact same horizontal alignment across all three columns—regardless of how much text is inside:
+          </p>
+
+          <div class="docs-subgrid-demo">
+            <div class="kos-grid" kos-cols="3">
+              <article kos-col-span="1" kos-row-span="3" kos-subgrid class="docs-subgrid-card">
+                <h4>01 / Concise Thought</h4>
+                <p>A compact single-sentence thought.</p>
+                <a href="#subgrid" class="docs-subgrid-action">Explore track ↗</a>
+              </article>
+              <article kos-col-span="1" kos-row-span="3" kos-subgrid class="docs-subgrid-card">
+                <h4>02 / Variable Multi-Line Headline Across Columns</h4>
+                <p>Card descriptions and headings frequently vary in length. Subgrid guarantees that neighboring rows expand to match the tallest sibling automatically.</p>
+                <a href="#subgrid" class="docs-subgrid-action">Explore track ↗</a>
+              </article>
+              <article kos-col-span="1" kos-row-span="3" kos-subgrid class="docs-subgrid-card">
+                <h4>03 / Balanced Baseline</h4>
+                <p>The action links below are perfectly locked to the same horizontal line.</p>
+                <a href="#subgrid" class="docs-subgrid-action">Explore track ↗</a>
+              </article>
+            </div>
+          </div>
+
+          <pre><code>{`<div class="kos-grid" kos-cols="3">
+  <!-- Each card spans 3 rows and participates in parent row tracks -->
+  <article kos-col-span="1" kos-row-span="3" kos-subgrid class="card">
+    <h4>Short Title</h4>
+    <p>Compact copy.</p>
+    <a href="#">Action ↗</a>
+  </article>
+
+  <article kos-col-span="1" kos-row-span="3" kos-subgrid class="card">
+    <h4>Much Longer Headline Across Multiple Lines</h4>
+    <p>Longer body copy that expands row 2 for all cards...</p>
+    <a href="#">Action ↗</a>
+  </article>
+
+  <article kos-col-span="1" kos-row-span="3" kos-subgrid class="card">
+    <h4>Balanced Form</h4>
+    <p>Aligned automatically via native CSS Subgrid tracks.</p>
+    <a href="#">Action ↗</a>
+  </article>
+</div>`}</code></pre>
+          <p class="docs-small-note">Subgrid requires the element to span multiple tracks on the parent grid (e.g. <code>kos-row-span="3"</code>). Use <code>kos-subgrid="cols"</code> to inherit column tracks instead, or <code>kos-subgrid="both"</code> for full 2D track synchronization.</p>
         </section>
         <section id="gaps">
           <h2>Gutters</h2>
@@ -155,14 +239,99 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
         </section>
         <section id="responsive">
           <h2>Responsive compositions</h2>
-          <p>Add <code>.kos-composition</code> around one or more fixed grids to opt into container-query responsiveness. Below a 48rem containing width, each direct child stacks into a single column.</p>
+          <p>Add <code>.kos-composition</code> around one or more fixed grids to opt into container-query responsiveness. Direct child columns stack into a single column according to the container's width, not the global viewport.</p>
           <pre><code>{`<section class="kos-composition">
   <div class="kos-grid" kos-cols="12">
     <div kos-col-span="7">Visual</div>
     <div kos-col-span="5">Copy</div>
   </div>
 </section>`}</code></pre>
-          <p>This opt-in behavior leaves other fixed grids unchanged. It responds to the composition container, not just the viewport.</p>
+          <h3>Tiered Collapse Breakpoints</h3>
+          <p>Control exactly when stacking occurs with <code>kos-collapse</code>:</p>
+          <ul>
+            <li><code>kos-collapse="sm"</code>: Collapses at <strong>32rem</strong> (compact widgets, card containers).</li>
+            <li>Default / <code>kos-collapse="md"</code>: Standard collapse at <strong>48rem</strong>.</li>
+            <li><code>kos-collapse="lg"</code>: Collapses early at <strong>64rem</strong> (dense multi-track layouts).</li>
+            <li><code>kos-collapse="none"</code>: Prevents stacking entirely, preserving fixed columns at all container sizes.</li>
+          </ul>
+          <pre><code>{`<!-- Small container collapse (e.g. sidebar widget) -->
+<section class="kos-composition" kos-collapse="sm">
+  <div class="kos-grid" kos-cols="3">...</div>
+</section>
+
+<!-- Fixed layout that never collapses -->
+<section class="kos-composition" kos-collapse="none">
+  <div class="kos-grid" kos-cols="4">...</div>
+</section>`}</code></pre>
+          <p>This opt-in behavior leaves other fixed grids unchanged and respects container boundaries wherever the composition is embedded.</p>
+        </section>
+        <section id="ratios">
+          <h2>Aspect ratio framing</h2>
+          <p>Prevent Cumulative Layout Shift (CLS) and maintain visual cadence using <code>kos-ratio</code>. Useful on image containers, video embeds, and editorial hero slots.</p>
+          <div class="docs-ratio-demo">
+            <div class="kos-grid" style="--kos-grid-min-item-size: 130px; --kos-gutter: 14px">
+              <div kos-ratio="16/9" class="docs-ratio-card">
+                <strong>16 / 9</strong>
+                <span>Widescreen · 1.77:1</span>
+              </div>
+              <div kos-ratio="4/3" class="docs-ratio-card">
+                <strong>4 / 3</strong>
+                <span>Classic · 1.33:1</span>
+              </div>
+              <div kos-ratio="1/1" class="docs-ratio-card">
+                <strong>1 / 1</strong>
+                <span>Square · 1:1</span>
+              </div>
+              <div kos-ratio="silver" class="docs-ratio-card">
+                <strong>Silver</strong>
+                <span>Compact · 1:1.414</span>
+              </div>
+              <div kos-ratio="golden" class="docs-ratio-card">
+                <strong>Golden</strong>
+                <span>Portrait · 1.618:1</span>
+              </div>
+            </div>
+          </div>
+          <pre><code>{`<!-- Media container with aspect-ratio framing -->
+<div kos-ratio="16/9">
+  <img src="/visual.webp" alt="Editorial scene" />
+</div>
+
+<!-- Silver ratio portrait / column card (1:1.414) -->
+<article kos-col-span="4" kos-ratio="silver">
+  <img src="/portrait.webp" alt="Feature portrait" />
+</article>
+
+<!-- Golden ratio framing (1.618:1) -->
+<article kos-col-span="4" kos-ratio="golden">
+  <img src="/editorial.webp" alt="Editorial feature" />
+</article>`}</code></pre>
+          <p>Available values: <code>16/9</code>, <code>4/3</code>, <code>1/1</code> (or <code>square</code>), <code>3/4</code>, <code>golden</code> (1.618:1), and <code>silver</code> (1:1.414). Inner media automatically expands to fill the container with <code>object-fit: cover</code>.</p>
+        </section>
+        <section id="visualizer">
+          <h2>Lattice visualizer (Debug mode)</h2>
+          <p>Kōshi includes a zero-JavaScript visual debugging mode. Add the <code>kos-debug</code> attribute to any grid or composition to project subtle <em>Shu-iro</em> (traditional Japanese cinnabar red) lattice guides and automatic track badges across children.</p>
+          <div class="docs-composition-demo">
+            <div class="kos-composition" kos-debug>
+              <div class="kos-grid docs-block-grid" kos-cols="12">
+                <div kos-col-span="8" class="docs-block docs-block--feature"><span>FEATURE / 08</span><strong>Lattice visualizer active.</strong></div>
+                <div kos-col-span="4" class="docs-block docs-block--light docs-block--feature"><span>SIDEBAR / 04</span><strong>Automatic badge tags.</strong></div>
+              </div>
+              <div class="kos-grid docs-block-grid" kos-cols="12">
+                <div kos-col-span="4" class="docs-block">01 / 04</div>
+                <div kos-col-span="4" class="docs-block docs-block--light">02 / 04</div>
+                <div kos-col-span="4" class="docs-block">03 / 04</div>
+              </div>
+            </div>
+          </div>
+          <pre><code>{`<!-- Add kos-debug while designing; remove for production -->
+<section class="kos-composition" kos-debug>
+  <div class="kos-grid">
+    <div kos-col-span="8">Feature</div>
+    <div kos-col-span="4">Sidebar</div>
+  </div>
+</section>`}</code></pre>
+          <p>Every column card automatically displays its track span (e.g. <code>08 / 12</code>) in a non-destructive overlay that doesn't affect page layout or pointer events.</p>
         </section>
         <section id="flex">
           <h2>Flexbox & intrinsic grids</h2>
@@ -180,15 +349,68 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
         </section>
         <section id="utilities">
           <h2>Other utilities</h2>
-          <table><thead><tr><th>API</th><th>Purpose</th></tr></thead><tbody>
-            <tr><td><code>kos-row-span="1"–"4"</code></td><td>Span CSS Grid rows</td></tr>
-            <tr><td><code>kos-order="-4"–"4"</code></td><td>Set visual order</td></tr>
-            <tr><td><code>kos-grow="0"–"3"</code></td><td>Flex grow values in a flex grid</td></tr>
-            <tr><td><code>.kos-sidebar-grid</code></td><td>Sidebar plus main content</td></tr>
-            <tr><td><code>.kos-masonry-grid</code></td><td>Multi-column masonry-like flow</td></tr>
-            <tr><td><code>.kos-cq</code></td><td>Named CSS query container</td></tr>
-            <tr><td><code>.kos-flow</code></td><td>Vertical rhythm between children</td></tr>
-          </tbody></table>
+          <table>
+            <thead>
+              <tr>
+                <th>API</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>kos-cols="1"–"12" | "16"</code></td>
+                <td>Fixed column track counts</td>
+              </tr>
+              <tr>
+                <td><code>--kos-cols / --kos-col-span</code></td>
+                <td>Arbitrary custom column and span counts (e.g. 16, 24) without SCSS</td>
+              </tr>
+              <tr>
+                <td><code>kos-row-span="1"–"6"</code></td>
+                <td>Span CSS Grid rows</td>
+              </tr>
+              <tr>
+                <td><code>kos-subgrid="rows|cols|both"</code></td>
+                <td>Inherit parent grid tracks (CSS Subgrid)</td>
+              </tr>
+              <tr>
+                <td><code>kos-collapse="sm|md|lg|none"</code></td>
+                <td>Container query collapse breakpoint for .kos-composition</td>
+              </tr>
+              <tr>
+                <td><code>kos-ratio="16/9|4/3|1/1|3/4|golden|silver"</code></td>
+                <td>Aspect ratio framing and anti-CLS media fitting (including Silver 1:1.414)</td>
+              </tr>
+              <tr>
+                <td><code>kos-debug</code></td>
+                <td>Project pure-CSS lattice guides and column span badges</td>
+              </tr>
+              <tr>
+                <td><code>kos-order="-4"–"4"</code></td>
+                <td>Set visual order</td>
+              </tr>
+              <tr>
+                <td><code>kos-grow="0"–"3"</code></td>
+                <td>Flex grow values in a flex grid</td>
+              </tr>
+              <tr>
+                <td><code>.kos-sidebar-grid</code></td>
+                <td>Sidebar plus main content</td>
+              </tr>
+              <tr>
+                <td><code>.kos-masonry-grid</code></td>
+                <td>Multi-column masonry with progressive enhancement to native CSS Grid masonry</td>
+              </tr>
+              <tr>
+                <td><code>.kos-cq</code></td>
+                <td>Named CSS query container</td>
+              </tr>
+              <tr>
+                <td><code>.kos-flow</code></td>
+                <td>Vertical rhythm between children</td>
+              </tr>
+            </tbody>
+          </table>
           <p>See the source stylesheet for the complete available selectors. Kōshi is currently an early release; the API may evolve.</p>
         </section>
       </article>

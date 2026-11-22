@@ -1,3 +1,10 @@
+/* ==========================================================================
+   Home Page Styles
+   ========================================================================== */
+
+/* Typography & Hero
+   ========================================================================== */
+
 .eyebrow {
 	color: #817d73;
 	font-size: 10px;
@@ -5,30 +12,44 @@
 	letter-spacing: 0.17em;
 	text-transform: uppercase;
 }
+
 .display {
 	font: 400 clamp(49px, 8vw, 112px)/1.05 var(--font-heading);
 	letter-spacing: -0.055em;
 	margin: 22px 0 26px;
+
+	& em {
+		color: #8c887f;
+		font-weight: 400;
+	}
+
+	@media (max-width: 760px) {
+		font-size: clamp(38px, 10vw, 64px);
+		overflow-wrap: anywhere;
+	}
 }
-.display em {
-	color: #8c887f;
-	font-weight: 400;
-}
+
 .lead {
 	max-width: 540px;
 	font-size: 15px;
 	line-height: 1.85;
 	color: #6f6c64;
 }
+
 .hero-section {
 	padding-block: clamp(76px, 12vw, 155px) clamp(70px, 10vw, 125px);
 }
+
+/* Call to Action Buttons
+   ========================================================================== */
+
 .actions {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 12px;
 	margin-top: 34px;
 }
+
 .action {
 	display: inline-flex;
 	align-items: center;
@@ -39,34 +60,51 @@
 	font-size: 12px;
 	font-weight: 600;
 	min-height: 44px;
+
+	&-primary {
+		background: #25231f;
+		color: white;
+
+		&:hover {
+			background: #49463f;
+		}
+	}
+
+	&-outline:hover {
+		background: #e9e6de;
+	}
 }
-.action-primary {
-	background: #25231f;
-	color: white;
-}
-.action-primary:hover {
-	background: #49463f;
-}
-.action-outline:hover {
-	background: #e9e6de;
-}
+
+/* Section Headings
+   ========================================================================== */
+
 .section-label {
 	border-top: 1px solid #d8d5cc;
 	padding-top: 25px;
 	display: flex;
 	justify-content: space-between;
 	gap: 16px;
+
+	@media (max-width: 760px) {
+		flex-wrap: wrap;
+	}
 }
+
 .section-title {
 	font: 400 clamp(32px, 4vw, 56px)/1.2 var(--font-heading);
 	letter-spacing: -0.035em;
 	margin: 18px 0 24px;
 }
+
+/* 01 / Interactive Grid Demonstration
+   ========================================================================== */
+
 .grid-demonstration {
 	background: #edeae3;
 	padding: clamp(20px, 4vw, 54px);
 	margin-block: 34px 100px;
 }
+
 .demo-meta {
 	display: flex;
 	justify-content: space-between;
@@ -75,36 +113,63 @@
 	font-size: 10px;
 	color: #777269;
 	letter-spacing: 0.12em;
+
+	@media (max-width: 760px) {
+		flex-wrap: wrap;
+	}
 }
+
 .demo-grid {
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
 	gap: 8px;
 	min-height: 240px;
+
+	& span {
+		font: 400 clamp(23px, 4vw, 48px) var(--font-heading);
+	}
+
+	& .feature {
+		grid-column: span 8;
+		background: #b8b4ab;
+		padding: 24px;
+		display: flex;
+		align-items: end;
+	}
+
+	& .aside {
+		grid-column: span 4;
+		background: #d5d0c6;
+		padding: 24px;
+		display: flex;
+		align-items: end;
+	}
+
+	@media (max-width: 760px) {
+		min-height: auto;
+
+		& .feature,
+		& .aside {
+			grid-column: 1 / -1;
+			min-height: 140px;
+		}
+	}
 }
-.demo-grid .feature {
-	grid-column: span 8;
-	background: #b8b4ab;
-	padding: 24px;
-	display: flex;
-	align-items: end;
-}
-.demo-grid .aside {
-	grid-column: span 4;
-	background: #d5d0c6;
-	padding: 24px;
-	display: flex;
-	align-items: end;
-}
-.demo-grid span {
-	font: 400 clamp(23px, 4vw, 48px) var(--font-heading);
-}
+
+/* 02 / Feature Links Grid
+   ========================================================================== */
+
 .feature-links {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 14px;
 	margin-block: 35px 115px;
+
+	@media (max-width: 760px) {
+		grid-template-columns: 1fr;
+	}
 }
+
 .feature-link {
 	border: 1px solid #d6d2ca;
 	background: #fbfaf7;
@@ -114,67 +179,54 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+
+	&:hover {
+		border-color: #25231f;
+	}
+
+	& .number {
+		font-size: 11px;
+		color: #8b867c;
+		letter-spacing: 0.12em;
+	}
+
+	& h3 {
+		font: 400 30px var(--font-heading);
+		margin: 0 0 12px;
+	}
+
+	& p {
+		font-size: 13px;
+		line-height: 1.7;
+		color: #747068;
+		margin: 0;
+	}
+
+	@media (max-width: 760px) {
+		min-height: 170px;
+	}
 }
-.feature-link:hover {
-	border-color: #25231f;
-}
-.feature-link .number {
-	font-size: 11px;
-	color: #8b867c;
-	letter-spacing: 0.12em;
-}
-.feature-link h3 {
-	font: 400 30px var(--font-heading);
-	margin: 0 0 12px;
-}
-.feature-link p {
-	font-size: 13px;
-	line-height: 1.7;
-	color: #747068;
-	margin: 0;
-}
+
+/* 03 / Get Started Section
+   ========================================================================== */
+
 .code-sample {
 	padding: 26px;
 	background: #292823;
 	color: #eeece5;
 	max-width: 100%;
 	overflow-x: auto;
-	font:
-		12px/1.8 ui-monospace,
-		SFMono-Regular,
-		Consolas,
-		monospace;
-}
-.code-sample code {
-	white-space: pre;
-}
-.start-section {
-	padding-bottom: 115px;
-}
-@media (max-width: 760px) {
-	.display {
-		font-size: clamp(38px, 10vw, 64px);
-		overflow-wrap: anywhere;
+	font: 12px/1.8 ui-monospace, SFMono-Regular, Consolas, monospace;
+
+	& code {
+		white-space: pre;
 	}
-	.section-label,
-	.demo-meta {
-		flex-wrap: wrap;
-	}
-	.feature-links {
-		grid-template-columns: 1fr;
-	}
-	.feature-link {
-		min-height: 170px;
-	}
-	.demo-grid {
-		min-height: auto;
-	}
-	.demo-grid .feature,
-	.demo-grid .aside {
-		grid-column: 1 / -1;
-		min-height: 140px;
-	}
-	.code-sample {
+
+	@media (max-width: 760px) {
 		padding: 16px;
 	}
+}
+
+.start-section {
+	padding-bottom: 115px;
 }

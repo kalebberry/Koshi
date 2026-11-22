@@ -1,62 +1,109 @@
+/* ==========================================================================
+   Composition Lab Styles
+   ========================================================================== */
+
+/* -----------------------------------------------------------------------------
+   01. Document & Base Defaults
+   ----------------------------------------------------------------------------- */
+
 :root {
 	font-family: var(--font-body);
 	color: #23231f;
 	background: #f7f5f0;
 	font-synthesis: none;
 }
+
 body {
 	margin: 0;
+	max-width: 100%;
 }
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 button,
 input {
 	font: inherit;
+
+	&:focus-visible {
+		outline: 2px solid #252522;
+		outline-offset: 3px;
+	}
 }
+
 button {
 	cursor: pointer;
 }
-button:focus-visible,
-input:focus-visible {
-	outline: 2px solid #252522;
-	outline-offset: 3px;
-}
+
+/* -----------------------------------------------------------------------------
+   02. Sub-Navigation Strip
+   ----------------------------------------------------------------------------- */
+
 .lab-nav-strip {
 	padding-block: 1.5rem;
 	border-bottom: 1px solid #d5d3cc;
+
+	& a {
+		display: inline-flex;
+		gap: 1rem;
+		align-items: center;
+		font-size: 0.875rem;
+		text-underline-offset: 0.35rem;
+	}
 }
-.lab-nav-strip a {
-	display: inline-flex;
-	gap: 1rem;
-	align-items: center;
-	font-size: 0.875rem;
-	text-underline-offset: 0.35rem;
-}
+
+/* -----------------------------------------------------------------------------
+   03. Layout Shell
+   ----------------------------------------------------------------------------- */
+
 .lab-shell {
 	width: min(100% - clamp(2rem, 8vw, 8rem), 1360px);
 	margin: auto;
+	min-width: 0;
+
+	@media (max-width: 740px) {
+		width: min(100% - 36px, 1360px);
+	}
 }
-.site-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 30px 0 20px;
-	border-bottom: 1px solid #d5d3cc;
-	gap: 18px;
+
+/* -----------------------------------------------------------------------------
+   04. Hero Section
+   ----------------------------------------------------------------------------- */
+
+.hero {
+	padding: clamp(70px, 10vw, 140px) 0 clamp(64px, 8vw, 100px);
+
+	& h1 {
+		font: 400 clamp(46px, 7.4vw, 112px)/1.05 var(--font-heading);
+		letter-spacing: -0.055em;
+		margin: 24px 0 26px;
+		overflow-wrap: anywhere;
+
+		& em {
+			font-weight: 400;
+			color: #858078;
+		}
+	}
+
+	& p {
+		font-size: 15px;
+		max-width: 520px;
+		color: #68665f;
+		line-height: 1.8;
+	}
+
+	@media (max-width: 740px) {
+		padding-top: 80px;
+	}
 }
-.wordmark {
-	display: flex;
-	align-items: baseline;
-	gap: 12px;
-	letter-spacing: 0.14em;
-	font-size: 13px;
-	font-weight: 600;
-}
-.wordmark .kanji {
-	font-family: var(--font-heading);
-	font-weight: 400;
-	font-size: 31px;
-	letter-spacing: 0;
-}
-.header-meta,
+
+/* -----------------------------------------------------------------------------
+   05. Shared Section Headings & Buttons
+   ----------------------------------------------------------------------------- */
+
 .overline {
 	font-size: 10px;
 	letter-spacing: 0.16em;
@@ -64,40 +111,31 @@ input:focus-visible {
 	font-weight: 600;
 	color: #79776f;
 }
-.header-divider {
-	padding: 0 12px;
-	color: #bdbab1;
-}
-.hero {
-	padding: clamp(70px, 10vw, 140px) 0 clamp(64px, 8vw, 100px);
-}
-.hero h1 {
-	font: 400 clamp(46px, 7.4vw, 112px)/1.05 var(--font-heading);
-	letter-spacing: -0.055em;
-	margin: 24px 0 26px;
-}
-.hero h1 em {
-	font-weight: 400;
-	color: #858078;
-}
-.hero p {
-	font-size: 15px;
-	max-width: 520px;
-	color: #68665f;
-	line-height: 1.8;
-}
+
 .section-heading {
 	display: flex;
 	justify-content: space-between;
 	align-items: end;
 	gap: 24px;
 	padding: 0 0 26px;
+
+	& h2 {
+		font: 400 clamp(30px, 4vw, 52px)/1.15 var(--font-heading);
+		letter-spacing: -0.03em;
+		margin: 12px 0 0;
+		overflow-wrap: anywhere;
+	}
+
+	&--detail {
+		margin-bottom: 0;
+	}
+
+	@media (max-width: 740px) {
+		align-items: start;
+		flex-direction: column;
+	}
 }
-.section-heading h2 {
-	font: 400 clamp(30px, 4vw, 52px)/1.15 var(--font-heading);
-	letter-spacing: -0.03em;
-	margin: 12px 0 0;
-}
+
 .button {
 	border: 1px solid #262521;
 	background: transparent;
@@ -105,28 +143,41 @@ input:focus-visible {
 	padding: 12px 17px;
 	white-space: nowrap;
 	font-size: 12px;
-	transition:
-		background 0.15s,
-		color 0.15s;
+	transition: background 0.15s, color 0.15s;
+
+	&:hover {
+		background: #e6e3da;
+	}
+
+	&--primary {
+		background: #262521;
+		color: #fff;
+
+		&:hover {
+			background: #4b4941;
+		}
+	}
+
+	& span {
+		margin-left: 5px;
+	}
 }
-.button:hover {
-	background: #e6e3da;
-}
-.button--primary {
-	background: #262521;
-	color: #fff;
-}
-.button--primary:hover {
-	background: #4b4941;
-}
-.button span {
-	margin-left: 5px;
-}
+
+/* -----------------------------------------------------------------------------
+   06. Studies Gallery Grid
+   ----------------------------------------------------------------------------- */
+
 .gallery {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 16px;
+	min-width: 0;
+
+	@media (max-width: 740px) {
+		grid-template-columns: minmax(0, 1fr);
+	}
 }
+
 .study-card {
 	display: block;
 	width: 100%;
@@ -136,14 +187,17 @@ input:focus-visible {
 	text-align: left;
 	color: inherit;
 	min-width: 0;
+
+	&:hover {
+		border-color: #79776f;
+	}
+
+	&--selected {
+		outline: 1px solid #252521;
+		border-color: #252521;
+	}
 }
-.study-card:hover {
-	border-color: #79776f;
-}
-.study-card--selected {
-	outline: 1px solid #252521;
-	border-color: #252521;
-}
+
 .card-meta,
 .card-caption {
 	display: flex;
@@ -153,24 +207,34 @@ input:focus-visible {
 	letter-spacing: 0.11em;
 	text-transform: uppercase;
 	color: #7a786f;
+
+	@media (max-width: 740px) {
+		flex-wrap: wrap;
+	}
 }
+
 .card-meta {
 	margin-bottom: 20px;
 }
+
 .card-caption {
 	margin-top: 18px;
 	letter-spacing: 0.04em;
 }
+
+/* Study Card Wireframe Sketch */
 .study-sketch {
 	min-height: 135px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	gap: 6px;
+
+	& .kos-grid {
+		--kos-gutter: 6px;
+	}
 }
-.study-sketch .kos-grid {
-	--kos-gutter: 6px;
-}
+
 .sketch-block {
 	min-height: 60px;
 	background: #e4e0d8;
@@ -179,108 +243,208 @@ input:focus-visible {
 	align-items: center;
 	color: #99958c;
 	font-size: 25px;
+
+	&--text {
+		background: #efede7;
+		display: flex;
+		align-items: start;
+		justify-content: center;
+		flex-direction: column;
+		padding: 11px;
+		gap: 6px;
+
+		& i {
+			background: #c6c2b8;
+			height: 4px;
+			width: 70%;
+
+			&:nth-child(2) {
+				width: 90%;
+			}
+
+			&:nth-child(3) {
+				width: 50%;
+			}
+		}
+	}
+
+	&--quote {
+		font-family: var(--font-heading);
+		font-size: 26px;
+		background: #f1efe9;
+	}
+
+	&--space {
+		background: transparent;
+	}
 }
-.sketch-block--text {
-	background: #efede7;
-	display: flex;
-	align-items: start;
-	justify-content: center;
-	flex-direction: column;
-	padding: 11px;
-	gap: 6px;
-}
-.sketch-block--text i {
-	background: #c6c2b8;
-	height: 4px;
-	width: 70%;
-}
-.sketch-block--text i:nth-child(2) {
-	width: 90%;
-}
-.sketch-block--text i:nth-child(3) {
-	width: 50%;
-}
-.sketch-block--quote {
-	font-family: var(--font-heading);
-	font-size: 26px;
-	background: #f1efe9;
-}
-.sketch-block--space {
-	background: transparent;
-}
+
+/* -----------------------------------------------------------------------------
+   07. Selected Composition Detail & Controls
+   ----------------------------------------------------------------------------- */
+
 .detail {
 	margin-top: clamp(70px, 10vw, 150px);
 	border-top: 1px solid #d0cec6;
 	padding-top: 38px;
+	min-width: 0;
+
+	&-counter {
+		font: 400 28px var(--font-heading);
+
+		& span {
+			color: #a6a39b;
+		}
+	}
 }
-.detail-counter {
-	font: 400 28px var(--font-heading);
-}
-.detail-counter span {
-	color: #a6a39b;
-}
+
 .control-bar {
 	display: flex;
-	gap: 24px;
+	justify-content: center;
+	gap: 18px;
 	align-items: center;
 	flex-wrap: wrap;
-	padding: 16px 0;
+	padding: 12px 0;
 	border-top: 1px solid #e1ded7;
 	border-bottom: 1px solid #e1ded7;
+	min-width: 0;
+
+	@media (max-width: 740px) {
+		gap: 12px;
+	}
 }
-.segmented {
+
+.width-label {
 	display: inline-flex;
-	border: 1px solid #c9c6bd;
+	align-items: baseline;
+	gap: 8px;
+	color: #57554e;
+	font-size: 11px;
+	white-space: nowrap;
+
+	& output {
+		font-variant-numeric: tabular-nums;
+		font-weight: 600;
+		min-width: 44px;
+	}
 }
-.segmented button {
-	border: 0;
+
+.width-slider {
+	accent-color: #292823;
+	width: clamp(100px, 16vw, 200px);
+	max-width: 100%;
+	cursor: pointer;
+
+	@media (max-width: 740px) {
+		width: min(100%, 180px);
+	}
+}
+
+.width-reset {
+	border: 1px solid #c5c0b8;
 	background: transparent;
-	padding: 10px 17px;
-	font-size: 12px;
+	padding: 0.25rem 0.55rem;
+	font-size: 11px;
+	color: #262521;
+	cursor: pointer;
+	transition: background 0.15s, border-color 0.15s;
+
+	&:hover {
+		background: #e6e3da;
+		border-color: #79776f;
+	}
 }
-.segmented button.active {
-	background: #292823;
-	color: white;
-}
+
 .switch-label,
 .gap-label {
-	font-size: 12px;
+	font-size: 11px;
 	color: #57554e;
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 6px;
 }
-.gap-label input {
-	accent-color: #292823;
-	width: 110px;
+
+.gap-label {
+	& input {
+		accent-color: #292823;
+		width: 90px;
+	}
+
+	& output {
+		min-width: 30px;
+		font-variant-numeric: tabular-nums;
+	}
 }
-.gap-label output {
-	min-width: 35px;
-	font-variant-numeric: tabular-nums;
+
+.segmented {
+	display: inline-flex;
+	border: 1px solid #c9c6bd;
+
+	& button {
+		border: 0;
+		background: transparent;
+		padding: 10px 17px;
+		font-size: 12px;
+
+		&.active {
+			background: #292823;
+			color: white;
+		}
+	}
 }
+
+/* -----------------------------------------------------------------------------
+   08. Interactive Preview Stage & Canvas
+   ----------------------------------------------------------------------------- */
+
+/* The stage stays stationary; only the contained canvas responds to the slider */
 .preview-stage {
 	background: #ddd9d2;
 	padding: 1rem;
 	margin-top: 22px;
-	overflow-x: auto;
-	overflow-y: hidden;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	height: clamp(24rem, 52vw, 42rem);
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+
+	@media (max-width: 740px) {
+		padding: 0.5rem;
+	}
 }
+
+/* Continuous responsive canvas establishing container query context */
 .preview-canvas {
-	width: var(--preview-width, 960px);
-	max-width: none;
+	width: min(100%, var(--preview-width, 960px));
+	max-width: 100%;
 	container: study / inline-size;
 	margin-inline: auto;
+	margin-block: auto;
 	min-width: 0;
-	flex-shrink: 0;
+	flex-shrink: 1;
 	box-sizing: border-box;
 }
+
+/* Paper backdrop representing the layout document */
 .preview-paper {
 	background: #fcfbf8;
 	padding: clamp(18px, 4.5cqi, 60px);
 	min-height: 320px;
 	width: 100%;
-	margin: 0 auto;
+	max-width: 100%;
+	margin-inline: auto;
+	flex-shrink: 1;
+	min-width: 0;
 	box-sizing: border-box;
+
+	@media (max-width: 740px) {
+		padding: 15px;
+	}
 }
 
 .preview-mast {
@@ -293,27 +457,39 @@ input:focus-visible {
 	padding-bottom: 16px;
 	margin-bottom: 24px;
 }
+
+/* Preview Blocks */
 .preview-block {
 	min-width: 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+
+	&.block--space {
+		min-height: 55px;
+	}
+
+	&.block--image {
+		background: #c4c0b8;
+	}
+
+	&.block--short {
+		min-height: 90px;
+	}
+
+	&.block--medium {
+		min-height: 160px;
+	}
+
+	&.block--tall {
+		min-height: 250px;
+	}
 }
-.preview-block.block--space {
-	min-height: 55px;
-}
-.preview-block.block--image {
-	background: #c4c0b8;
-}
-.preview-block.block--short {
-	min-height: 90px;
-}
-.preview-block.block--medium {
-	min-height: 160px;
-}
-.preview-block.block--tall {
-	min-height: 250px;
-}
+
+/* -----------------------------------------------------------------------------
+   09. Sample Editorial Content
+   ----------------------------------------------------------------------------- */
+
 .sample-image {
 	background: linear-gradient(135deg, #cfcbc3, #a9a49b);
 	color: #fbfaf7;
@@ -325,211 +501,107 @@ input:focus-visible {
 	height: 100%;
 	padding: 16px;
 }
+
 .sample-copy {
 	padding: 18px 4px;
+
+	& h3 {
+		font: 400 clamp(22px, 3.5cqi, 42px)/1.1 var(--font-heading);
+		letter-spacing: -0.04em;
+		margin: 16px 0;
+	}
+
+	& p {
+		color: #77736a;
+		font-size: 13px;
+		line-height: 1.75;
+		max-width: 33ch;
+	}
 }
-.sample-copy h3 {
-	font: 400 clamp(22px, 3.5cqi, 42px)/1.1 var(--font-heading);
-	letter-spacing: -0.04em;
-	margin: 16px 0;
-}
-.sample-copy p {
-	color: #77736a;
-	font-size: 13px;
-	line-height: 1.75;
-	max-width: 33ch;
-}
+
 .sample-quote {
 	padding: 22px;
 	font: italic 400 clamp(20px, 3.2cqi, 42px)/1.2 var(--font-heading);
 }
+
 .wire-label {
 	text-align: center;
 	font-size: 12px;
 	color: #99958c;
 }
+
+/* -----------------------------------------------------------------------------
+   10. Export Bar & Code Preview
+   ----------------------------------------------------------------------------- */
+
 .export-bar {
 	display: flex;
 	align-items: end;
 	justify-content: space-between;
 	gap: 24px;
 	margin-top: 34px;
+	min-width: 0;
+
+	& p {
+		color: #77736a;
+		font-size: 13px;
+		line-height: 1.6;
+	}
+
+	@media (max-width: 740px) {
+		align-items: start;
+		flex-direction: column;
+	}
 }
-.export-bar p {
-	color: #77736a;
-	font-size: 13px;
-	line-height: 1.6;
-}
+
 .export-buttons {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
+
+	@media (max-width: 740px) {
+		max-width: 100%;
+
+		& .button {
+			white-space: normal;
+		}
+	}
 }
+
 .code-panel {
 	background: #282722;
 	color: #edece6;
-	font:
-		12px/1.6 ui-monospace,
-		monospace;
+	font: 12px/1.6 ui-monospace, monospace;
 	overflow: auto;
 	padding: 24px;
 	max-height: 350px;
+	max-width: 100%;
 }
+
 .copy-note {
 	font-size: 13px;
 	color: #a14533;
 }
+
 .implementation-note {
 	font-size: 11px;
 	line-height: 1.7;
 	color: #77736a;
 	margin-top: 18px;
 }
-@media (max-width: 740px) {
-	.lab-shell {
-		width: min(100% - 36px, 1360px);
-	}
-	.gallery {
-		grid-template-columns: minmax(0, 1fr);
-	}
-	.header-meta {
-		display: none;
-	}
-	.section-heading,
-	.export-bar {
-		align-items: start;
-		flex-direction: column;
-	}
-	.preview-stage {
-		padding: 0.5rem;
-	}
-	.preview-paper {
-		padding: 15px;
-	}
-	.control-bar {
-		gap: 14px;
-	}
-	.hero {
-		padding-top: 80px;
-	}
-}
 
-/* Continuous responsive preview: the canvas has a real CSS width, so container queries run naturally. */
-.width-label {
-	display: inline-flex;
-	align-items: baseline;
-	gap: 12px;
-	color: #57554e;
-	font-size: 12px;
-	white-space: nowrap;
-}
-.width-label output {
-	font-variant-numeric: tabular-nums;
-	font-weight: 600;
-	min-width: 52px;
-}
-.width-slider {
-	accent-color: #292823;
-	width: clamp(120px, 22vw, 280px);
-	max-width: 100%;
-	cursor: pointer;
-}
-.width-reset {
-	border: 1px solid #c5c0b8;
-	background: transparent;
-	padding: 0.4rem 0.7rem;
-	font-size: 12px;
-	color: #262521;
-	cursor: pointer;
-	transition:
-		background 0.15s,
-		border-color 0.15s;
-}
-.width-reset:hover {
-	background: #e6e3da;
-	border-color: #79776f;
-}
-.preview-paper {
-	max-width: none;
-	box-sizing: border-box;
-}
+/* -----------------------------------------------------------------------------
+   11. Container Queries
+   ----------------------------------------------------------------------------- */
 
-/* Keep the resizable composition canvas isolated from page-level overflow. */
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-}
-html,
-body {
-	max-width: 100%;
-}
-.lab-shell,
-.detail,
-.control-bar,
-.gallery,
-.study-card,
-.export-bar,
-.preview-stage,
-.preview-canvas {
-	min-width: 0;
-}
-.preview-stage {
-	width: 100%;
-	max-width: 100%;
-	overflow-x: auto;
-	overflow-y: hidden;
-	-webkit-overflow-scrolling: touch;
-}
-.preview-canvas,
-.preview-paper {
-	flex-shrink: 0;
-}
-.hero h1,
-.section-heading h2 {
-	overflow-wrap: anywhere;
-}
-.code-panel {
-	max-width: 100%;
-}
-@media (max-width: 740px) {
-	.width-slider {
-		width: min(100%, 240px);
-	}
-	.control-bar {
-		gap: 12px;
-	}
-	.export-buttons {
-		max-width: 100%;
-	}
-	.export-buttons .button {
-		white-space: normal;
-	}
-	.card-caption,
-	.card-meta {
-		flex-wrap: wrap;
-	}
-}
-
-/* The Lab stage is stationary; only the contained composition changes width. */
-.preview-stage {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: clamp(24rem, 52vw, 42rem);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-.preview-paper {
-  width: min(100%, var(--preview-width, 960px));
-  max-width: 100%;
-  margin-inline: auto;
-  flex-shrink: 1;
-  min-width: 0;
-}
 @container (max-width: 30rem) {
-  .kos-composition .sample-copy h3 { font-size: clamp(1.25rem, 7cqi, 2rem); }
-  .kos-composition .sample-quote { font-size: clamp(1.25rem, 7cqi, 2rem); }
-}
+	.kos-composition {
+		& .sample-copy h3 {
+			font-size: clamp(1.25rem, 7cqi, 2rem);
+		}
 
+		& .sample-quote {
+			font-size: clamp(1.25rem, 7cqi, 2rem);
+		}
+	}
+}

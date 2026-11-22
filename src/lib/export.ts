@@ -1,20 +1,36 @@
 import type { Block, Composition } from './compositions';
 
+/**
+ * Generate sample HTML markup for each block type in exportable output.
+ */
 function blockContent(block: Block): string {
-  if (block.kind === 'image') return '<figure class="kos-placeholder-media"><span>Image</span></figure>';
-  if (block.kind === 'quote') return '<blockquote>“Space shapes the story.”</blockquote>';
-  if (block.kind === 'text') return '<div><p class="eyebrow">Editorial study</p><h2>Make this space your own.</h2><p>Replace this example with your content.</p></div>';
+  if (block.kind === 'image') {
+    return '<figure class="kos-placeholder-media"><span>Image</span></figure>';
+  }
+  if (block.kind === 'quote') {
+    return '<blockquote>“Space shapes the story.”</blockquote>';
+  }
+  if (block.kind === 'text') {
+    return '<div><p class="eyebrow">Editorial study</p><h2>Make this space your own.</h2><p>Replace this example with your content.</p></div>';
+  }
   return '<!-- intentional empty space -->';
 }
 
+/**
+ * Export a composition's markup as standalone Kōshi HTML.
+ */
 export function exportHTML(study: Composition): string {
-  const rows = study.rows.map((row) => {
-    const blocks = row.map((block) => {
-      const attrs = `kos-col-span="${block.span}"${block.offset ? ` kos-offset="${block.offset}"` : ''}`;
-      return `    <div ${attrs} class="kos-block">${blockContent(block)}</div>`;
-    }).join('\n');
-    return `  <div class="kos-grid" kos-cols="12">\n${blocks}\n  </div>`;
-  }).join('\n');
+  const rows = study.rows
+    .map((row) => {
+      const blocks = row
+        .map((block) => {
+          const attrs = `kos-col-span="${block.span}"${block.offset ? ` kos-offset="${block.offset}"` : ''}`;
+          return `    <div ${attrs} class="kos-block">${blockContent(block)}</div>`;
+        })
+        .join('\n');
+      return `  <div class="kos-grid" kos-cols="12">\n${blocks}\n  </div>`;
+    })
+    .join('\n');
   return `<section class="kos-composition">\n${rows}\n</section>`;
 }
 
@@ -36,6 +52,9 @@ export const exportCSS = `/* Requires Kōshi CSS: src/styles/koshi.css */
   .kos-composition > .kos-grid > * { grid-column: 1 / -1; }
 }`;
 
+/**
+ * Export both the HTML structure and its companion CSS in a single copyable snippet.
+ */
 export function exportBoth(study: Composition): string {
   return `<!-- Include Kōshi's core stylesheet before this HTML. -->\n${exportHTML(study)}\n\n<style>\n${exportCSS}\n</style>`;
 }

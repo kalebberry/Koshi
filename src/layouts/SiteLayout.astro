@@ -6,7 +6,12 @@ interface Props {
   title: string;
   description?: string;
 }
-const { title, description = 'Kōshi is a lightweight CSS grid system for intentional, responsive layouts.' } = Astro.props;
+
+const {
+  title,
+  description = 'Kōshi is a lightweight CSS grid system for intentional, responsive layouts.',
+} = Astro.props;
+
 const pathname = Astro.url.pathname;
 ---
 <!doctype html>
@@ -20,8 +25,13 @@ const pathname = Astro.url.pathname;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Site Header / Navigation -->
     <header class="site-nav shell">
-      <a class="site-brand" href="/" aria-label="Kōshi home"><span lang="ja">格子</span><strong>KŌSHI</strong></a>
+      <a class="site-brand" href="/" aria-label="Kōshi home">
+        <span lang="ja">格子</span>
+        <strong>KŌSHI</strong>
+      </a>
       <nav aria-label="Main navigation">
         <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>Home</a>
         <a href="/docs/" aria-current={pathname.startsWith('/docs') ? 'page' : undefined}>Documentation</a>
@@ -29,11 +39,19 @@ const pathname = Astro.url.pathname;
         <a href="https://github.com/kalebberry/koshi" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </nav>
     </header>
-    <main id="main"><slot /></main>
+
+    <!-- Main Content Area -->
+    <main id="main">
+      <slot />
+    </main>
+
+    <!-- Site Footer -->
     <footer class="site-footer shell">
-      <span><span lang="ja">格子</span> — KŌSHI</span><span>AN OPEN-SOURCE PROJECT BY <a href="https://eien.studio" target="_blank" rel="noopener noreferrer">STUDIO EIEN</a></span>
+      <span><span lang="ja">格子</span> — KŌSHI</span>
+      <span>AN OPEN-SOURCE PROJECT BY <a href="https://eien.studio" target="_blank" rel="noopener noreferrer">STUDIO EIEN</a></span>
       <span>OPEN SOURCE / <a href="https://github.com/kalebberry/koshi/blob/main/LICENSE">MIT</a></span>
     </footer>
+
     <script>
       import '../scripts/editorial-motion';
     </script>

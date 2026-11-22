@@ -3,16 +3,30 @@ import { computed, ref } from 'vue';
 import { generateCompositions, studySignature, type Block } from '../lib/compositions';
 import { exportBoth, exportCSS, exportHTML } from '../lib/export';
 
+// -----------------------------------------------------------------------------
+// Reactive State
+// -----------------------------------------------------------------------------
+
 const batch = ref(0);
 const selected = ref(0);
 const previewWidth = ref(960);
 const showCode = ref(false);
 const showContent = ref(true);
+const showDebug = ref(false);
 const gap = ref(20);
 const copied = ref('');
+
+// -----------------------------------------------------------------------------
+// Computed Properties
+// -----------------------------------------------------------------------------
+
 const studies = computed(() => generateCompositions(batch.value));
 const active = computed(() => studies.value[selected.value]!);
 const generatedCode = computed(() => exportHTML(active.value));
+
+// -----------------------------------------------------------------------------
+// Actions
+// -----------------------------------------------------------------------------
 
 function regenerate() {
 	batch.value += 1;
@@ -49,6 +63,7 @@ async function copy(type: 'html' | 'css' | 'both') {
 
 <template>
 	<div class="lab-shell">
+		<!-- Hero Section -->
 		<section class="hero">
 			<span class="overline">An experiment in proportion & rhythm</span>
 			<h1>
@@ -62,6 +77,7 @@ async function copy(type: 'html' | 'css' | 'both') {
 			</p>
 		</section>
 
+		<!-- Section 01: The Studies -->
 		<div class="section-heading">
 			<div>
 				<span class="overline">01 / THE STUDIES</span>
@@ -73,6 +89,7 @@ async function copy(type: 'html' | 'css' | 'both') {
 			</button>
 		</div>
 
+		<!-- Studies Gallery Grid -->
 		<section class="gallery" aria-label="Composition studies">
 			<button
 				v-for="(study, index) in studies"
@@ -114,6 +131,7 @@ async function copy(type: 'html' | 'css' | 'both') {
 			</button>
 		</section>
 
+		<!-- Section 02: Selected Composition Detail -->
 		<section class="detail" aria-labelledby="detail-title">
 			<div class="section-heading section-heading--detail">
 				<div>
@@ -126,6 +144,7 @@ async function copy(type: 'html' | 'css' | 'both') {
 				</span>
 			</div>
 
+			<!-- Preview Control Bar -->
 			<div class="control-bar">
 				<label class="width-label" for="preview-width">
 					Preview width
@@ -146,6 +165,10 @@ async function copy(type: 'html' | 'css' | 'both') {
 					<input v-model="showContent" type="checkbox" />
 					Sample content
 				</label>
+				<label class="switch-label">
+					<input v-model="showDebug" type="checkbox" />
+					Lattice guides
+				</label>
 				<label class="gap-label">
 					Gap
 					<input v-model.number="gap" type="range" min="8" max="40" step="4" />
@@ -153,9 +176,10 @@ async function copy(type: 'html' | 'css' | 'both') {
 				</label>
 			</div>
 
-			<div class="study-preview-viewport preview-stage">
+			<!-- Interactive Preview Stage -->
+			<div class="preview-stage">
 				<div
-					class="study-canvas preview-canvas"
+					class="preview-canvas"
 					:style="{ '--preview-width': previewWidth + 'px' }"
 				>
 					<div class="preview-paper">
@@ -163,7 +187,11 @@ async function copy(type: 'html' | 'css' | 'both') {
 							<span>格子 / KŌSHI</span>
 							<span>STUDY {{ String(selected + 1).padStart(2, '0') }}</span>
 						</div>
-						<div class="kos-composition" :style="{ '--kos-gutter': gap + 'px' }">
+						<div
+							class="kos-composition"
+							:kos-debug="showDebug ? '' : undefined"
+							:style="{ '--kos-gutter': gap + 'px' }"
+						>
 							<div
 								v-for="(row, rowIndex) in active.rows"
 								:key="rowIndex"
@@ -206,6 +234,7 @@ async function copy(type: 'html' | 'css' | 'both') {
 				</div>
 			</div>
 
+			<!-- Section 03: Export Bar -->
 			<div class="export-bar">
 				<div>
 					<span class="overline">03 / TAKE IT FURTHER</span>
