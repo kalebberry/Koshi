@@ -1,0 +1,521 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Building an Editorial Website with Kōshi"
+  description="A complete step-by-step masterclass on constructing a high-density, responsive editorial publication using Kōshi CSS Grid Level 2, aspect ratios, subgrids, and container queries."
+>
+  <div class="shell">
+    <!-- Tutorial Masthead Header -->
+    <header class="tutorial-head">
+      <span class="eyebrow">STEP-BY-STEP MASTERCLASS · KŌSHI 2.0</span>
+      <h1 class="display">Building an Editorial Website with Kōshi.</h1>
+      <p class="lead">
+        Learn how to craft a sophisticated cultural publication from scratch—combining Swiss typographic discipline, Japanese lattice geometry, fluid containers, multi-row magazine spreads, and subgrid card baselines.
+      </p>
+      <div class="tutorial-meta-bar">
+        <span class="meta-item">ARCHETYPE: <strong>CULTURAL JOURNAL</strong></span>
+        <span class="meta-item">PREREQUISITE: <strong>BASIC HTML/CSS</strong></span>
+        <span class="meta-item">RUNTIME JS: <strong>ZERO (0.00 KB)</strong></span>
+        <span class="meta-item">READ TIME: <strong>~12 MIN</strong></span>
+      </div>
+    </header>
+
+    <div class="tutorial-layout">
+      <!-- Sticky Sidebar Navigation -->
+      <aside class="tutorial-sidebar" aria-label="Tutorial table of contents">
+        <a href="/docs/" class="sidebar-back">← Back to Docs</a>
+        <span class="eyebrow">ON THIS TUTORIAL</span>
+        <nav>
+          <a href="#philosophy">01 / The Editorial Philosophy</a>
+          <a href="#setup">02 / Setup & Fluid Container</a>
+          <a href="#masthead">03 / Asymmetric Masthead (7:5)</a>
+          <a href="#magazine-spread">04 / Multi-Row Magazine Spread</a>
+          <a href="#subgrid-cards">05 / Subgrid-Aligned Cards</a>
+          <a href="#hakugin-yohaku">06 / Hakugin-hi & Yohaku</a>
+          <a href="#responsive-reflow">07 / Responsive Reflow</a>
+          <a href="#lattice-debugging">08 / Live Debugging (kos-debug)</a>
+          <a href="#full-template">09 / Full Production Template</a>
+        </nav>
+      </aside>
+
+      <!-- Main Tutorial Body -->
+      <article class="tutorial-body">
+        
+        <!-- Section 01: The Philosophy -->
+        <section id="philosophy">
+          <span class="step-badge">STAGE 01</span>
+          <h2>The Editorial Philosophy</h2>
+          <p>
+            Most modern websites resemble generic marketing templates: identical 3-column card grids, centered 50/50 splits, and arbitrary whitespace. Editorial design—the discipline seen in classic publications, architectural monographs, and Swiss exhibition posters—operates on very different principles:
+          </p>
+          <ul>
+            <li><strong>Asymmetry with Intent:</strong> An asymmetric 7:5 or 8:4 division creates optical momentum and guides the reader's eye forward through the narrative.</li>
+            <li><strong>Proportional Harmony:</strong> Layout dimensions are derived from classical geometric ratios (such as the Golden Ratio <code>1:1.618</code> and the Japanese Silver Ratio <em>Hakugin-hi</em> <code>1:1.414</code>) rather than arbitrary pixel numbers.</li>
+            <li><strong>Shared Vertical Baselines:</strong> Multi-column cards and adjacent text blocks align to horizontal grid lines across the page, maintaining typographic calm even when content lengths vary.</li>
+            <li><strong>Negative Space as an Element (余白 Yohaku):</strong> Empty space is not "unused space"—it is the structural boundary that gives the written word its authority and clarity.</li>
+          </ul>
+          <p>
+            In this tutorial, we will build <strong>The Lattice Review</strong>, an architectural and design editorial layout featuring four distinct rhythmic sections, entirely powered by Kōshi.
+          </p>
+        </section>
+
+        <!-- Section 02: Setup & Fluid Container -->
+        <section id="setup">
+          <span class="step-badge">STAGE 02</span>
+          <h2>Setup & The Fluid Container</h2>
+          <p>
+            Every Kōshi project begins by importing the core stylesheet. Kōshi is enclosed in <code>@layer kos-grid</code>, which ensures you can write custom typographic styles without ever needing <code>!important</code>.
+          </p>
+          <p>
+            Next, we establish our page boundary using <code>.kos-container</code>. Unlike traditional fixed-margin wrappers, Kōshi calculates its edge padding using a fluid clamp expression:
+          </p>
+          <pre><code>{`<!-- HTML Shell -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/koshi.css" />
+</head>
+<body>
+  <div class="kos-container">
+    <!-- All editorial compositions live here -->
+  </div>
+</body>
+</html>`}</code></pre>
+          <div class="tutorial-callout">
+            <strong>Why Fluid Container Padding Matters</strong>
+            <p>
+              Kōshi defines <code>--grid-container-offset: clamp(1rem, 3.5vw, 3.5rem)</code>. On mobile devices, this prevents text from colliding with screen bezels (keeping a comfortable 1rem margin). On wide cinema monitors, it gently expands up to 3.5rem, preserving optical breathing room without awkward layout stretch.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 03: Asymmetric Masthead (7:5) -->
+        <section id="masthead">
+          <span class="step-badge">STAGE 03</span>
+          <h2>The Asymmetric Masthead (7:5 Cinema Split)</h2>
+          <p>
+            A symmetrical 50/50 split feels static and predictable. An <strong>asymmetric 7:5 ratio</strong> gives the primary visual dominant optical weight (spanning 7 of 12 fractional tracks) while leaving 5 tracks for crisp editorial typography.
+          </p>
+          <p>
+            We also attach <code>kos-ratio="16/9"</code> to the media frame. This locks the cinematic proportions before the photograph finishes loading, completely preventing Cumulative Layout Shift (CLS).
+          </p>
+          
+          <!-- Live Preview -->
+          <div class="tutorial-preview">
+            <div class="tutorial-preview__label">
+              <span>Live Specimen: Asymmetric Masthead (7:5)</span>
+              <span>12 Fractional Tracks</span>
+            </div>
+            <section class="kos-composition">
+              <div class="kos-grid specimen-masthead" kos-cols="12">
+                <div kos-col-span="7" kos-ratio="16/9" class="hero-visual">
+                  <span>16:9 CINEMA FRAME (7 / 12)</span>
+                </div>
+                <div kos-col-span="5" class="hero-text">
+                  <span class="eyebrow">ISSUE 04 · ARCHITECTURAL ESSAYS</span>
+                  <h3>The Space Between Kyoto & Zurich.</h3>
+                  <p>How traditional Japanese lattice screens (格子) and 1950s Swiss rationalism converge in modern web engineering.</p>
+                  <span class="meta">BY EIEN STUDIO · 8 MIN READ</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <p>Here is the markup for the masthead:</p>
+          <pre><code>{`<section class="kos-composition">
+  <div class="kos-grid" kos-cols="12">
+    <!-- 7 Columns: 16:9 Aspect-Ratio Media -->
+    <div kos-col-span="7" kos-ratio="16/9" class="hero-visual">
+      <img src="/images/hero-architecture.jpg" alt="Kyoto lattice study" />
+    </div>
+
+    <!-- 5 Columns: Typographic Narrative -->
+    <div kos-col-span="5" class="hero-text">
+      <span class="eyebrow">ISSUE 04 · ARCHITECTURAL ESSAYS</span>
+      <h1>The Space Between Kyoto & Zurich.</h1>
+      <p>How traditional Japanese lattice screens and Swiss rationalism converge in modern web engineering.</p>
+      <span class="meta">BY EIEN STUDIO · 8 MIN READ</span>
+    </div>
+  </div>
+</section>`}</code></pre>
+        </section>
+
+        <!-- Section 04: Multi-Row Magazine Spread -->
+        <section id="magazine-spread">
+          <span class="step-badge">STAGE 04</span>
+          <h2>Multi-Row Magazine Spreads with Row-Spans</h2>
+          <p>
+            In high-end print magazines, prominent photographs often extend across multiple vertical text blocks. In raw CSS, developers usually resort to awkward nested <code>div</code> trees or complex absolute positioning.
+          </p>
+          <p>
+            With Kōshi, you simply declare <code>kos-row-span="2"</code> on the media element. CSS Grid automatically routes the adjacent headline and pull quote into row 1 and row 2 beside the photo!
+          </p>
+
+          <!-- Live Preview -->
+          <div class="tutorial-preview">
+            <div class="tutorial-preview__label">
+              <span>Live Specimen: Multi-Row Magazine Spread (7:5)</span>
+              <span>Row Span: 2</span>
+            </div>
+            <section class="kos-composition">
+              <div class="kos-grid specimen-magazine" kos-cols="12">
+                <!-- 7 Columns, spanning 2 vertical rows -->
+                <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3" class="mag-photo">
+                  <span>4:3 FEATURE PHOTO (SPANS 2 ROWS)</span>
+                </div>
+                <!-- 5 Columns, placed in Row 1 -->
+                <div kos-col-span="5" class="mag-lead">
+                  <h4>Proportion Before Ornament</h4>
+                  <p>When layout geometry is mathematically disciplined, decorative styling becomes secondary. The structure itself becomes the aesthetic statement.</p>
+                </div>
+                <!-- 5 Columns, placed in Row 2 -->
+                <div kos-col-span="5" class="mag-quote">
+                  <p>“Order is not pressure; order is liberation.”</p>
+                  <cite>— Josef Müller-Brockmann</cite>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <pre><code>{`<section class="kos-composition">
+  <div class="kos-grid" kos-cols="12">
+    <!-- Spans 7 columns AND 2 vertical rows -->
+    <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3">
+      <img src="/images/specimen-study.jpg" alt="Editorial specimen" />
+    </div>
+
+    <!-- Row 1: Lead Section Headline -->
+    <div kos-col-span="5" class="mag-lead">
+      <h3>Proportion Before Ornament</h3>
+      <p>When layout geometry is disciplined, structure becomes the aesthetic statement.</p>
+    </div>
+
+    <!-- Row 2: Editorial Pull Quote -->
+    <blockquote kos-col-span="5" class="mag-quote">
+      <p>“Order is not pressure; order is liberation.”</p>
+      <cite>— Josef Müller-Brockmann</cite>
+    </blockquote>
+  </div>
+</section>`}</code></pre>
+        </section>
+
+        <!-- Section 05: Subgrid-Aligned Cards -->
+        <section id="subgrid-cards">
+          <span class="step-badge">STAGE 05</span>
+          <h2>Subgrid-Aligned Article Triads</h2>
+          <p>
+            Uneven card baselines are the most common visual defect on editorial websites. If Article A has a one-line title and Article B has a three-line title, their descriptions and "Read Essay →" links end up misaligned across columns.
+          </p>
+          <p>
+            Kōshi solves this with native CSS Subgrid. By adding <code>kos-subgrid="rows"</code> and <code>kos-row-span="4"</code> to each card, the cards inherit their parent grid's shared row tracks:
+          </p>
+
+          <!-- Live Preview -->
+          <div class="tutorial-preview">
+            <div class="tutorial-preview__label">
+              <span>Live Specimen: Subgrid Triad (4:4:4)</span>
+              <span>Row Baselines Synchronized</span>
+            </div>
+            <section class="kos-composition">
+              <div class="kos-grid" kos-cols="12">
+                <!-- Card 1: Short title -->
+                <div kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="specimen-subgrid-card">
+                  <span class="c-tag">THEORY</span>
+                  <h4 class="c-title">Zero Rounding Jitter</h4>
+                  <p class="c-desc">Fractional tracks absorb sub-pixel monitor discrepancies.</p>
+                  <a href="#subgrid-cards" class="c-link">Read Essay →</a>
+                </div>
+
+                <!-- Card 2: Long title (stretches title row across all cards!) -->
+                <div kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="specimen-subgrid-card">
+                  <span class="c-tag">PRACTICE</span>
+                  <h4 class="c-title">The Synchronized Baselines of Modern CSS Subgrid</h4>
+                  <p class="c-desc">Child cards inherit row tracks so buttons lock to the exact same baseline.</p>
+                  <a href="#subgrid-cards" class="c-link">Read Essay →</a>
+                </div>
+
+                <!-- Card 3: Medium title -->
+                <div kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="specimen-subgrid-card">
+                  <span class="c-tag">CRAFT</span>
+                  <h4 class="c-title">Zero Runtime Overhead</h4>
+                  <p class="c-desc">Native browser CSS execution with no JavaScript layout observers.</p>
+                  <a href="#subgrid-cards" class="c-link">Read Essay →</a>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <p>
+            Notice in the live preview above: even though Card 2 has a much longer title, the <strong>"Read Essay →"</strong> links across all three cards lock to the exact same horizontal baseline!
+          </p>
+
+          <pre><code>{`<section class="kos-composition">
+  <div class="kos-grid" kos-cols="12">
+    <!-- Card 1 (4 Columns, Subgrid Rows) -->
+    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="article-card">
+      <span class="tag">THEORY</span>
+      <h3>Zero Rounding Jitter</h3>
+      <p>Fractional tracks absorb sub-pixel monitor discrepancies.</p>
+      <a href="#" class="cta">Read Essay →</a>
+    </article>
+
+    <!-- Card 2 -->
+    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="article-card">
+      <span class="tag">PRACTICE</span>
+      <h3>The Synchronized Baselines of Modern CSS Subgrid</h3>
+      <p>Child cards inherit row tracks so buttons lock to the exact same baseline.</p>
+      <a href="#" class="cta">Read Essay →</a>
+    </article>
+
+    <!-- Card 3 -->
+    <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="article-card">
+      <span class="tag">CRAFT</span>
+      <h3>Zero Runtime Overhead</h3>
+      <p>Native browser CSS execution with no JavaScript layout observers.</p>
+      <a href="#" class="cta">Read Essay →</a>
+    </article>
+  </div>
+</section>`}</code></pre>
+        </section>
+
+        <!-- Section 06: Hakugin-hi & Yohaku -->
+        <section id="hakugin-yohaku">
+          <span class="step-badge">STAGE 06</span>
+          <h2>Hakugin-hi (Silver Ratio) & Yohaku (Negative Space)</h2>
+          <p>
+            In Japanese architecture, space is measured by <em>Tatami</em> mat modularity and the Silver Ratio (<em>Hakugin-hi</em>, <code>1:1.414</code>). Unlike the Western Golden Ratio (1:1.618), the Silver Ratio represents root-two proportion—the same harmonious aspect ratio found in international A-series paper formats (A4, A5, A3).
+          </p>
+          <p>
+            We can combine <code>kos-ratio="silver"</code> with <code>kos-offset</code> to create an asymmetric reading spread that deliberately incorporates negative space:
+          </p>
+
+          <!-- Live Preview -->
+          <div class="tutorial-preview">
+            <div class="tutorial-preview__label">
+              <span>Live Specimen: Silver Ratio Portrait & Offset Reading Flow</span>
+              <span>1 : 1.414 Proportions</span>
+            </div>
+            <section class="kos-composition">
+              <div class="kos-grid" kos-cols="12">
+                <!-- 4 Columns, Hakugin-hi Silver Ratio (1:1.414) -->
+                <div kos-col-span="4" kos-ratio="silver" class="hero-visual">
+                  <span>HAKUGIN-HI 1:1.414</span>
+                </div>
+                <!-- 1 Empty Offset + 7 Columns Reading Text -->
+                <div kos-col-span="7" kos-offset="1" class="hero-text">
+                  <span class="eyebrow">ESSAY · YOHAKU</span>
+                  <h3>The Eloquence of Empty Space</h3>
+                  <p>
+                    By introducing an intentional one-track offset (<code>kos-offset="1"</code>), the narrative text separates cleanly from the portrait container. The resulting gutter is not an accident—it is a calibrated pause that invites sustained reading.
+                  </p>
+                  <p>
+                    Kōshi computes offsets with pure CSS Grid column-start lines: <code>[kos-offset="1"] &#123; grid-column-start: 2; &#125;</code>. No negative margins, no empty spacer elements.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <pre><code>{`<section class="kos-composition">
+  <div class="kos-grid" kos-cols="12">
+    <!-- 4-Track Silver Ratio Portrait Container -->
+    <div kos-col-span="4" kos-ratio="silver">
+      <img src="/images/author-portrait.jpg" alt="Author portrait" />
+    </div>
+
+    <!-- Offset 1 Track, Spans 7 Tracks for Comfortable Reading -->
+    <div kos-col-span="7" kos-offset="1">
+      <span class="eyebrow">ESSAY · YOHAKU</span>
+      <h2>The Eloquence of Empty Space</h2>
+      <p>A calibrated pause that invites sustained reading without visual friction.</p>
+    </div>
+  </div>
+</section>`}</code></pre>
+        </section>
+
+        <!-- Section 07: Responsive Reflow via Container Queries -->
+        <section id="responsive-reflow">
+          <span class="step-badge">STAGE 07</span>
+          <h2>Responsive Reflow via Container Queries</h2>
+          <p>
+            Traditional websites rely on global viewport media queries (e.g., <code>@media (max-width: 768px)</code>). If a layout is embedded in a sidebar, a modal, or an iframe, viewport media queries fail because they measure the whole screen instead of the component's actual space.
+          </p>
+          <p>
+            Kōshi uses <strong>native CSS Container Queries</strong>. Every <code>.kos-composition</code> creates its own containment context:
+          </p>
+          <ul>
+            <li>Above <code>48rem</code> container width: all 12 fractional tracks, multi-row spans, and offsets operate in full editorial richness.</li>
+            <li>Below <code>48rem</code> container width: Kōshi automatically reflows multi-column grids into a clean, comfortable single-column reading stack.</li>
+          </ul>
+          <p>
+            You can customize collapse thresholds per section using the <code>kos-collapse</code> attribute:
+          </p>
+          <ul>
+            <li><code>kos-collapse="sm"</code>: Collapses at <code>32rem</code> (mobile phones only).</li>
+            <li><code>kos-collapse="md"</code>: Default collapse at <code>48rem</code> (tablets & phones).</li>
+            <li><code>kos-collapse="lg"</code>: Collapses early at <code>64rem</code> (compact laptops).</li>
+            <li><code>kos-collapse="none"</code>: Retains strict 12-column layout at all widths.</li>
+          </ul>
+        </section>
+
+        <!-- Section 08: Live Debugging with kos-debug -->
+        <section id="lattice-debugging">
+          <span class="step-badge">STAGE 08</span>
+          <h2>Live Grid Debugging (kos-debug)</h2>
+          <p>
+            When fine-tuning an editorial spread, seeing the underlying geometry is invaluable. Kōshi includes a built-in lattice visualizer.
+          </p>
+          <p>
+            Simply add <code>kos-debug</code> to any <code>.kos-grid</code> or <code>.kos-composition</code>:
+          </p>
+          <pre><code>{`<!-- Add kos-debug to project lattice guidelines in real-time -->
+<section class="kos-composition" kos-debug>
+  <div class="kos-grid" kos-cols="12">
+    ...
+  </div>
+</section>`}</code></pre>
+          <div class="tutorial-callout tutorial-callout--shuiro">
+            <strong>What kos-debug reveals:</strong>
+            <p>
+              1. Projects <em>Shu-iro</em> (traditional Japanese cinnabar red) dashed bounding boxes around your grid containers.<br />
+              2. Generates automatic column badge counters (e.g., <code>7 / 12</code> or <code>4 / 12 · subgrid</code>) pinned to the top-right corner of each element.<br />
+              3. Highlights offset lines (e.g., <code>offset 1</code>) on the bottom-left boundary.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 09: Full Production Template -->
+        <section id="full-template">
+          <span class="step-badge">STAGE 09</span>
+          <h2>The Complete Production Template</h2>
+          <p>
+            Here is the complete, self-contained editorial publication template combining all four sections. Copy this blueprint and adapt it for any client or editorial project:
+          </p>
+          <pre><code>{`<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lattice Review — Issue 04</title>
+  <!-- Kōshi Core Stylesheet -->
+  <link rel="stylesheet" href="/styles/koshi.css" />
+  <style>
+    :root {
+      --font-heading: "Playfair Display", Georgia, serif;
+      --font-body: system-ui, -apple-system, sans-serif;
+    }
+    body {
+      background: #f7f5f0;
+      color: #23221e;
+      font-family: var(--font-body);
+      margin: 0;
+    }
+    .editorial-header {
+      border-bottom: 1px solid #d5d1c7;
+      padding: 2.5rem 0 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2ded5;
+      padding: 1.5rem;
+    }
+    .card h3 { font: 500 1.25rem/1.2 var(--font-heading); margin: 0.5rem 0; }
+    .card p { font-size: 0.875rem; line-height: 1.6; color: #5c5952; }
+    .card a { font-size: 0.8rem; font-weight: 600; color: #23221e; }
+  </style>
+</head>
+<body>
+  <div class="kos-container">
+    
+    <!-- Site Masthead -->
+    <header class="editorial-header">
+      <div class="kos-grid" kos-cols="12">
+        <div kos-col-span="6">
+          <strong style="font-family: var(--font-heading); font-size: 1.5rem;">THE LATTICE REVIEW</strong>
+        </div>
+        <div kos-col-span="6" style="text-align: right; font-size: 0.8rem; color: #7d7970;">
+          <span>VOL. IV · NO. 12 · TOKYO / ZURICH</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 01. Hero Masthead (7:5 Asymmetric Split) -->
+    <section class="kos-composition">
+      <div class="kos-grid" kos-cols="12">
+        <div kos-col-span="7" kos-ratio="16/9">
+          <img src="/images/hero-16-9.jpg" alt="Kyoto study" />
+        </div>
+        <div kos-col-span="5" style="padding-left: 1rem;">
+          <span style="font-size: 0.7rem; letter-spacing: 0.15em; color: #8a867e;">FEATURE ESSAY</span>
+          <h1 style="font: 400 2.5rem/1.1 var(--font-heading); margin: 0.75rem 0;">The Space Between Kyoto & Zurich.</h1>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: #5c5952;">How traditional Japanese lattice screens and Swiss rationalism converge in modern web engineering.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. Multi-Row Magazine Spread -->
+    <section class="kos-composition">
+      <div class="kos-grid" kos-cols="12">
+        <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3">
+          <img src="/images/spread-4-3.jpg" alt="Architecture" />
+        </div>
+        <div kos-col-span="5" class="card">
+          <h2 style="font: 400 1.5rem/1.2 var(--font-heading); margin-top: 0;">Proportion Before Ornament</h2>
+          <p>When layout geometry is mathematically disciplined, structure itself becomes the aesthetic statement.</p>
+        </div>
+        <blockquote kos-col-span="5" class="card" style="font-style: italic; background: #f4f2ec;">
+          “Order is not pressure; order is liberation.”
+          <cite style="display: block; font-style: normal; font-size: 0.75rem; margin-top: 0.5rem;">— Josef Müller-Brockmann</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- 03. Subgrid Card Triad -->
+    <section class="kos-composition">
+      <div class="kos-grid" kos-cols="12">
+        <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="card">
+          <span style="font-size: 0.7rem; color: #8a867e;">DISPATCH 01</span>
+          <h3>Zero Rounding Jitter</h3>
+          <p>Fractional tracks absorb sub-pixel discrepancies.</p>
+          <a href="#">Read Essay →</a>
+        </article>
+        <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="card">
+          <span style="font-size: 0.7rem; color: #8a867e;">DISPATCH 02</span>
+          <h3>The Synchronized Baselines of Modern CSS Subgrid</h3>
+          <p>Child cards inherit row tracks so action links lock to identical lines.</p>
+          <a href="#">Read Essay →</a>
+        </article>
+        <article kos-col-span="4" kos-row-span="4" kos-subgrid="rows" class="card">
+          <span style="font-size: 0.7rem; color: #8a867e;">DISPATCH 03</span>
+          <h3>Zero Runtime Overhead</h3>
+          <p>Pure native CSS Grid Level 2 with zero JavaScript dependencies.</p>
+          <a href="#">Read Essay →</a>
+        </article>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>`}</code></pre>
+        </section>
+
+        <!-- Next Steps -->
+        <section>
+          <h2>Take It Further</h2>
+          <p>Now that you understand the principles of Kōshi's editorial grid:</p>
+          <ul>
+            <li>Explore all 72 pre-calculated spatial compositions in the <strong><a href="/lab/">Composition Lab</a></strong>.</li>
+            <li>Consult the full API specification in the <strong><a href="/docs/">Kōshi Documentation</a></strong>.</li>
+            <li>Inspect the raw CSS source code on <strong><a href="https://github.com/kalebberry/koshi" target="_blank" rel="noopener noreferrer">GitHub</a></strong>.</li>
+          </ul>
+        </section>
+
+      </article>
+    </div>
+  </div>
+</SiteLayout>
