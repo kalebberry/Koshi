@@ -332,7 +332,6 @@
 	display: flex;
 	justify-content: center;
 	overflow-x: auto;
-	min-height: 240px;
 }
 
 .browser-preview__iframe {
@@ -342,7 +341,9 @@
 	background: #f7f5f0;
 	transition: width 0.3s ease;
 	display: block;
-	min-height: 240px;
+	min-height: 0;
+	height: auto;
+	overflow: hidden;
 }
 
 .browser-preview__canvas {

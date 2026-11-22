@@ -361,6 +361,26 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
                     </div>
                   </section>
 
+                  <!-- Magazine Spread (7:5 Multi-Row) -->
+                  <section class="kos-composition pub-spread">
+                    <div class="kos-grid" kos-cols="12">
+                      <div kos-col-span="7" kos-row-span="2" kos-ratio="4/3" class="spread-image">
+                        <div class="img-fallback">
+                          <span>PHOTOGRAPHIC SPECIMEN</span>
+                          <strong>Structural Rhythm in Concrete</strong>
+                        </div>
+                      </div>
+                      <div kos-col-span="5" class="spread-lead-card">
+                        <h3>Proportion Before Ornament</h3>
+                        <p>When layout geometry is mathematically disciplined, decorative styling becomes secondary. The structure itself becomes the aesthetic statement.</p>
+                      </div>
+                      <div kos-col-span="5" class="spread-quote-card">
+                        “Order is not pressure; order is liberation.”
+                        <cite>— Josef Müller-Brockmann</cite>
+                      </div>
+                    </div>
+                  </section>
+
                   <!-- Subgrid Cards Triad (4:4:4) -->
                   <section class="kos-composition pub-subgrid-section">
                     <div class="kos-grid" kos-cols="12">
@@ -770,17 +790,45 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
       const switcher = preview.querySelector<HTMLElement>('.browser-preview__viewport-switcher');
       if (!frame || !canvas) return;
 
-      const resizeFrame = () => {
+      const updateHeight = () => {
         try {
           const doc = frame.contentDocument || frame.contentWindow?.document;
-          if (doc?.body) {
-            frame.style.height = (doc.body.scrollHeight + 36) + 'px';
+          if (!doc) return;
+          const root = doc.querySelector<HTMLElement>('[data-canvas-root]');
+          if (!root) return;
+          const h = Math.ceil(root.getBoundingClientRect().height);
+          if (h > 0) {
+            frame.style.height = `${h}px`;
           }
         } catch (e) {}
       };
 
-      frame.onload = resizeFrame;
-      frame.srcdoc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${stylesheetLinks}<style>html,body{margin:0;padding:0;background:#f7f5f0;min-width:0;overflow-x:hidden}body{padding:clamp(16px,3vw,36px) clamp(12px,2.5vw,28px)}</style></head><body>${canvas.innerHTML}</body></html>`;
+      const setupObserver = () => {
+        try {
+          const doc = frame.contentDocument || frame.contentWindow?.document;
+          if (!doc) return;
+          const root = doc.querySelector<HTMLElement>('[data-canvas-root]');
+          if (!root) return;
+
+          updateHeight();
+
+          const win = frame.contentWindow || window;
+          if (win.ResizeObserver) {
+            const ro = new win.ResizeObserver(() => {
+              updateHeight();
+            });
+            ro.observe(root);
+          }
+
+          if (doc.fonts?.ready) {
+            doc.fonts.ready.then(updateHeight);
+          }
+        } catch (e) {}
+      };
+
+      frame.addEventListener('load', setupObserver);
+
+      frame.srcdoc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${stylesheetLinks}<style>*,*::before,*::after{box-sizing:border-box}html{margin:0;padding:0;background:#f7f5f0;overflow:hidden}body{margin:0;padding:0;background:transparent;overflow:hidden;min-height:0;height:auto}.preview-canvas-root{display:flow-root;padding:clamp(16px,2.5vw,32px) clamp(12px,2vw,24px);width:100%;box-sizing:border-box;min-height:0;height:auto}</style></head><body><div class="preview-canvas-root" data-canvas-root>${canvas.innerHTML}</div></body></html>`;
 
       canvas.style.display = 'none';
 
@@ -790,10 +838,17 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
             switcher.querySelectorAll('.view-btn').forEach((b) => b.classList.remove('view-btn--active'));
             btn.classList.add('view-btn--active');
             frame.style.width = btn.dataset.view || '100%';
-            setTimeout(resizeFrame, 350);
+            updateHeight();
+            setTimeout(updateHeight, 320);
           });
         });
       }
+
+      frame.addEventListener('transitionend', (e) => {
+        if (e.propertyName === 'width') {
+          updateHeight();
+        }
+      });
     });
   </script>
 </SiteLayout>
