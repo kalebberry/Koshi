@@ -221,18 +221,6 @@
 			background: #e9e6de;
 		}
 	}
-
-	&.action-ghost {
-		background: transparent;
-		color: #6f6c64;
-		border-color: #d0cbc0;
-
-		&:hover {
-			color: #25231f;
-			border-color: #25231f;
-			background: #f2efe7;
-		}
-	}
 }
 
 /* Section Headings & General Layout
