@@ -817,9 +817,9 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 
           updateHeight();
 
-          const win = frame.contentWindow || window;
-          if (win.ResizeObserver) {
-            const ro = new win.ResizeObserver(() => {
+          const WinResizeObserver = ((frame.contentWindow as unknown as { ResizeObserver?: typeof ResizeObserver })?.ResizeObserver) || window.ResizeObserver;
+          if (WinResizeObserver) {
+            const ro = new WinResizeObserver(() => {
               updateHeight();
             });
             ro.observe(root);

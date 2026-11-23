@@ -26,6 +26,26 @@ const pathname = Astro.url.pathname;
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <!-- Global 12-Track Lattice Visualizer Overlay -->
+    <div class="kos-global-lattice" id="global-lattice" aria-hidden="true">
+      <div class="shell">
+        <div class="lattice-track-grid">
+          <div class="lattice-col"><span>01</span></div>
+          <div class="lattice-col"><span>02</span></div>
+          <div class="lattice-col"><span>03</span></div>
+          <div class="lattice-col"><span>04</span></div>
+          <div class="lattice-col"><span>05</span></div>
+          <div class="lattice-col"><span>06</span></div>
+          <div class="lattice-col"><span>07</span></div>
+          <div class="lattice-col"><span>08</span></div>
+          <div class="lattice-col"><span>09</span></div>
+          <div class="lattice-col"><span>10</span></div>
+          <div class="lattice-col"><span>11</span></div>
+          <div class="lattice-col"><span>12</span></div>
+        </div>
+      </div>
+    </div>
+
     <!-- Site Header / Navigation -->
     <header class="site-nav shell">
       <a class="site-brand" href="/" aria-label="Kōshi home">
@@ -34,7 +54,8 @@ const pathname = Astro.url.pathname;
       </a>
       <nav aria-label="Main navigation">
         <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>Home</a>
-        <a href="/docs/" aria-current={pathname.startsWith('/docs') ? 'page' : undefined}>Documentation</a>
+        <a href="/docs/" aria-current={pathname.startsWith('/docs') && !pathname.startsWith('/docs/tutorial') ? 'page' : undefined}>Documentation</a>
+        <a href="/docs/tutorial/" aria-current={pathname.startsWith('/docs/tutorial') ? 'page' : undefined}>Tutorial ★</a>
         <a href="/lab/" aria-current={pathname.startsWith('/lab') ? 'page' : undefined}>Composition Lab</a>
         <a href="https://github.com/kalebberry/koshi" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </nav>
@@ -55,6 +76,7 @@ const pathname = Astro.url.pathname;
     <script>
       import '../scripts/editorial-motion';
       import '../scripts/code-copy';
+      import '../scripts/lattice-overlay';
     </script>
   </body>
 </html>

@@ -14,9 +14,9 @@
 }
 
 .display {
-	font: 400 clamp(49px, 8vw, 112px)/1.05 var(--font-heading);
+	font: 400 clamp(44px, 7vw, 104px)/1.05 var(--font-heading);
 	letter-spacing: -0.055em;
-	margin: 22px 0 26px;
+	margin: 18px 0 24px;
 
 	& em {
 		color: #8c887f;
@@ -24,20 +24,161 @@
 	}
 
 	@media (max-width: 760px) {
-		font-size: clamp(38px, 10vw, 64px);
+		font-size: clamp(36px, 9vw, 58px);
 		overflow-wrap: anywhere;
 	}
 }
 
 .lead {
-	max-width: 540px;
+	max-width: 580px;
 	font-size: 15px;
-	line-height: 1.85;
+	line-height: 1.8;
 	color: #6f6c64;
 }
 
 .hero-section {
-	padding-block: clamp(76px, 12vw, 155px) clamp(70px, 10vw, 125px);
+	padding-block: clamp(56px, 8vw, 120px) clamp(50px, 7vw, 90px);
+}
+
+.hero-header-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 24px;
+	flex-wrap: wrap;
+}
+
+.hero-grid {
+	align-items: stretch;
+	gap: var(--kos-gutter, 1.5rem);
+
+	@media (max-width: 900px) {
+		& .hero-main,
+		& .hero-aside {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
+.hero-main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.hero-aside {
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+}
+
+/* Hero Specimen Card (Yohaku / 12-Track Active Specimen)
+   ========================================================================== */
+
+.hero-specimen-card {
+	background: #fdfcf9;
+	border: 1px solid #dcd7ce;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	min-height: 320px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+.specimen-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	padding-bottom: 16px;
+	border-bottom: 1px dashed #dcd7ce;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 10px;
+	letter-spacing: 0.1em;
+}
+
+.specimen-tag {
+	background: #25231f;
+	color: #f7f5f0;
+	padding: 3px 6px;
+	font-weight: 600;
+}
+
+.specimen-lattice-state {
+	color: #c33b3b;
+	font-weight: 600;
+}
+
+.specimen-diagram {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: 4px;
+	padding-block: 28px;
+	border-bottom: 1px dashed #dcd7ce;
+}
+
+.diag-col {
+	height: 60px;
+	background: rgba(195, 59, 59, 0.07);
+	border: 1px dashed rgba(195, 59, 59, 0.35);
+	position: relative;
+	transition: background-color 0.2s ease;
+
+	&:hover {
+		background: rgba(195, 59, 59, 0.2);
+	}
+}
+
+.specimen-card-body {
+	padding-top: 18px;
+}
+
+.specimen-concept {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-bottom: 20px;
+
+	& strong {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 400;
+		color: #25231f;
+	}
+
+	& span {
+		font-size: 12px;
+		line-height: 1.6;
+		color: #726e65;
+	}
+}
+
+.specimen-metrics {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
+	padding-top: 14px;
+	border-top: 1px solid #ebe7df;
+}
+
+.metric-val {
+	display: block;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 16px;
+	font-weight: 600;
+	color: #25231f;
+}
+
+.metric-lbl {
+	display: block;
+	font-size: 10px;
+	color: #8c887f;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	margin-top: 2px;
 }
 
 /* Call to Action Buttons
@@ -55,32 +196,56 @@
 	align-items: center;
 	justify-content: center;
 	text-decoration: none;
-	padding: 14px 20px;
+	padding: 13px 20px;
 	border: 1px solid #25231f;
 	font-size: 12px;
 	font-weight: 600;
 	min-height: 44px;
+	letter-spacing: 0.04em;
+	transition: background-color 0.15s ease, color 0.15s ease;
 
-	&-primary {
+	&.action-primary {
 		background: #25231f;
-		color: white;
+		color: #f7f5f0;
 
 		&:hover {
 			background: #49463f;
 		}
 	}
 
-	&-outline:hover {
-		background: #e9e6de;
+	&.action-outline {
+		background: transparent;
+		color: #25231f;
+
+		&:hover {
+			background: #e9e6de;
+		}
+	}
+
+	&.action-ghost {
+		background: transparent;
+		color: #6f6c64;
+		border-color: #d0cbc0;
+
+		&:hover {
+			color: #25231f;
+			border-color: #25231f;
+			background: #f2efe7;
+		}
 	}
 }
 
-/* Section Headings
+/* Section Headings & General Layout
    ========================================================================== */
+
+.section-container {
+	padding-top: 70px;
+	margin-bottom: 70px;
+}
 
 .section-label {
 	border-top: 1px solid #d8d5cc;
-	padding-top: 25px;
+	padding-top: 24px;
 	display: flex;
 	justify-content: space-between;
 	gap: 16px;
@@ -93,26 +258,93 @@
 .section-title {
 	font: 400 clamp(32px, 4vw, 56px)/1.2 var(--font-heading);
 	letter-spacing: -0.035em;
-	margin: 18px 0 24px;
+	margin: 18px 0 20px;
 }
 
-/* 01 / Interactive Grid Demonstration
+.section-head-split {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 24px;
+	margin-bottom: 30px;
+
+	@media (max-width: 760px) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+/* 01 / Ratio Division Selector & Grid Demonstration
    ========================================================================== */
+
+.ratio-selector-container {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-top: 28px;
+	flex-wrap: wrap;
+}
+
+.ratio-selector-label {
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: #726e65;
+}
+
+.ratio-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.ratio-pill {
+	background: #edeae3;
+	border: 1px solid #d5d0c5;
+	color: #555149;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 7px 13px;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: all 0.15s ease;
+
+	&:hover {
+		background: #e2ded4;
+		color: #23221e;
+		border-color: #beb9ad;
+	}
+
+	&[aria-pressed='true'] {
+		background: #25231f !important;
+		color: #ffffff !important;
+		border-color: #25231f !important;
+	}
+}
 
 .grid-demonstration {
 	background: #edeae3;
-	padding: clamp(20px, 4vw, 54px);
-	margin-block: 34px 100px;
+	padding: clamp(20px, 3.5vw, 48px);
+	margin-top: 24px;
+	border: 1px solid #dfdad0;
 }
 
 .demo-meta {
 	display: flex;
 	justify-content: space-between;
 	gap: 12px;
-	margin-bottom: 18px;
+	margin-bottom: 16px;
 	font-size: 10px;
 	color: #777269;
 	letter-spacing: 0.12em;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+	& .demo-formula {
+		font-weight: 600;
+		color: #25231f;
+	}
 
 	@media (max-width: 760px) {
 		flex-wrap: wrap;
@@ -122,27 +354,43 @@
 .demo-grid {
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
-	gap: 8px;
-	min-height: 240px;
-
-	& span {
-		font: 400 clamp(23px, 4vw, 48px) var(--font-heading);
-	}
+	gap: var(--kos-gutter, 1rem);
+	min-height: 200px;
+	transition: all 0.2s ease;
 
 	& .feature {
-		grid-column: span 8;
 		background: #b8b4ab;
 		padding: 24px;
 		display: flex;
-		align-items: end;
+		align-items: flex-end;
+		min-height: 180px;
 	}
 
 	& .aside {
-		grid-column: span 4;
 		background: #d5d0c6;
 		padding: 24px;
 		display: flex;
-		align-items: end;
+		align-items: flex-end;
+		min-height: 180px;
+	}
+
+	& .col-spec {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	& .col-num {
+		font: 400 clamp(24px, 3.5vw, 44px)/1 var(--font-heading);
+		color: #25231f;
+	}
+
+	& .col-desc {
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #555149;
+		font-weight: 500;
 	}
 
 	@media (max-width: 760px) {
@@ -150,27 +398,422 @@
 
 		& .feature,
 		& .aside {
-			grid-column: 1 / -1;
-			min-height: 140px;
+			grid-column: 1 / -1 !important;
+			min-height: 110px;
 		}
 	}
 }
 
-/* 02 / Feature Links Grid
+.demo-code-wrapper {
+	margin-top: 24px;
+	border-top: 1px dashed #d5d0c6;
+	padding-top: 16px;
+}
+
+.demo-code-header {
+	display: flex;
+	justify-content: space-between;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 10px;
+	color: #7c776e;
+	letter-spacing: 0.1em;
+	margin-bottom: 8px;
+}
+
+.demo-code {
+	padding: 16px 20px;
+	background: #252420;
+	margin: 0;
+	border-radius: 2px;
+}
+
+/* 02 / Spatial Specimen Strip (Live Compositions)
    ========================================================================== */
 
-.feature-links {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 14px;
-	margin-block: 35px 115px;
+.specimens-list {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.specimen-card {
+	border: 1px solid #dcd7ce;
+	background: #fbfaf7;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+}
+
+.specimen-card-meta {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 14px 24px;
+	background: #f3efe7;
+	border-bottom: 1px solid #e2ddd4;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 10px;
+	letter-spacing: 0.1em;
+	color: #6a665d;
+
+	& .specimen-formula {
+		font-weight: 600;
+		color: #25231f;
+	}
 
 	@media (max-width: 760px) {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 6px;
+	}
+}
+
+.specimen-live-stage {
+	padding: clamp(20px, 3.5vw, 40px);
+}
+
+.specimen-footer {
+	padding: 12px 24px;
+	background: #ece8df;
+	border-top: 1px dashed #d5d0c5;
+	font-size: 11px;
+	color: #555149;
+
+	& code {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 11px;
+		color: #25231f;
+	}
+}
+
+/* Specimen A: Asymmetric Cinema */
+.specimen-cinema {
+	align-items: stretch;
+
+	& .cinema-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-right: clamp(12px, 3vw, 32px);
+	}
+
+	& .mini-tag {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		color: #c33b3b;
+		margin-bottom: 10px;
+	}
+
+	& .cinema-title {
+		font: 400 clamp(22px, 3vw, 34px)/1.2 var(--font-heading);
+		letter-spacing: -0.03em;
+		color: #25231f;
+		margin: 0 0 14px;
+	}
+
+	& .cinema-body {
+		font-size: 14px;
+		line-height: 1.7;
+		color: #6f6c64;
+		margin: 0 0 20px;
+	}
+
+	& .cinema-link {
+		font-size: 12px;
+		font-weight: 600;
+		color: #25231f;
+	}
+
+	& .cinema-plate {
+		background: #e8e4db;
+		border: 1px solid #d4cfc4;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 220px;
+	}
+
+	& .plate-inner {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+	}
+
+	& .plate-accent {
+		font: 400 36px var(--font-heading);
+		color: #8c887f;
+	}
+
+	& .plate-label {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 10px;
+		letter-spacing: 0.12em;
+		color: #726e65;
+	}
+
+	@media (max-width: 760px) {
+		& .cinema-content,
+		& .cinema-plate {
+			grid-column: 1 / -1;
+		}
+
+		& .cinema-content {
+			padding-right: 0;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+/* Specimen B: Bento Mosaic */
+.specimen-bento {
+	align-items: stretch;
+
+	& .bento-hero {
+		background: #ede8df;
+		border: 1px solid #d8d3c8;
+		padding: 28px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 220px;
+
+		& h4 {
+			font: 400 clamp(20px, 2.5vw, 28px)/1.2 var(--font-heading);
+			letter-spacing: -0.02em;
+			margin: 10px 0;
+			color: #25231f;
+		}
+
+		& p {
+			font-size: 13px;
+			line-height: 1.65;
+			color: #6e6b63;
+			margin: 0;
+		}
+	}
+
+	& .bento-badge {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 10px;
+		color: #7c776e;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		margin-top: 14px;
+	}
+
+	& .bento-card {
+		background: #f4f0e8;
+		border: 1px solid #ded9ce;
+		padding: 22px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		& .metric-num {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+			font-size: 26px;
+			font-weight: 600;
+			color: #25231f;
+		}
+
+		& .metric-desc {
+			font-size: 12px;
+			color: #78746a;
+			margin-top: 4px;
+		}
+	}
+
+	@media (max-width: 760px) {
+		& .bento-hero,
+		& .bento-card {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
+/* Specimen C: Subgrid Card Triad */
+.specimen-subgrid {
+	align-items: stretch;
+
+	& .subgrid-card {
+		background: #ffffff;
+		border: 1px solid #dcd7ce;
+		padding: 24px;
+		display: grid;
+		grid-template-rows: subgrid;
+		grid-row: span 4;
+		row-gap: 12px;
+	}
+
+	& .card-kicker {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		color: #7c776e;
+	}
+
+	& .card-head {
+		font: 400 20px var(--font-heading);
+		letter-spacing: -0.02em;
+		margin: 0;
+		color: #25231f;
+	}
+
+	& .card-desc {
+		font-size: 13px;
+		line-height: 1.6;
+		color: #6a6760;
+		margin: 0;
+	}
+
+	& .card-action {
+		background: #ede9e0;
+		border: 1px solid #d4cfc4;
+		color: #25231f;
+		font-size: 11px;
+		font-weight: 600;
+		padding: 8px 14px;
+		text-align: center;
+		cursor: pointer;
+		width: 100%;
+		border-radius: 2px;
+		transition: background-color 0.15s ease;
+
+		&:hover {
+			background: #e2ded3;
+		}
+	}
+
+	@media (max-width: 760px) {
+		& .subgrid-card {
+			grid-column: 1 / -1;
+			grid-row: auto;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+	}
+}
+
+/* 03 / Paradigm Shift Comparison Matrix
+   ========================================================================== */
+
+.matrix-wrapper {
+	overflow-x: auto;
+	margin-top: 32px;
+	border: 1px solid #d8d4cb;
+	background: #fcfbf8;
+}
+
+.comparison-matrix {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+	font-size: 13px;
+
+	& th,
+	& td {
+		padding: 20px 24px;
+		border-bottom: 1px solid #e7e3da;
+		vertical-align: top;
+	}
+
+	& thead th {
+		background: #f1ede5;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 10px;
+		letter-spacing: 0.12em;
+		color: #5d5951;
+		font-weight: 600;
+		border-bottom: 2px solid #d5d0c5;
+	}
+
+	& .th-aspect {
+		width: 28%;
+	}
+
+	& .th-legacy {
+		width: 36%;
+	}
+
+	& .th-koshi {
+		width: 36%;
+		background: #eae5dc;
+		color: #25231f;
+	}
+
+	& .matrix-criterion {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		font-weight: normal;
+
+		& strong {
+			color: #25231f;
+			font-size: 14px;
+		}
+
+		& span {
+			font-size: 11px;
+			color: #837f76;
+		}
+	}
+
+	& .legacy-cell {
+		color: #726e65;
+		line-height: 1.65;
+		background: #faf9f6;
+
+		& .status-cross {
+			color: #a84848;
+			font-weight: bold;
+			margin-right: 6px;
+		}
+	}
+
+	& .koshi-cell {
+		color: #25231f;
+		line-height: 1.65;
+		background: #f7f3ec;
+
+		& .status-check {
+			color: #3b7c4a;
+			font-weight: bold;
+			margin-right: 6px;
+		}
+
+		& code {
+			background: #e8e3d8;
+			padding: 2px 5px;
+			font-size: 11px;
+			border-radius: 2px;
+		}
+	}
+
+	& tbody tr:last-child th,
+	& tbody tr:last-child td {
+		border-bottom: none;
+	}
+}
+
+/* 04 / Ecosystem Links Grid (4-Card)
+   ========================================================================== */
+
+.ecosystem-links {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin-block: 32px 60px;
+
+	@media (max-width: 820px) {
 		grid-template-columns: 1fr;
 	}
 }
 
-.feature-link {
+.ecosystem-card {
 	border: 1px solid #d6d2ca;
 	background: #fbfaf7;
 	padding: 28px;
@@ -179,44 +822,73 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 
 	&:hover {
 		border-color: #25231f;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+	}
+
+	& .card-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 18px;
 	}
 
 	& .number {
 		font-size: 11px;
 		color: #8b867c;
 		letter-spacing: 0.12em;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	}
+
+	& .card-badge {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 10px;
+		font-weight: 600;
+		padding: 3px 6px;
+		background: #eae5dc;
+		color: #3c3933;
+		border-radius: 2px;
 	}
 
 	& h3 {
-		font: 400 30px var(--font-heading);
-		margin: 0 0 12px;
+		font: 400 28px/1.2 var(--font-heading);
+		color: #25231f;
+		margin: 0 0 10px;
 	}
 
 	& p {
 		font-size: 13px;
 		line-height: 1.7;
-		color: #747068;
+		color: #6e6a62;
 		margin: 0;
 	}
 
-	@media (max-width: 760px) {
-		min-height: 170px;
+	& .card-bottom {
+		margin-top: 24px;
+		padding-top: 14px;
+		border-top: 1px dashed #ded9cf;
+		font-size: 11px;
+		font-weight: 600;
+		color: #45423b;
+		letter-spacing: 0.04em;
 	}
 }
 
-/* 03 / Get Started Section
+/* 05 / Get Started Section
    ========================================================================== */
 
 .code-sample {
-	padding: 26px;
-	background: #292823;
+	padding: 24px;
+	background: #252420;
 	color: #eeece5;
 	max-width: 100%;
 	overflow-x: auto;
-	font: 12px/1.8 ui-monospace, SFMono-Regular, Consolas, monospace;
+	font: 12px/1.8 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	border-radius: 2px;
 
 	& code {
 		white-space: pre;
@@ -228,5 +900,5 @@
 }
 
 .start-section {
-	padding-bottom: 115px;
+	padding-bottom: 110px;
 }
