@@ -54,8 +54,7 @@ const pathname = Astro.url.pathname;
       </a>
       <nav aria-label="Main navigation">
         <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>Home</a>
-        <a href="/docs/" aria-current={pathname.startsWith('/docs') && !pathname.startsWith('/docs/tutorial') ? 'page' : undefined}>Documentation</a>
-        <a href="/docs/tutorial/" aria-current={pathname.startsWith('/docs/tutorial') ? 'page' : undefined}>Tutorial ★</a>
+        <a href="/docs/" aria-current={pathname.startsWith('/docs') ? 'page' : undefined}>Documentation</a>
         <a href="/lab/" aria-current={pathname.startsWith('/lab') ? 'page' : undefined}>Composition Lab</a>
         <a href="https://github.com/kalebberry/koshi" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </nav>
