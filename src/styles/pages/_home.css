@@ -691,22 +691,31 @@
 
 .matrix-wrapper {
 	overflow-x: auto;
-	margin-top: 32px;
+	margin-top: 36px;
 	border: 1px solid #d8d4cb;
 	background: #fcfbf8;
+	border-radius: 2px;
 }
 
 .comparison-matrix {
+	display: table;
 	width: 100%;
+	min-width: 620px;
 	border-collapse: collapse;
+	table-layout: fixed;
 	text-align: left;
 	font-size: 13px;
 
 	& th,
 	& td {
-		padding: 20px 24px;
+		padding: 22px 24px;
 		border-bottom: 1px solid #e7e3da;
 		vertical-align: top;
+	}
+
+	& th:not(:last-child),
+	& td:not(:last-child) {
+		border-right: 1px solid #e7e3da;
 	}
 
 	& thead th {
@@ -717,6 +726,10 @@
 		color: #5d5951;
 		font-weight: 600;
 		border-bottom: 2px solid #d5d0c5;
+
+		&:not(:last-child) {
+			border-right: 1px solid #d5d0c5;
+		}
 	}
 
 	& .th-aspect {
@@ -734,19 +747,22 @@
 	}
 
 	& .matrix-criterion {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
+		background: #fdfcf9;
 		font-weight: normal;
 
 		& strong {
+			display: block;
 			color: #25231f;
 			font-size: 14px;
+			font-weight: 600;
+			margin-bottom: 4px;
 		}
 
 		& span {
+			display: block;
 			font-size: 11px;
 			color: #837f76;
+			line-height: 1.5;
 		}
 	}
 
