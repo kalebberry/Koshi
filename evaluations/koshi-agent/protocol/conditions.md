@@ -5,7 +5,7 @@
 - **Operating System:** Windows 11 (x64)
 - **Node.js LTS:** v24.3.0
 - **Browser Automation:** Playwright v1.65.1 (Chromium 159.0, Firefox 159.0, WebKit 27.2)
-- **Kōshi Core Version:** v0.2.0 (`src/styles/koshi.css`, SHA-256: `07abbaedb54132bff9288de58c6ab60733a06f82a5274d828433a1bb481dd135`)
+- **Kōshi Core Version:** v0.2.0 (`src/styles/koshi.css`, Canonical Source LF SHA-256: `b9d5013b032b9f5e4afb522f04b82ce6c139fcbf4a8dda4f258388c82a7da5c9`, Published Distribution Baseline SHA-256: `07abbaedb54132bff9288de58c6ab60733a06f82a5274d828433a1bb481dd135`)
 - **Kōshi Skill Version:** v0.1.0 (Canonical 8-File Streamlined ICM Architecture, total 8,029 words)
 
 ---
