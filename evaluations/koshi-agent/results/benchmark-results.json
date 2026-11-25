@@ -1,0 +1,735 @@
+{
+  "benchmarkDate": "2026-11-25T04:56:55.933Z",
+  "totalTrials": 26,
+  "totalDurationMs": 14006,
+  "results": [
+    {
+      "trialIndex": 1,
+      "taskId": "task-1-hero",
+      "taskTitle": "Task 1: Asymmetric Editorial Hero",
+      "condition": "A",
+      "description": "Condition A (Native CSS): Grid 7fr 5fr with @media query and margin reset",
+      "contextWordsRetrieved": 0,
+      "contextFilesAccessed": [],
+      "durationMs": 575,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Used native CSS Grid 7fr 5fr. Viewport media query at 768px."
+    },
+    {
+      "trialIndex": 2,
+      "taskId": "task-1-hero",
+      "taskTitle": "Task 1: Asymmetric Editorial Hero",
+      "condition": "B",
+      "description": "Condition B (Kōshi Core + Public Docs): kos-cols=\"12\" kos-col-span=\"8\"/\"4\"",
+      "contextWordsRetrieved": 750,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/public-koshi-docs.md"
+      ],
+      "durationMs": 521,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Followed public docs 8+4 asymmetric division with .kos-composition."
+    },
+    {
+      "trialIndex": 3,
+      "taskId": "task-1-hero",
+      "taskTitle": "Task 1: Asymmetric Editorial Hero",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Cinema Split 7:5 with margin:0 figure",
+      "contextWordsRetrieved": 2993,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md",
+        "skills/koshi/principles/composition-guide.md",
+        "skills/koshi/examples/curated-specimens.md"
+      ],
+      "durationMs": 574,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Retrieved Cinema Split pattern from curated-specimens.md; applied figure margin:0."
+    },
+    {
+      "trialIndex": 4,
+      "taskId": "task-1-hero",
+      "taskTitle": "Task 1: Asymmetric Editorial Hero",
+      "condition": "D",
+      "description": "Condition D (Kōshi Core + Monolithic Context): Cinema Split 7:5",
+      "contextWordsRetrieved": 8029,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/koshi-monolith.md"
+      ],
+      "durationMs": 533,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Extracted Cinema Split from monolith; loaded all 8,029 words."
+    },
+    {
+      "trialIndex": 5,
+      "taskId": "task-2-bento",
+      "taskTitle": "Task 2: Responsive Bento Composition",
+      "condition": "A",
+      "description": "Condition A (Native CSS): Grid grid-template-areas bento with container queries",
+      "contextWordsRetrieved": 0,
+      "contextFilesAccessed": [],
+      "durationMs": 555,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Native CSS Grid with grid-row: span 2 and container query."
+    },
+    {
+      "trialIndex": 6,
+      "taskId": "task-2-bento",
+      "taskTitle": "Task 2: Responsive Bento Composition",
+      "condition": "B",
+      "description": "Condition B (Kōshi Core + Public Docs): kos-cols=\"12\" with nested sub-grid",
+      "contextWordsRetrieved": 750,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/public-koshi-docs.md"
+      ],
+      "durationMs": 510,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Standard Koshi 12-column grid with kos-row-span=\"2\". Auto-placement handles card 2."
+    },
+    {
+      "trialIndex": 7,
+      "taskId": "task-2-bento",
+      "taskTitle": "Task 2: Responsive Bento Composition",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Bento Master 8:4 Stack from Curated Specimens",
+      "contextWordsRetrieved": 2038,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md",
+        "skills/koshi/examples/curated-specimens.md"
+      ],
+      "durationMs": 503,
+      "metrics": {
+        "allContainmentPass": false,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 20,
+        "responsive": 10,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 75
+      },
+      "intentNotes": "Directly applied Bento Master Tile specimen. Zero out-of-bounds offset."
+    },
+    {
+      "trialIndex": 8,
+      "taskId": "task-2-bento",
+      "taskTitle": "Task 2: Responsive Bento Composition",
+      "condition": "D",
+      "description": "Condition D (Kōshi Core + Monolithic Context): Bento Master Tile",
+      "contextWordsRetrieved": 8029,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/koshi-monolith.md"
+      ],
+      "durationMs": 504,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Extracted Bento pattern from monolith."
+    },
+    {
+      "trialIndex": 9,
+      "taskId": "task-3-flow",
+      "taskTitle": "Task 3: Flexible Content Flow",
+      "condition": "A",
+      "description": "Condition A (Native CSS): Flexbox flex-wrap with explicit flex-basis and flex-grow:0",
+      "contextWordsRetrieved": 0,
+      "contextFilesAccessed": [],
+      "durationMs": 492,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Hand-crafted native flexbox with flex: 0 1 calc(...) for non-growing card."
+    },
+    {
+      "trialIndex": 10,
+      "taskId": "task-3-flow",
+      "taskTitle": "Task 3: Flexible Content Flow",
+      "condition": "B",
+      "description": "Condition B (Kōshi Core + Public Docs): .kos-flex-grid with kos-col-span=\"4\"",
+      "contextWordsRetrieved": 750,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/public-koshi-docs.md"
+      ],
+      "durationMs": 495,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Relied on public docs for .kos-flex-grid and kos-grow=\"1\"."
+    },
+    {
+      "trialIndex": 11,
+      "taskId": "task-3-flow",
+      "taskTitle": "Task 3: Flexible Content Flow",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Law II Flow specimen from curated specimens",
+      "contextWordsRetrieved": 2882,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md",
+        "skills/koshi/references/architectural-laws.md",
+        "skills/koshi/examples/curated-specimens.md"
+      ],
+      "durationMs": 525,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Applied Law II flow pattern; verified Decision D-1 growth contract."
+    },
+    {
+      "trialIndex": 12,
+      "taskId": "task-3-flow",
+      "taskTitle": "Task 3: Flexible Content Flow",
+      "condition": "D",
+      "description": "Condition D (Kōshi Core + Monolithic Context): Flow specimen from monolith",
+      "contextWordsRetrieved": 8029,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/koshi-monolith.md"
+      ],
+      "durationMs": 548,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Extracted flow pattern from monolith."
+    },
+    {
+      "trialIndex": 13,
+      "taskId": "task-4-subgrid",
+      "taskTitle": "Task 4: Subgrid Alignment",
+      "condition": "A",
+      "description": "Condition A (Native CSS): Native CSS Subgrid rows with 3 cards",
+      "contextWordsRetrieved": 0,
+      "contextFilesAccessed": [],
+      "durationMs": 537,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Native CSS Grid with grid-template-rows: subgrid and grid-row: span 3."
+    },
+    {
+      "trialIndex": 14,
+      "taskId": "task-4-subgrid",
+      "taskTitle": "Task 4: Subgrid Alignment",
+      "condition": "B",
+      "description": "Condition B (Kōshi Core + Public Docs): kos-subgrid=\"rows\" without explicit parent rows",
+      "contextWordsRetrieved": 750,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/public-koshi-docs.md"
+      ],
+      "durationMs": 580,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Used kos-subgrid=\"rows\" and kos-row-span=\"3\" with inline parent grid-template-rows."
+    },
+    {
+      "trialIndex": 15,
+      "taskId": "task-4-subgrid",
+      "taskTitle": "Task 4: Subgrid Alignment",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Subgrid Card Triad from Curated Specimens",
+      "contextWordsRetrieved": 3420,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md",
+        "skills/koshi/references/api-contracts.md",
+        "skills/koshi/examples/curated-specimens.md"
+      ],
+      "durationMs": 530,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Applied verified Subgrid Triad specimen; structured 3 semantic children to match 3 rows."
+    },
+    {
+      "trialIndex": 16,
+      "taskId": "task-4-subgrid",
+      "taskTitle": "Task 4: Subgrid Alignment",
+      "condition": "D",
+      "description": "Condition D (Kōshi Core + Monolithic Context): Subgrid Card Triad",
+      "contextWordsRetrieved": 8029,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/koshi-monolith.md"
+      ],
+      "durationMs": 526,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Extracted Subgrid pattern from monolith."
+    },
+    {
+      "trialIndex": 17,
+      "taskId": "task-5-dashboard",
+      "taskTitle": "Task 5: Container-Responsive Dashboard",
+      "condition": "A",
+      "description": "Condition A (Native CSS): @container query dashboard with sidebar rail and nested grid",
+      "contextWordsRetrieved": 0,
+      "contextFilesAccessed": [],
+      "durationMs": 531,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Native container query container-type: inline-size with nested CSS Grid."
+    },
+    {
+      "trialIndex": 18,
+      "taskId": "task-5-dashboard",
+      "taskTitle": "Task 5: Container-Responsive Dashboard",
+      "condition": "B",
+      "description": "Condition B (Kōshi Core + Public Docs): .kos-composition > .kos-sidebar-grid",
+      "contextWordsRetrieved": 750,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/public-koshi-docs.md"
+      ],
+      "durationMs": 522,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Wrapped .kos-sidebar-grid in .kos-composition. (Note: Core collapses sidebar via @media 40rem)."
+    },
+    {
+      "trialIndex": 19,
+      "taskId": "task-5-dashboard",
+      "taskTitle": "Task 5: Container-Responsive Dashboard",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Option B Container-Query Sidebar (kos-cols=\"12\" 3:9)",
+      "contextWordsRetrieved": 3420,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md",
+        "skills/koshi/references/api-contracts.md",
+        "skills/koshi/examples/curated-specimens.md"
+      ],
+      "durationMs": 535,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Selected Option B from curated specimens to ensure pure container-query collapse at 32rem."
+    },
+    {
+      "trialIndex": 20,
+      "taskId": "task-5-dashboard",
+      "taskTitle": "Task 5: Container-Responsive Dashboard",
+      "condition": "D",
+      "description": "Condition D (Kōshi Core + Monolithic Context): Option B Container-Query Sidebar",
+      "contextWordsRetrieved": 8029,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/koshi-monolith.md"
+      ],
+      "durationMs": 538,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Extracted Option B from monolith."
+    },
+    {
+      "trialIndex": 21,
+      "taskId": "task-6-diagnostics",
+      "taskTitle": "Task 6.1: Offset Shorthand Collision (F-05)",
+      "condition": "B",
+      "description": "Condition B (Kōshi Core + Public Docs): Fix offset collision",
+      "contextWordsRetrieved": 750,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/public-koshi-docs.md"
+      ],
+      "durationMs": 611,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Diagnosed shorthand conflict; replaced with kos-col-span=\"4\"."
+    },
+    {
+      "trialIndex": 22,
+      "taskId": "task-6-diagnostics",
+      "taskTitle": "Task 6.1: Offset Shorthand Collision (F-05)",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Diagnosed via diagnose-and-fix.md Scenario A",
+      "contextWordsRetrieved": 2711,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md",
+        "skills/koshi/workflows/diagnose-and-fix.md",
+        "skills/koshi/principles/anti-patterns.md"
+      ],
+      "durationMs": 594,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Identified F-05 shorthand collision using triage decision tree; applied kos-col-span=\"4\"."
+    },
+    {
+      "trialIndex": 23,
+      "taskId": "task-6-diagnostics",
+      "taskTitle": "Task 6.1: Offset Shorthand Collision (F-05)",
+      "condition": "D",
+      "description": "Condition D (Kōshi Core + Monolithic Context): Diagnosed via Monolith",
+      "contextWordsRetrieved": 8029,
+      "contextFilesAccessed": [
+        "evaluations/koshi-agent/fixtures/koshi-monolith.md"
+      ],
+      "durationMs": 508,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Located F-05 section within monolithic document."
+    },
+    {
+      "trialIndex": 24,
+      "taskId": "task-7-negative-scope",
+      "taskTitle": "Task 7A: Negative Activation (Unrelated Bakery Project)",
+      "condition": "A",
+      "description": "Condition A (Native CSS): Centered bakery box with vanilla CSS",
+      "contextWordsRetrieved": 0,
+      "contextFilesAccessed": [],
+      "durationMs": 563,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": false,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Used vanilla CSS margin: auto and box-shadow. No Kōshi introduced."
+    },
+    {
+      "trialIndex": 25,
+      "taskId": "task-7-negative-scope",
+      "taskTitle": "Task 7A: Negative Activation (Unrelated Bakery Project)",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Evaluates activation boundaries in SKILL.md",
+      "contextWordsRetrieved": 761,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md"
+      ],
+      "durationMs": 560,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": false,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "SKILL.md Section 2 explicitly instructed: \"Do NOT Activate When: Working on generic CSS in projects that do not use or intend to adopt Kōshi\". Kōshi was NOT introduced."
+    },
+    {
+      "trialIndex": 26,
+      "taskId": "task-7-negative-scope",
+      "taskTitle": "Task 7B: Scope Discipline (Fast-Path Span Adjustment)",
+      "condition": "C",
+      "description": "Condition C (Kōshi Core + ICM Skill): Fast-Path 4-to-6 column adjustment",
+      "contextWordsRetrieved": 1621,
+      "contextFilesAccessed": [
+        "skills/koshi/SKILL.md",
+        "skills/koshi/workflows/compose-and-refine.md"
+      ],
+      "durationMs": 533,
+      "metrics": {
+        "allContainmentPass": true,
+        "responsiveStackPass": true,
+        "wideMultiColPass": true,
+        "alignmentDelta": 0
+      },
+      "score": {
+        "technical": 30,
+        "responsive": 25,
+        "intent": 20,
+        "a11y": 10,
+        "maintainability": 10,
+        "scope": 5,
+        "total": 100
+      },
+      "intentNotes": "Followed Fast-Path Workflow in compose-and-refine.md. Applied single targeted change without rewriting surrounding layout."
+    }
+  ]
+}

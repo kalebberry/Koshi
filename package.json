@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "package:skill": "node scripts/package-skill.mjs",
+    "build": "node scripts/package-skill.mjs && astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test:unit": "node tests/grid-math.test.mjs && node tests/compositions.test.mjs",

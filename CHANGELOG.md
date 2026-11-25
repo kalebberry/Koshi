@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Skill 0.1.0] - 2026-11-25
+
+### Added
+- **Initial Release of Kōshi Agent Skill (v0.1.0):** An optional, standalone Interpretable Context Architecture (ICM) package for AI coding assistants (Google Antigravity, OpenAI Codex, Claude Code, Cursor), compatible with Kōshi Core v0.2.0.
+- **Progressive Context Disclosure:** Lightweight entry router (`SKILL.md`, kept strictly under an internal maintenance budget of $\le 100$ lines) that routes intent-driven queries on demand to modular reference files, demonstrating a 63.7% reduction in selected-document word count across matched fixture comparisons (not a claim of live agent token or cost savings).
+- **Canonical Context Architecture (8 Files):**
+  - `SKILL.md`: Root context router.
+  - `references/api-contracts.md`: Formal attribute and syntax specification.
+  - `references/architectural-laws.md`: The Seven Architectural Laws of Kōshi.
+  - `principles/composition-guide.md`: Architectural hierarchy and deliberate negative space (*Yohaku*).
+  - `principles/anti-patterns.md`: 13 documented LLM traps, failure modes, and verified browser remedies (including Anti-Pattern 13 on multi-axis sizing conflicts).
+  - `workflows/compose-and-refine.md`: Step-by-step layout authoring and refinement workflow.
+  - `workflows/diagnose-and-fix.md`: Diagnostic triage runbook for layout defects.
+  - `examples/curated-specimens.md`: 7 verified architectural specimens derived from Core composition recipes.
+- **Standalone Distribution Packages:** Downloadable archives (`koshi-skill-v0.1.0.zip` and `koshi-skill-v0.1.0.tar.gz`) with SHA-256 checksum manifests, complete internal relative references, and standalone MIT license.
+- **Automated Verification Pipeline:** Context validation script (`scripts/validate-skill.mjs`) executing 137 assertions across file presence, router bounds, link integrity, code block syntax, and zero machine path leakage.
+- **Dedicated Documentation:** Multi-platform installation guide (`docs/agent-skill-installation.md`) and comprehensive developer entry point guide (`docs/developer-guide.md`).
+
+---
+
 ## [0.2.0] - 2026-11-24
 
 ### Changed

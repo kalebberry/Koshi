@@ -1,0 +1,8 @@
+<!-- Defect 2: Unbounded Flexbox Growth (D-1) -->
+<div class="kos-flex-grid">
+  <!-- Author accidentally applied kos-grow="1" causing card to stretch 100% on incomplete row -->
+  <article kos-col-span="4" kos-grow="1" class="card" style="background:#eee; padding:1rem;">
+    <h3>Unbounded Flex Card</h3>
+    <p>Intended to maintain 4-track basis (384px), but stretches full width!</p>
+  </article>
+</div>

@@ -1,0 +1,28 @@
+# Kōshi Cross-Platform Line-Ending Configuration
+# Enforce LF normalization across repository source, scripts, and documentation
+* text=auto eol=lf
+
+# Source stylesheets, documentation, scripts, and components
+*.css text eol=lf
+*.md text eol=lf
+*.mjs text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.astro text eol=lf
+*.vue text eol=lf
+*.html text eol=lf
+*.sh text eol=lf
+
+# Distribution archives and binary media formats
+*.zip binary
+*.tar.gz binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff2 binary
+
+# Published Core v0.2.0 Downloadable Distribution Release Asset
+# Preserves exact published distribution byte-for-byte baseline (17,757 bytes, CRLF, SHA-256: 07abbaedb54132bff9288de58c6ab60733a06f82a5274d828433a1bb481dd135)
+/public/downloads/koshi.css text eol=crlf

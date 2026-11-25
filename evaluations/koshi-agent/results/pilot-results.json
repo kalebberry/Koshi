@@ -1,0 +1,86 @@
+[
+  {
+    "trialId": "pilot-task-1-hero-A",
+    "taskId": "task-1-hero",
+    "condition": "A",
+    "description": "Native CSS Asymmetric Hero (Grid 7fr 5fr + media query)",
+    "metrics": {
+      "allContainmentPass": true,
+      "responsiveStackPass": true,
+      "wideMultiColPass": true,
+      "alignmentDelta": 0
+    },
+    "score": {
+      "technical": 30,
+      "responsive": 25,
+      "intent": 20,
+      "a11y": 10,
+      "maintainability": 10,
+      "scope": 5,
+      "total": 100
+    }
+  },
+  {
+    "trialId": "pilot-task-1-hero-B",
+    "taskId": "task-1-hero",
+    "condition": "B",
+    "description": "Koshi Core + Public Docs Asymmetric Hero (kos-cols=\"12\" kos-col-span=\"8\"/\"4\")",
+    "metrics": {
+      "allContainmentPass": true,
+      "responsiveStackPass": true,
+      "wideMultiColPass": true,
+      "alignmentDelta": 0
+    },
+    "score": {
+      "technical": 30,
+      "responsive": 25,
+      "intent": 20,
+      "a11y": 10,
+      "maintainability": 10,
+      "scope": 5,
+      "total": 100
+    }
+  },
+  {
+    "trialId": "pilot-task-1-hero-C",
+    "taskId": "task-1-hero",
+    "condition": "C",
+    "description": "Koshi Core + ICM Skill Asymmetric Hero (Cinema Split 7:5 kos-ratio=\"16/9\")",
+    "metrics": {
+      "allContainmentPass": false,
+      "responsiveStackPass": true,
+      "wideMultiColPass": true,
+      "alignmentDelta": 0
+    },
+    "score": {
+      "technical": 30,
+      "responsive": 10,
+      "intent": 20,
+      "a11y": 10,
+      "maintainability": 10,
+      "scope": 5,
+      "total": 85
+    }
+  },
+  {
+    "trialId": "pilot-task-1-hero-D",
+    "taskId": "task-1-hero",
+    "condition": "D",
+    "description": "Koshi Core + Monolithic Context Asymmetric Hero (Cinema Split 7:5)",
+    "metrics": {
+      "allContainmentPass": false,
+      "responsiveStackPass": true,
+      "wideMultiColPass": true,
+      "alignmentDelta": 0
+    },
+    "score": {
+      "technical": 30,
+      "responsive": 10,
+      "intent": 20,
+      "a11y": 10,
+      "maintainability": 10,
+      "scope": 5,
+      "total": 85
+    }
+  }
+]

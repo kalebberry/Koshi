@@ -1,0 +1,16 @@
+<!-- Defect 3: Subgrid Misalignment -->
+<section class="kos-composition">
+  <div class="kos-grid" kos-cols="12" style="grid-template-rows: auto auto auto;">
+    <article kos-col-span="4" kos-subgrid="rows" class="card">
+      <header><h3>Short</h3></header>
+      <p>Desc</p>
+      <footer><button>Action</button></footer>
+    </article>
+    <!-- Missing kos-row-span="3"! -->
+    <article kos-col-span="4" kos-subgrid="rows" class="card">
+      <header><h3>Long Multi-Line Title</h3></header>
+      <p>Multi-line description</p>
+      <footer><button>Action</button></footer>
+    </article>
+  </div>
+</section>

@@ -162,7 +162,7 @@
 }
 [style*='--kos-col-span'],
 [kos-col-span='custom'] {
-	grid-column: span var(--kos-col-span, 1);
+	grid-column-end: span var(--kos-col-span, 1);
 }
 [style*='--kos-row-span'],
 [kos-row-span='custom'] {
@@ -171,13 +171,13 @@
 
 /* Progressive enhancement: typed attr() for browsers supporting CSS Values & Units 5 (Chrome 133+) */
 @supports (grid-column: span attr(test type(<integer>), 1)) {
-	.kos-grid[kos-cols] {
+	.kos-grid[kos-cols]:where(:not([kos-cols='custom'])) {
 		grid-template-columns: repeat(attr(kos-cols type(<integer>), 12), minmax(0, 1fr));
 	}
-	.kos-grid > [kos-col-span] {
-		grid-column: span attr(kos-col-span type(<integer>), 1);
+	.kos-grid > [kos-col-span]:where(:not([kos-col-span='custom'])) {
+		grid-column-end: span attr(kos-col-span type(<integer>), 1);
 	}
-	.kos-grid > [kos-row-span] {
+	.kos-grid > [kos-row-span]:where(:not([kos-row-span='custom'])) {
 		grid-row: span attr(kos-row-span type(<integer>), 1);
 	}
 }
@@ -187,40 +187,40 @@
 /* -------------------------------------------------------------------------- */
 
 [kos-col-span='1'] {
-	grid-column: span 1;
+	grid-column-end: span 1;
 }
 [kos-col-span='2'] {
-	grid-column: span 2;
+	grid-column-end: span 2;
 }
 [kos-col-span='3'] {
-	grid-column: span 3;
+	grid-column-end: span 3;
 }
 [kos-col-span='4'] {
-	grid-column: span 4;
+	grid-column-end: span 4;
 }
 [kos-col-span='5'] {
-	grid-column: span 5;
+	grid-column-end: span 5;
 }
 [kos-col-span='6'] {
-	grid-column: span 6;
+	grid-column-end: span 6;
 }
 [kos-col-span='7'] {
-	grid-column: span 7;
+	grid-column-end: span 7;
 }
 [kos-col-span='8'] {
-	grid-column: span 8;
+	grid-column-end: span 8;
 }
 [kos-col-span='9'] {
-	grid-column: span 9;
+	grid-column-end: span 9;
 }
 [kos-col-span='10'] {
-	grid-column: span 10;
+	grid-column-end: span 10;
 }
 [kos-col-span='11'] {
-	grid-column: span 11;
+	grid-column-end: span 11;
 }
 [kos-col-span='12'] {
-	grid-column: span 12;
+	grid-column-end: span 12;
 }
 
 [kos-row-span='1'] {
@@ -324,6 +324,62 @@
 	flex: 1 1 var(--kos-grid-min-item-size);
 	min-width: 0;
 }
+/* Supported numeric spans 1-12 default to flex-grow: 0 (proportional geometry & Yohaku).
+ * Invalid, unsupported, empty, or custom values fall through to flex-grow: 1.
+ * Each span includes its internal gutters. A full 12/12 span is exactly 100%.
+ * Width(s) = (s / 12) * width - ((12 - s) / 12) * gutter.
+ * For spans summing to 12, the total widths plus their outer gaps equal 100%.
+ */
+.kos-flex-grid > [kos-col-span='1'] {
+	flex-basis: calc(100% * 1 / 12 - var(--kos-gutter) * 11 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='2'] {
+	flex-basis: calc(100% * 2 / 12 - var(--kos-gutter) * 10 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='3'] {
+	flex-basis: calc(100% * 3 / 12 - var(--kos-gutter) * 9 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='4'] {
+	flex-basis: calc(100% * 4 / 12 - var(--kos-gutter) * 8 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='5'] {
+	flex-basis: calc(100% * 5 / 12 - var(--kos-gutter) * 7 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='6'] {
+	flex-basis: calc(100% * 6 / 12 - var(--kos-gutter) * 6 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='7'] {
+	flex-basis: calc(100% * 7 / 12 - var(--kos-gutter) * 5 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='8'] {
+	flex-basis: calc(100% * 8 / 12 - var(--kos-gutter) * 4 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='9'] {
+	flex-basis: calc(100% * 9 / 12 - var(--kos-gutter) * 3 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='10'] {
+	flex-basis: calc(100% * 10 / 12 - var(--kos-gutter) * 2 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='11'] {
+	flex-basis: calc(100% * 11 / 12 - var(--kos-gutter) * 1 / 12);
+	flex-grow: 0;
+}
+.kos-flex-grid > [kos-col-span='12'] {
+	flex-basis: 100%;
+	flex-grow: 0;
+}
+
+/* Explicit growth modifiers: declared after span rules to override flex-grow: 0 at equal specificity (0, 2, 0) */
 .kos-flex-grid > [kos-grow='0'] {
 	flex-grow: 0;
 }
@@ -335,46 +391,6 @@
 }
 .kos-flex-grid > [kos-grow='3'] {
 	flex-grow: 3;
-}
-/* Each span includes its internal gutters. A full 12/12 span is exactly 100%.
- * Width(s) = (s / 12) * width - ((12 - s) / 12) * gutter.
- * For spans summing to 12, the total widths plus their outer gaps equal 100%.
- */
-.kos-flex-grid > [kos-col-span='1'] {
-	flex-basis: calc(100% * 1 / 12 - var(--kos-gutter) * 11 / 12);
-}
-.kos-flex-grid > [kos-col-span='2'] {
-	flex-basis: calc(100% * 2 / 12 - var(--kos-gutter) * 10 / 12);
-}
-.kos-flex-grid > [kos-col-span='3'] {
-	flex-basis: calc(100% * 3 / 12 - var(--kos-gutter) * 9 / 12);
-}
-.kos-flex-grid > [kos-col-span='4'] {
-	flex-basis: calc(100% * 4 / 12 - var(--kos-gutter) * 8 / 12);
-}
-.kos-flex-grid > [kos-col-span='5'] {
-	flex-basis: calc(100% * 5 / 12 - var(--kos-gutter) * 7 / 12);
-}
-.kos-flex-grid > [kos-col-span='6'] {
-	flex-basis: calc(100% * 6 / 12 - var(--kos-gutter) * 6 / 12);
-}
-.kos-flex-grid > [kos-col-span='7'] {
-	flex-basis: calc(100% * 7 / 12 - var(--kos-gutter) * 5 / 12);
-}
-.kos-flex-grid > [kos-col-span='8'] {
-	flex-basis: calc(100% * 8 / 12 - var(--kos-gutter) * 4 / 12);
-}
-.kos-flex-grid > [kos-col-span='9'] {
-	flex-basis: calc(100% * 9 / 12 - var(--kos-gutter) * 3 / 12);
-}
-.kos-flex-grid > [kos-col-span='10'] {
-	flex-basis: calc(100% * 10 / 12 - var(--kos-gutter) * 2 / 12);
-}
-.kos-flex-grid > [kos-col-span='11'] {
-	flex-basis: calc(100% * 11 / 12 - var(--kos-gutter) * 1 / 12);
-}
-.kos-flex-grid > [kos-col-span='12'] {
-	flex-basis: 100%;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -521,6 +537,9 @@
 .kos-composition {
 	container-type: inline-size;
 }
+.kos-composition + .kos-composition {
+	margin-block-start: var(--kos-section-space, clamp(2.5rem, 6vw, 6rem));
+}
 .kos-composition > .kos-grid + .kos-grid {
 	margin-block-start: var(--kos-gutter);
 }
@@ -538,6 +557,7 @@
 		grid-template-rows: auto;
 		display: flex;
 		flex-direction: column;
+		gap: var(--kos-subgrid-gap, 0.75rem);
 	}
 	.kos-composition[kos-collapse='sm'] > .kos-grid > [kos-offset] {
 		grid-column-start: auto;
@@ -557,6 +577,7 @@
 		grid-template-rows: auto;
 		display: flex;
 		flex-direction: column;
+		gap: var(--kos-subgrid-gap, 0.75rem);
 	}
 	.kos-composition:not([kos-collapse='sm']):not([kos-collapse='lg']):not([kos-collapse='none']) > .kos-grid > [kos-offset] {
 		grid-column-start: auto;
@@ -576,6 +597,7 @@
 		grid-template-rows: auto;
 		display: flex;
 		flex-direction: column;
+		gap: var(--kos-subgrid-gap, 0.75rem);
 	}
 	.kos-composition[kos-collapse='lg'] > .kos-grid > [kos-offset] {
 		grid-column-start: auto;

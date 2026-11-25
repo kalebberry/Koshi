@@ -1,0 +1,10 @@
+<!-- Defect 1: Grid Offset Shorthand Collision (F-05) -->
+<section class="kos-composition">
+  <div class="kos-grid" kos-cols="12">
+    <!-- Offset 2 is overridden by shorthand grid-column -->
+    <div class="card" kos-offset="2" style="grid-column: span 4; background:#eee; padding:1rem;">
+      <h3>Offset Card</h3>
+      <p>Intended to start at column 3, but starts at column 1!</p>
+    </div>
+  </div>
+</section>
