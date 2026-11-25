@@ -154,3 +154,6 @@ playwright-report/
 blob-report/
 tests/e2e/screenshots/
 
+# Generated downloadable distribution packages
+public/downloads/koshi-skill-v0.1.0.*
+

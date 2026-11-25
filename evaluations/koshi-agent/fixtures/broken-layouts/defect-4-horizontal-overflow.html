@@ -1,0 +1,10 @@
+<!-- Defect 4: Horizontal Overflow via Fixed Width (Law I Breach) -->
+<div class="kos-container">
+  <div class="kos-grid" kos-cols="12">
+    <!-- Inline fixed pixel width breaks container containment on mobile -->
+    <div kos-col-span="6" style="width: 650px; background:#eee; padding:1rem;">
+      <h3>Overflow Card</h3>
+      <p>Fixed width 650px causes horizontal scroll on 360px and 480px viewports!</p>
+    </div>
+  </div>
+</div>

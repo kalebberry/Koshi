@@ -1,0 +1,63 @@
+{
+  "benchmarkDate": "2026-11-24T23:25:00.000Z",
+  "totalTrials": 26,
+  "methodology": "Fixture-based browser execution across Chromium, Firefox, and WebKit",
+  "disclaimer": "Trials represent automated browser assertions on structured implementation fixtures, not independent unassisted live agent chat sessions.",
+  "matchedComparisons": {
+    "tasks1to5_creation": {
+      "Condition A (Native CSS)": { "meanScore": 99.0, "meanWords": 0 },
+      "Condition B (Kōshi + Public Docs)": { "meanScore": 96.0, "meanWords": 750 },
+      "Condition C (Kōshi + 8-File ICM)": { "meanScore": 95.0, "meanWords": 2951 },
+      "Condition D (Kōshi + Monolith)": { "meanScore": 100.0, "meanWords": 8029 }
+    },
+    "tasks1to6_koshi": {
+      "Condition B (Kōshi + Public Docs)": { "meanScore": 96.7, "meanWords": 750 },
+      "Condition C (Kōshi + 8-File ICM)": { "meanScore": 95.8, "meanWords": 2911 },
+      "Condition D (Kōshi + Monolith)": { "meanScore": 100.0, "meanWords": 8029 },
+      "contextWordReductionCvsD": "63.7%"
+    },
+    "task7_isolated": {
+      "Task 7A (Negative Activation)": {
+        "Condition A": { "score": 100, "words": 0, "result": "PASS (Pure vanilla CSS)" },
+        "Condition C": { "score": 100, "words": 761, "result": "PASS (Halted at Section 2 boundary; zero Kōshi injected)" }
+      },
+      "Task 7B (Scope Discipline)": {
+        "Condition C": { "score": 100, "words": 1621, "result": "PASS (Fast-path single attribute edit applied cleanly)" }
+      }
+    }
+  },
+  "reconciledDeductions": [
+    {
+      "trialIndex": 1,
+      "taskId": "task-1-hero",
+      "condition": "A",
+      "originalScore": 100,
+      "reconciledScore": 95,
+      "deductions": "-5 pts under Responsive Behavior: relied on @media (max-width: 768px) viewport query; failed container-level single-column collapse when mounted in a 360px container within a 1200px viewport."
+    },
+    {
+      "trialIndex": 7,
+      "taskId": "task-2-bento",
+      "condition": "C",
+      "originalScore": 75,
+      "reconciledScore": 75,
+      "deductions": "-10 pts Technical Correctness, -15 pts Responsive Behavior: aspect-ratio 16/9 combined with inline min-height: 220px caused 31px horizontal overflow on 360px mobile container."
+    },
+    {
+      "trialIndex": 14,
+      "taskId": "task-4-subgrid",
+      "condition": "B",
+      "originalScore": 100,
+      "reconciledScore": 95,
+      "deductions": "-5 pts Maintainability: fixture required inline style='grid-template-rows: auto auto auto' because public documentation omitted the requirement for explicit parent rows."
+    },
+    {
+      "trialIndex": 18,
+      "taskId": "task-5-dashboard",
+      "condition": "B",
+      "originalScore": 100,
+      "reconciledScore": 85,
+      "deductions": "-10 pts Responsive Behavior, -5 pts User Intent: .kos-sidebar-grid relied on @media (max-width: 40rem) viewport query; failed to collapse in 360px container within 1200px viewport, rendering an unusable 46px main panel."
+    }
+  ]
+}
