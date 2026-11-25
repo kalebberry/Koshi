@@ -343,84 +343,174 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
           <p>Every column card automatically displays its track span (e.g. <code>08 / 12</code>) in a non-destructive overlay that doesn't affect page layout or pointer events.</p>
         </section>
         <section id="flex">
-          <h2>Flexbox & intrinsic grids</h2>
-          <p>Use <code>.kos-flex-grid</code> for a wrapping Flexbox layout. Its twelve-column span calculations account for gutters; a full-width <code>kos-col-span="12"</code> occupies one row.</p>
+          <h2>Flexbox & intentional flow</h2>
+          <p>Use <code>.kos-flex-grid</code> for dynamic, content-driven distribution and wrapping. In Kōshi, automatic sizing is fluid, explicit sizing is deliberate, and growth is intentional.</p>
+
+          <h3>1. Automatic fluid sizing</h3>
+          <p>Unspanned items share available space with automatic fluid sizing (<code>flex: 1 1 16rem</code>). Each item grows equally to fill the row.</p>
           <pre><code>{`<div class="kos-flex-grid">
-  <div kos-col-span="6">Left</div>
-  <div kos-col-span="6">Right</div>
+  <div>Automatic item A</div>
+  <div>Automatic item B</div>
 </div>`}</code></pre>
-          <p>For an intrinsic CSS Grid layout, omit <code>kos-cols</code> and child <code>kos-col-span</code> attributes. Kōshi uses auto-fit with a configurable minimum item size.</p>
-          <pre><code>{`<div class="kos-grid" style="--kos-grid-min-item-size: 14rem">
-  <article>One</article>
-  <article>Two</article>
-  <article>Three</article>
+
+          <h3>2. Intentional proportional sizing</h3>
+          <p>Adding <code>kos-col-span</code> (supported values 1 through 12) establishes an exact gutter-deducted proportional basis (e.g. <code>kos-col-span="4"</code> is 4 of 12 tracks). Supported numeric spans default to <code>flex-grow: 0</code>. Unoccupied space on incomplete rows is intentionally preserved as <em>Yohaku</em> (negative space) rather than automatically filled. Unspanned items and invalid, empty, or custom span attributes retain automatic fluid sizing (<code>flex-grow: 1</code>).</p>
+          <pre><code>{`<div class="kos-flex-grid">
+  <div kos-col-span="4">Four-column basis (384px in 1200px)</div>
+  <div kos-col-span="4">Four-column basis (384px in 1200px)</div>
+  <!-- Remaining 408px is preserved as intentional negative space -->
 </div>`}</code></pre>
+
+          <h3>3. Explicit growth (opt-in expansion)</h3>
+          <p>When you want an explicitly spanned item to expand and consume positive free space on an incomplete row, opt into growth using <code>kos-grow="1"</code>. This also serves as the migration path for authors upgrading from v0.1.0 who relied on automatic expansion.</p>
+          <pre><code>{`<div class="kos-flex-grid">
+  <div kos-col-span="4" kos-grow="1">
+    Fluid expansion (consumes available positive free space)
+  </div>
+</div>`}</code></pre>
+
+          <h3>4. Weighted growth</h3>
+          <p>When multiple items opt into growth, <code>kos-grow="1"</code>, <code>kos-grow="2"</code>, and <code>kos-grow="3"</code> distribute positive free space proportionally. A weight of 2 receives double the free space of weight 1.</p>
+          <pre><code>{`<div class="kos-flex-grid">
+  <div kos-col-span="4" kos-grow="1">
+    One share of free space
+  </div>
+  <div kos-col-span="4" kos-grow="2">
+    Two shares of free space
+  </div>
+</div>`}</code></pre>
+          <p class="docs-small-note">Note: Growth factors distribute available positive free space across items, not total item widths.</p>
+
+          <h3>5. Natural wrapping</h3>
+          <p>When the combined spans of items exceed 12 tracks, items wrap naturally to the next line. Each wrapped item preserves its non-growing proportional basis under supported conditions.</p>
+          <pre><code>{`<div class="kos-flex-grid">
+  <div kos-col-span="4">Span 4 (Row 1)</div>
+  <div kos-col-span="10">Span 10 (Wraps to Row 2, stays 10 tracks wide)</div>
+</div>`}</code></pre>
+
+          <p class="docs-small-note">Note: Custom fractional spans via CSS variables apply specifically to CSS Grid. In Flexbox, explicit column spans 1 through 12 establish the gutter-calculated proportional basis and default to non-growing (<code>flex-grow: 0</code>); invalid or custom values fall through to automatic fluid sizing.</p>
         </section>
         <section id="utilities">
-          <h2>Other utilities</h2>
+          <h2>API reference</h2>
           <table>
             <thead>
               <tr>
-                <th>API</th>
+                <th>Attribute / Utility</th>
+                <th>Supported Values</th>
+                <th>Default</th>
+                <th>Primitive</th>
                 <th>Purpose</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><code>kos-cols="1"–"12" | "16"</code></td>
-                <td>Fixed column track counts</td>
+                <td><code>kos-cols</code></td>
+                <td><code>"1"</code>–<code>"12"</code> | <code>"16"</code> | <code>"custom"</code></td>
+                <td><code>auto-fit</code> (or <code>12</code> if spans exist)</td>
+                <td>Grid</td>
+                <td>Fixed or custom column track counts</td>
               </tr>
               <tr>
-                <td><code>--kos-cols / --kos-col-span</code></td>
-                <td>Arbitrary custom column and span counts (e.g. 16, 24) without SCSS</td>
+                <td><code>--kos-cols</code></td>
+                <td>Integer (e.g. <code>5</code>, <code>16</code>, <code>24</code>)</td>
+                <td><code>12</code></td>
+                <td>Grid</td>
+                <td>Custom column count when <code>kos-cols="custom"</code></td>
               </tr>
               <tr>
-                <td><code>kos-row-span="1"–"6"</code></td>
-                <td>Span CSS Grid rows</td>
+                <td><code>kos-col-span</code></td>
+                <td><code>"1"</code>–<code>"12"</code> | <code>"custom"</code></td>
+                <td><code>1</code> (or auto)</td>
+                <td>Grid & Flex</td>
+                <td>Column track span (Grid) or proportional basis (Flex)</td>
               </tr>
               <tr>
-                <td><code>kos-subgrid="rows|cols|both"</code></td>
+                <td><code>--kos-col-span</code></td>
+                <td>Integer (e.g. <code>6</code>, <code>8</code>)</td>
+                <td><code>1</code></td>
+                <td>Grid</td>
+                <td>Custom column track span when <code>kos-col-span="custom"</code></td>
+              </tr>
+              <tr>
+                <td><code>kos-row-span</code></td>
+                <td><code>"1"</code>–<code>"6"</code> | <code>"custom"</code></td>
+                <td><code>1</code></td>
+                <td>Grid</td>
+                <td>Span CSS Grid row tracks</td>
+              </tr>
+              <tr>
+                <td><code>--kos-row-span</code></td>
+                <td>Integer (e.g. <code>2</code>, <code>3</code>)</td>
+                <td><code>1</code></td>
+                <td>Grid</td>
+                <td>Custom row track span when <code>kos-row-span="custom"</code></td>
+              </tr>
+              <tr>
+                <td><code>kos-offset</code></td>
+                <td><code>"1"</code>–<code>"6"</code></td>
+                <td>None</td>
+                <td>Grid</td>
+                <td>Shift starting column track line (e.g. 2 starts at line 3)</td>
+              </tr>
+              <tr>
+                <td><code>kos-grow</code></td>
+                <td><code>"0"</code> | <code>"1"</code> | <code>"2"</code> | <code>"3"</code></td>
+                <td><code>1</code> (unspanned / invalid), <code>0</code> (spanned 1–12)</td>
+                <td>Flex</td>
+                <td>Opt-in and weighted positive free space distribution</td>
+              </tr>
+              <tr>
+                <td><code>kos-subgrid</code></td>
+                <td><code>"rows"</code> | <code>"cols"</code> | <code>"both"</code></td>
+                <td>None</td>
+                <td>Grid</td>
                 <td>Inherit parent grid tracks (CSS Subgrid)</td>
               </tr>
               <tr>
-                <td><code>kos-collapse="sm|md|lg|none"</code></td>
-                <td>Container query collapse breakpoint for .kos-composition</td>
+                <td><code>kos-collapse</code></td>
+                <td><code>"sm"</code> | <code>"md"</code> | <code>"lg"</code> | <code>"none"</code></td>
+                <td><code>md</code> (48rem / 768px)</td>
+                <td>Composition</td>
+                <td>Container query collapse threshold for .kos-composition</td>
               </tr>
               <tr>
-                <td><code>kos-ratio="16/9|4/3|1/1|3/4|golden|silver"</code></td>
-                <td>Aspect ratio framing and anti-CLS media fitting (including Silver 1:1.414)</td>
+                <td><code>kos-ratio</code></td>
+                <td><code>"16/9"</code> | <code>"4/3"</code> | <code>"1/1"</code> | <code>"3/4"</code> | <code>"golden"</code> | <code>"silver"</code></td>
+                <td>None</td>
+                <td>All</td>
+                <td>Aspect ratio framing and anti-CLS media containment</td>
+              </tr>
+              <tr>
+                <td><code>kos-order</code></td>
+                <td><code>"-4"</code>–<code>"4"</code></td>
+                <td><code>0</code></td>
+                <td>Grid & Flex</td>
+                <td>Visual display order (DOM source order preserved for focus)</td>
               </tr>
               <tr>
                 <td><code>kos-debug</code></td>
+                <td>Boolean attribute</td>
+                <td>None</td>
+                <td>All</td>
                 <td>Project pure-CSS lattice guides and column span badges</td>
               </tr>
               <tr>
-                <td><code>kos-order="-4"–"4"</code></td>
-                <td>Set visual order</td>
-              </tr>
-              <tr>
-                <td><code>kos-grow="0"–"3"</code></td>
-                <td>Flex grow values in a flex grid</td>
-              </tr>
-              <tr>
-                <td><code>.kos-sidebar-grid</code></td>
-                <td>Sidebar plus main content</td>
-              </tr>
-              <tr>
-                <td><code>.kos-masonry-grid</code></td>
-                <td>Multi-column masonry with progressive enhancement to native CSS Grid masonry</td>
-              </tr>
-              <tr>
-                <td><code>.kos-cq</code></td>
-                <td>Named CSS query container</td>
+                <td><code>.kos-container</code></td>
+                <td><code>container-type="narrow|wide|full-bleed"</code></td>
+                <td>Default (75rem)</td>
+                <td>Container</td>
+                <td>Fluid centered container with clamp-scaled padding</td>
               </tr>
               <tr>
                 <td><code>.kos-flow</code></td>
-                <td>Vertical rhythm between children</td>
+                <td>CSS Class</td>
+                <td>None</td>
+                <td>Content</td>
+                <td>Vertical flow rhythm between sibling elements</td>
               </tr>
             </tbody>
           </table>
-          <p>See the source stylesheet for the complete available selectors. Kōshi is currently an early release; the API may evolve.</p>
+          <p>See the source stylesheet for the complete available selectors.</p>
         </section>
       </article>
     </div>

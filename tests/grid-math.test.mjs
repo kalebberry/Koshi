@@ -12,12 +12,13 @@ function expectedSpanWidth(span, width, gap) {
   return (span / columns) * width - ((columns - span) / columns) * gap;
 }
 
-test('every flex span has the correct gutter-aware expression', () => {
+test('every flex span has the correct gutter-aware expression and defaults to flex-grow: 0', () => {
   for (let span = 1; span <= columns; span++) {
     const expression = span === 12
       ? '100%'
       : `calc(100% * ${span} / 12 - var(--kos-gutter) * ${12 - span} / 12)`;
-    const pattern = new RegExp(`\\.kos-flex-grid > \\[kos-col-span=['"]${span}['"]\\] \\{ flex-basis: ${expression.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}; \\}`);
+    const escapedExpr = expression.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const pattern = new RegExp(`\\.kos-flex-grid > \\[kos-col-span=['"]${span}['"]\\] \\{[^}]*flex-basis: ${escapedExpr};[^}]*flex-grow: 0;[^}]*\\}`);
     assert.match(normalizedCss, pattern, `span ${span}`);
   }
 });
